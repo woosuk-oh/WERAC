@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모임 장소 : "
+        android:textSize="22dp"
+        android:id="@+id/text_detail" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_detail"
+        android:textSize="22dp"
+        android:layout_alignBottom="@+id/text_detail"
+        android:layout_toRightOf="@+id/text_detail"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모임 지역 : "
+        android:id="@+id/text_area"
+        android:textSize="22dp"
+        android:layout_below="@+id/text_detail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_area"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/edit_detail"
+        android:layout_toRightOf="@+id/text_detail"
+        android:layout_toEndOf="@+id/text_detail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모임 날짜 : "
+        android:textSize="22dp"
+        android:id="@+id/text_date"
+        android:layout_below="@+id/spinner_area"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_date"
+        android:textSize="22dp"
+        android:layout_below="@+id/spinner_area"
+        android:layout_toRightOf="@+id/text_date"
+        android:layout_alignRight="@+id/edit_detail"
+        android:layout_alignBottom="@+id/text_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모임 시간 : "
+        android:textSize="22dp"
+        android:id="@+id/text_time"
+        android:layout_below="@+id/text_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_time"
+        android:textSize="22dp"
+        android:layout_below="@+id/edit_date"
+        android:layout_toRightOf="@+id/text_date"
+        android:layout_alignBottom="@+id/text_time"
+        android:layout_alignRight="@+id/edit_date"
+        android:layout_alignEnd="@+id/edit_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="참가비 : "
+        android:textSize="22dp"
+        android:id="@+id/text_fee"
+        android:layout_below="@+id/text_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_fee"
+        android:textSize="22dp"
+        android:layout_below="@+id/edit_time"
+        android:layout_toRightOf="@+id/text_time"
+        android:layout_alignRight="@+id/edit_time"
+        android:layout_alignEnd="@+id/edit_time"
+        android:layout_alignBottom="@+id/text_fee" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="진행자 : "
+        android:textSize="22dp"
+        android:id="@+id/text_mc"
+        android:layout_below="@+id/text_fee"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/text_mc"
+        android:layout_toRightOf="@+id/text_mc"
+        android:layout_toEndOf="@+id/text_mc"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/text_mc"
+        android:id="@+id/radio_hasmc">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유"
+            android:id="@+id/radio_mco"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="무"
+            android:checked="true"
+            android:id="@+id/radio_mcx"/>
+    </RadioGroup>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:src="@android:drawable/ic_menu_help"
+        android:layout_alignTop="@+id/radio_hasmc"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/radio_hasmc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="참여 정원 : "
+        android:textSize="22dp"
+        android:id="@+id/text_lm"
+        android:layout_below="@+id/text_mc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_lm"
+        android:textSize="22dp"
+        android:layout_below="@+id/radio_hasmc"
+        android:layout_alignRight="@+id/imageButton"
+        android:layout_alignEnd="@+id/imageButton"
+        android:layout_toRightOf="@+id/text_lm"
+        android:layout_toEndOf="@+id/text_lm"
+        android:layout_alignBottom="@+id/text_lm" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package kr.werac.yeah.data;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,17 +10,27 @@ import java.util.List;
  */
 public class WeracItem {
     Drawable icon;
+    int mid;
+    int status;
+    int uid;
+    int mc_id;
+    boolean has_mc;
+    String reg_date;
+    String image;
     String title;
-    String subtitle;
-    int state;
-    String Creater;
-    String MC;
-    String descrbe;
-    String schedule;
-    String spot;
-    String region;
+    String title_sub;
+    ArrayList<String> schedule;
+    String location_detail;
+    String location_area;
     String date;
-    String time;
+    String start_time;
+    String end_time;
+    int fee;
+    int limit_num;
+    ArrayList<Integer> guests_id;
+    ArrayList<Comment> comments;
+    int like;
+
 
     public int getPicturePath() {
         return PicturePath;
@@ -30,22 +41,6 @@ public class WeracItem {
     }
 
     int PicturePath;
-    String PictureURL;
-    String fee;
-    Boolean hasMC;
-    int NowMemberNum;
-    List<Member> Members;
-    int FixedMemberNum;
-    List<Reply> Replys;
-    int ReplyCOunt;
-
-    public int getReplyCOunt() {
-        return ReplyCOunt;
-    }
-
-    public void setReplyCOunt(int replyCOunt) {
-        ReplyCOunt = replyCOunt;
-    }
 
     public Drawable getIcon() {
         return icon;
@@ -53,6 +48,62 @@ public class WeracItem {
 
     public void setIcon(Drawable icon) {
         this.icon = icon;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getMc_id() {
+        return mc_id;
+    }
+
+    public void setMc_id(int mc_id) {
+        this.mc_id = mc_id;
+    }
+
+    public boolean isHas_mc() {
+        return has_mc;
+    }
+
+    public void setHas_mc(boolean has_mc) {
+        this.has_mc = has_mc;
+    }
+
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -63,68 +114,52 @@ public class WeracItem {
         this.title = title;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getTitle_sub() {
+        return title_sub;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setTitle_sub(String title_sub) {
+        this.title_sub = title_sub;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getCreater() {
-        return Creater;
-    }
-
-    public void setCreater(String creater) {
-        Creater = creater;
-    }
-
-    public String getMC() {
-        return MC;
-    }
-
-    public void setMC(String MC) {
-        this.MC = MC;
-    }
-
-    public String getDescrbe() {
-        return descrbe;
-    }
-
-    public void setDescrbe(String descrbe) {
-        this.descrbe = descrbe;
-    }
-
-    public String getSchedule() {
+    public ArrayList<String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String schedule) {
+    public void setSchedule(ArrayList<String> schedule) {
         this.schedule = schedule;
     }
 
-    public String getSpot() {
-        return spot;
+    public ArrayList<Integer> getGuests_id() {
+        return guests_id;
     }
 
-    public void setSpot(String spot) {
-        this.spot = spot;
+    public void setGuests_id(ArrayList<Integer> guests_id) {
+        this.guests_id = guests_id;
     }
 
-    public String getRegion() {
-        return region;
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getLocation_detail() {
+        return location_detail;
+    }
+
+    public void setLocation_detail(String location_detail) {
+        this.location_detail = location_detail;
+    }
+
+    public String getLocation_area() {
+        return location_area;
+    }
+
+    public void setLocation_area(String location_area) {
+        this.location_area = location_area;
     }
 
     public String getDate() {
@@ -135,67 +170,43 @@ public class WeracItem {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
+    public String getStart_time() {
+        return start_time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
     }
 
-    public String getPictureURL() {
-        return PictureURL;
+    public String getEnd_time() {
+        return end_time;
     }
 
-    public void setPictureURL(String pictureURL) {
-        PictureURL = pictureURL;
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
     }
 
-    public String getFee() {
+    public int getFee() {
         return fee;
     }
 
-    public void setFee(String fee) {
+    public void setFee(int fee) {
         this.fee = fee;
     }
 
-    public Boolean getHasMC() {
-        return hasMC;
+    public int getLimit_num() {
+        return limit_num;
     }
 
-    public void setHasMC(Boolean hasMC) {
-        this.hasMC = hasMC;
+    public void setLimit_num(int limit_num) {
+        this.limit_num = limit_num;
     }
 
-    public int getNowMemberNum() {
-        return NowMemberNum;
+    public int getLike() {
+        return like;
     }
 
-    public void setNowMemberNum(int nowMemberNum) {
-        NowMemberNum = nowMemberNum;
-    }
-
-    public List<Member> getMembers() {
-        return Members;
-    }
-
-    public void setMembers(List<Member> members) {
-        Members = members;
-    }
-
-    public int getFixedMemberNum() {
-        return FixedMemberNum;
-    }
-
-    public void setFixedMemberNum(int fixedMemberNum) {
-        FixedMemberNum = fixedMemberNum;
-    }
-
-    public List<Reply> getReplys() {
-        return Replys;
-    }
-
-    public void setReplys(List<Reply> replys) {
-        Replys = replys;
+    public void setLike(int like) {
+        this.like = like;
     }
 }

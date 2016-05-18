@@ -82,7 +82,7 @@ public class SuggestViewFragment extends Fragment {
             WeracItem data = new WeracItem();
             data.setPicturePath(IDS[i]);
             data.setTitle("title " + i);
-            data.setSubtitle("subtitle " + i);
+            data.setTitle_sub("subtitle " + i);
             mAdapter.add(data);
         }
     }

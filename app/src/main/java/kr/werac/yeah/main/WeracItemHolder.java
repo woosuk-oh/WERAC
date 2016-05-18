@@ -19,7 +19,7 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
     WeracItem mWerac;
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, WeracItem mWerac);
+        void onItemClick(View view, WeracItem mWerac);
     }
 
     OnItemClickListener mListener;
@@ -46,7 +46,7 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
     public void setmWerac(WeracItem Werac) {
         mWerac = Werac;
         titleView.setText(Werac.getTitle());
-        subtitleView.setText(Werac.getSubtitle());
+        subtitleView.setText(Werac.getTitle_sub());
         imageView.setImageResource(Werac.getPicturePath());
     }
 }
