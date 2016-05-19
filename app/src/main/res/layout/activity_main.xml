@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"
-        android:background="#ffffff"
+        android:background="@android:color/holo_red_light"
+        android:titleTextColor="@android:color/white"
         style="@style/MyToolbar.ActionBar">
     </android.support.v7.widget.Toolbar>
 

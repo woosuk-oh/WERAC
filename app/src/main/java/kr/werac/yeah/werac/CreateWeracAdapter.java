@@ -1,15 +1,11 @@
 package kr.werac.yeah.werac;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-
-import java.util.jar.Attributes;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
@@ -53,11 +49,11 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         switch (viewType) {
             case VIEW_TYPE_IMAGE : {
                 View view = new ImageView(parent.getContext());
-                return new ImageViewHolder(view);
+                return new CreateImageHolder(view);
             }
             case VIEW_TYPE_TITLE : {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_title, null);
-                return new TitleViewHolder(view);
+                return new CreateTitleHolder(view);
             }
             case VIEW_TYPE_SCHEDULE : {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule, null);
@@ -68,11 +64,11 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     }
                 });
-                return new ScheduleViewHolder(view);
+                return new CreateScheduleHolder(view);
             }
             case VIEW_TYPE_DETAIL_WRITE : {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_detail_write, null);
-                return new DetailWriteViewHolder(view);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_detail, null);
+                return new CreateDetailHolder(view);
             }
         }
         throw new IllegalArgumentException("invalid position");
@@ -81,28 +77,28 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
-            ImageViewHolder h = (ImageViewHolder)holder;
+            CreateImageHolder h = (CreateImageHolder)holder;
 //            h.setImage(werac);
             return;
         }
         position--;
 
         if (position == 0) {
-            TitleViewHolder h = (TitleViewHolder)holder;
+            CreateTitleHolder h = (CreateTitleHolder)holder;
 //            h.setTitle(werac);
             return;
         }
         position--;
 
         if (position == 0) {
-            ScheduleViewHolder h = (ScheduleViewHolder)holder;
+            CreateScheduleHolder h = (CreateScheduleHolder)holder;
 //                h.setSchedule(werac.getSchedule().get(position));
             return ;
         }
         position--;
 
         if (position == 0) {
-            DetailWriteViewHolder h = (DetailWriteViewHolder)holder;
+            CreateDetailHolder h = (CreateDetailHolder)holder;
 //            h.setDetailWrite(werac);
             return;
         }

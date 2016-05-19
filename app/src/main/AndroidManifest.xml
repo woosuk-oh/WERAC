@@ -13,7 +13,8 @@
             android:name=".main.MainActivity"
             android:label="WERAC"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +23,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyPageActivity"
+            android:name=".mypage.MyPageActivity"
             android:label="@string/title_activity_my_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".werac.CreateWeracActivity"
+        <activity
+            android:name=".werac.CreateWeracActivity"
             android:label="개설페이지"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".werac.DetailViewActivity"
+            android:label="상세페이지"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SettingActivity"></activity>
     </application>
 
 </manifest>

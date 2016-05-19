@@ -1,5 +1,6 @@
 package kr.werac.yeah.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.werac.DetailViewActivity;
 
 /**
  * Created by Tacademy on 2016-05-12.
@@ -55,9 +58,9 @@ public class AllViewFragment extends Fragment {
             @Override
             public void onItemClick(View view, WeracItem weracItem) {
                 Toast.makeText(getContext(), "눌렀니?", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getContext(), DetailViewActivity.class);
+                Intent intent = new Intent(getContext(), DetailViewActivity.class);
 //                intent.putExtra(TStoreAppListActivity.EXTRA_CATEGORY_CODE, weracItem.getCategoryCode());
-//                startActivity(intent);
+                startActivity(intent);
             }
         });
     }

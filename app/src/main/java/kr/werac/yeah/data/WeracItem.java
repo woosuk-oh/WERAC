@@ -27,6 +27,7 @@ public class WeracItem {
     String end_time;
     int fee;
     int limit_num;
+    int join_num;
     ArrayList<Integer> guests_id;
     ArrayList<Comment> comments;
     int like;
@@ -192,6 +193,14 @@ public class WeracItem {
 
     public void setFee(int fee) {
         this.fee = fee;
+    }
+
+    public int getJoin_num() {
+        return join_num;
+    }
+
+    public void setJoin_num(int join_num) {
+        this.join_num = join_num;
     }
 
     public int getLimit_num() {

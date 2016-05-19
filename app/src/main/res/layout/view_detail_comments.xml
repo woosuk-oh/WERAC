@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="댓글  2"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:id="@+id/comment_title"
+        android:layout_marginBottom="5dp"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="제안이나 문의를 해주세요"
+        android:layout_toRightOf="@+id/image_this_user"
+        android:layout_below="@+id/comment_title"
+        android:id="@+id/edit_comment"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/edit_comment"
+        android:layout_below="@+id/comment_title"
+        android:id="@+id/btn_comment_enter"
+        android:text="입력"
+        android:layout_gravity="right" />
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/user"
+        android:layout_below="@+id/comment_title"
+        android:id="@+id/image_this_user"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_comments"
+        android:layout_below="@+id/image_this_user">
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:text="더미"
+        android:layout_below="@+id/rv_comments"/>
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ㅇ행자"
+        android:id="@+id/text_staff"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:id="@+id/image_staff"
+        android:background="@drawable/user"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="이름"
+        android:id="@+id/text_staff_name"
+        android:layout_gravity="center"/>
+</LinearLayout>
