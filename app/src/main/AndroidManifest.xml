@@ -5,7 +5,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/dia"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,14 +27,24 @@
             android:label="@string/title_activity_my_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".werac.CreateWeracActivity"
+            android:name=".mypage.MCPageActivity"
+            android:label="@string/title_activity_mc_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".werac_create.CreateWeracActivity"
             android:label="개설페이지"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".werac.DetailViewActivity"
+            android:name=".werac_detail.DetailViewActivity"
             android:label="상세페이지"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SettingActivity"></activity>
+        <activity
+            android:name=".werac_modify.ModifyWeracActivity"
+            android:label="수정페이지"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

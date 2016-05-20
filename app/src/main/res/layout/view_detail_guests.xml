@@ -6,7 +6,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="참여 정원 0/0명"
         android:id="@+id/text_guest_title"
         android:layout_gravity="center"/>

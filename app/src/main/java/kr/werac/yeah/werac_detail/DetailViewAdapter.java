@@ -1,10 +1,9 @@
-package kr.werac.yeah.werac;
+package kr.werac.yeah.werac_detail;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
@@ -97,6 +96,11 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         throw new IllegalArgumentException("invalid position");
     }
 
+    DetailStaffHolder.OnItemClickListener mListener;
+    public void setOnItemClickListener(DetailStaffHolder.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
@@ -152,6 +156,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             DetailStaffHolder h = (DetailStaffHolder) holder;
             h.setStaff(werac, 0);
+            h.setOnItemClickListener(mListener);
             return;
         }
         position--;
@@ -159,6 +164,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             DetailStaffHolder h = (DetailStaffHolder) holder;
             h.setStaff(werac, 1);
+            h.setOnItemClickListener(mListener);
             return;
         }
         position--;

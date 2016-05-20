@@ -1,27 +1,22 @@
-package kr.werac.yeah.werac;
+package kr.werac.yeah.werac_create;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import java.util.ArrayList;
+import android.view.View;
+import android.widget.Button;
 
 import kr.werac.yeah.R;
-import kr.werac.yeah.data.Comment;
-import kr.werac.yeah.data.WeracItem;
 
-public class DetailViewActivity extends AppCompatActivity {
+public class CreateWeracActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_werac);
+        setContentView(R.layout.activity_create_werac);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -29,11 +24,20 @@ public class DetailViewActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            DetailWeracFragment f = DetailWeracFragment.newInstance();
+            CreateWeracFragment f = CreateWeracFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container_detail, f);
+            ft.add(R.id.container_create, f);
             ft.commit();
         }
+
+        Button btn = (Button)findViewById(R.id.btn_create_werac);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateDialogFragment f = new CreateDialogFragment();
+                f.show(getSupportFragmentManager(), "create");
+            }
+        });
     }
 
     @Override
@@ -44,4 +48,5 @@ public class DetailViewActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

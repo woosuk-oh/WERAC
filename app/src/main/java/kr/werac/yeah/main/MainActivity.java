@@ -6,18 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
-import android.widget.Toast;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.SettingActivity;
 import kr.werac.yeah.mypage.MyPageActivity;
-import kr.werac.yeah.werac.CreateWeracActivity;
+import kr.werac.yeah.werac_create.CreateWeracActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("WERAC");
-        toolbar.setNavigationIcon(android.R.drawable.ic_menu_my_calendar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.user_s);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

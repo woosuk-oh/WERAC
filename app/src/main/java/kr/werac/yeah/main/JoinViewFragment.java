@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
-import kr.werac.yeah.werac.DetailViewActivity;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
 
 /**
  * Created by Tacademy on 2016-05-12.

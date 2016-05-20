@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_schedule"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:hint="ㅇ 모임의 스케쥴을 추가해주세요 ex)자전거 타기"/>
+        android:text="ㅇ 스케줄"
+        android:layout_margin="5dp"
+        android:id="@+id/title_sch"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_edit_schedule"
+        android:layout_below="@+id/title_sch">
+    </android.support.v7.widget.RecyclerView>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="+"
         android:id="@+id/btn_add_sch"
+        android:layout_below="@+id/rv_edit_schedule"
         android:background="@android:color/white"/>
 
-</LinearLayout>
+</RelativeLayout>

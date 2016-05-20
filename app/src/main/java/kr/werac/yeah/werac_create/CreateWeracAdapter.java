@@ -1,4 +1,4 @@
-package kr.werac.yeah.werac;
+package kr.werac.yeah.werac_create;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
@@ -92,7 +94,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (position == 0) {
             CreateScheduleHolder h = (CreateScheduleHolder)holder;
-//                h.setSchedule(werac.getSchedule().get(position));
+            h.setSchedule();
             return ;
         }
         position--;
