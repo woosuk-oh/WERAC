@@ -18,7 +18,29 @@ public class WeracItemAdapter extends RecyclerView.Adapter<WeracItemHolder> {
 
 
     List<WeracItem> weracs = new ArrayList<WeracItem>();
+    int[] IDS = {R.drawable.p10,
+            R.drawable.p6,
+            R.drawable.p3,
+            R.drawable.p8,
+            R.drawable.p1,
+            R.drawable.p6,
+            R.drawable.p7,
+            R.drawable.p8,
+            R.drawable.p9,
+            R.drawable.p5,
+            R.drawable.p1,
+            R.drawable.p3,
+            R.drawable.p5,
+            R.drawable.p10,
+            R.drawable.p6,
+            R.drawable.p8,
+            R.drawable.p8,
+            R.drawable.p8,
+            R.drawable.p8,
+            R.drawable.p8,
+            R.drawable.p8
 
+    };
 
     public void clear() {
         weracs.clear();
@@ -27,6 +49,17 @@ public class WeracItemAdapter extends RecyclerView.Adapter<WeracItemHolder> {
 
     public void add(WeracItem Werac) {
         weracs.add(Werac);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<WeracItem> WeracList) {
+        for (int i = 0; i < WeracList.size(); i++) {
+            WeracItem weractemp = new WeracItem();
+            weractemp.equals(WeracList.get(i));
+            weractemp.setPicturePath(IDS[i]);
+            WeracList.set(i, weractemp);
+        }
+        weracs.addAll(WeracList);
         notifyDataSetChanged();
     }
 

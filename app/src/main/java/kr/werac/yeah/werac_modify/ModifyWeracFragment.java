@@ -54,7 +54,7 @@ public class ModifyWeracFragment extends Fragment {
         for (int i = 0 ; i < 16 ; i++) {
             WeracItem werac = new WeracItem();
             werac.setMid(0);
-            werac.setPicturePath(R.drawable.gallery_photo_5);
+            werac.setPicturePath(R.drawable.p3);
             werac.setTitle("[위락 모임]꽃놀이 후 피크닉!");
             werac.setTitle_sub("한강 둔치에서 배달음식 먹고 이야기 나누고 싶은 분들 함께해요~");
             ArrayList<String> sch = new ArrayList<>();

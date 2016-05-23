@@ -2,6 +2,7 @@ package kr.werac.yeah.werac_modify;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import kr.werac.yeah.R;
@@ -12,7 +13,7 @@ import kr.werac.yeah.data.WeracItem;
  */
 public class MScheduleItemHolder extends RecyclerView.ViewHolder {
 
-    TextView et_sch;
+    EditText et_sch;
 
     public interface OnItemClickListener {
         void onItemClick(View view, WeracItem mWerac);
@@ -25,7 +26,7 @@ public class MScheduleItemHolder extends RecyclerView.ViewHolder {
 
     public MScheduleItemHolder(View itemView) {
         super(itemView);
-        et_sch = (TextView)itemView.findViewById(R.id.et_sch);;
+        et_sch = (EditText)itemView.findViewById(R.id.et_sch);;
     }
 
     public void setmSch_item(String sch_item){

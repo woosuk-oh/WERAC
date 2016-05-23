@@ -1,0 +1,26 @@
+{
+  "success": 1,
+  "message": "OK",
+  "result": [
+    {
+      "mid": 2,
+      "title": "타이틀1",
+      "title_sub": "서브타이틀1",
+      "location_area": "서울시",
+      "date": "6월 17일",
+      "like": 90,
+      "has_mc": false,
+      "status": 3
+    },
+    {
+      "mid": 3,
+      "title": "타이틀2",
+      "title_sub": "서브타이틀2",
+      "location_area": "서울시",
+      "date": "6월 17일",
+      "like": 47,
+      "has_mc": false,
+      "status": 2
+    }
+  ]
+}

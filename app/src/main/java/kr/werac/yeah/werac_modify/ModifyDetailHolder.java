@@ -2,10 +2,12 @@ package kr.werac.yeah.werac_modify;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 
@@ -25,7 +27,12 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
     public ModifyDetailHolder(View itemView) {
         super(itemView);
         edit_detail = (EditText)itemView.findViewById(R.id.edit_detail);
+
         spinner_area = (Spinner)itemView.findViewById(R.id.spinner_area);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MyApplication.getContext(), R.array.spinner_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_area.setAdapter(adapter);
+
         edit_date = (EditText)itemView.findViewById(R.id.edit_date);
         edit_time = (EditText)itemView.findViewById(R.id.edit_time);
         edit_fee = (EditText)itemView.findViewById(R.id.edit_fee);

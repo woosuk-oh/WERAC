@@ -33,15 +33,18 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         switch (position){
             case 0:
-                v.setImageResource(R.drawable.gallery_photo_5);
+                v.setImageResource(R.drawable.p3);
+                v.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 container.addView(v);
                 break;
             case 1:
-                v.setImageResource(R.drawable.gallery_photo_6);
+                v.setImageResource(R.drawable.p6);
+                v.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 container.addView(v);
                 break;
             case 2:
-                v.setImageResource(R.drawable.gallery_photo_8);
+                v.setImageResource(R.drawable.p8);
+                v.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 container.addView(v);
                 break;
         }

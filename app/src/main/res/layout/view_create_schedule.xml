@@ -15,7 +15,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_edit_schedule"
+        android:id="@+id/rv_edit_schedule_create"
         android:layout_below="@+id/title_sch">
     </android.support.v7.widget.RecyclerView>
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="+"
         android:id="@+id/btn_add_sch"
-        android:layout_below="@+id/rv_edit_schedule"
+        android:layout_below="@+id/rv_edit_schedule_create"
         android:background="@android:color/white"/>
 
 </RelativeLayout>

@@ -59,13 +59,6 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
             case VIEW_TYPE_SCHEDULE : {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule, null);
-                Button btn = (Button)view.findViewById(R.id.btn_add_sch);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
                 return new CreateScheduleHolder(view);
             }
             case VIEW_TYPE_DETAIL_WRITE : {

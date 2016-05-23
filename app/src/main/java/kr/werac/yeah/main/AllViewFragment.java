@@ -7,14 +7,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.List;
+
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
+import okhttp3.Request;
 
 /**
  * Created by Tacademy on 2016-05-12.
@@ -30,22 +36,22 @@ public class AllViewFragment extends Fragment {
     ImagePagerAdapter ImageAdapter;
     int p;
 
-    int[] IDS = {R.drawable.gallery_photo_1,
-            R.drawable.gallery_photo_2,
-            R.drawable.gallery_photo_3,
-            R.drawable.gallery_photo_4,
-            R.drawable.gallery_photo_5,
-            R.drawable.gallery_photo_6,
-            R.drawable.gallery_photo_7,
-            R.drawable.gallery_photo_8,
-            R.drawable.gallery_photo_1,
-            R.drawable.gallery_photo_2,
-            R.drawable.gallery_photo_3,
-            R.drawable.gallery_photo_4,
-            R.drawable.gallery_photo_5,
-            R.drawable.gallery_photo_6,
-            R.drawable.gallery_photo_7,
-            R.drawable.gallery_photo_8,
+    int[] IDS = {R.drawable.p10,
+            R.drawable.p2,
+            R.drawable.p3,
+            R.drawable.p4,
+            R.drawable.p1,
+            R.drawable.p6,
+            R.drawable.p7,
+            R.drawable.p8,
+            R.drawable.p9,
+            R.drawable.p5,
+            R.drawable.p1,
+            R.drawable.p3,
+            R.drawable.p5,
+            R.drawable.p10,
+            R.drawable.p6,
+            R.drawable.p8,
     };
 
     @Override
@@ -91,9 +97,8 @@ public class AllViewFragment extends Fragment {
         imagepager.setCurrentItem(2, true);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_all);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        initData();
         return view;
     }
 
@@ -104,6 +109,20 @@ public class AllViewFragment extends Fragment {
     }
 
     private void initData() {
+//        NetworkManager.getInstance().getWeracList(getContext(), new NetworkManager.OnResultListener<List<WeracItem>>() {
+//            @Override
+//            public void onSuccess(Request request, List<WeracItem> result) {
+//                mAdapter.clear();
+//                mAdapter.addAll(result);
+//            }
+//
+//            @Override
+//            public void onFail(Request request, IOException exception) {
+//                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
         for (int i = 0; i < IDS.length; i++) {
             WeracItem data = new WeracItem();
             data.setPicturePath(IDS[i]);

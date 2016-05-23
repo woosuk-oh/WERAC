@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,22 +28,22 @@ public class SuggestViewFragment extends Fragment {
     RecyclerView recyclerView;
     WeracItemAdapter mAdapter;
 
-    int[] IDS = {R.drawable.gallery_photo_1,
-            R.drawable.gallery_photo_2,
-            R.drawable.gallery_photo_3,
-            R.drawable.gallery_photo_4,
-            R.drawable.gallery_photo_5,
-            R.drawable.gallery_photo_6,
-            R.drawable.gallery_photo_7,
-            R.drawable.gallery_photo_8,
-            R.drawable.gallery_photo_1,
-            R.drawable.gallery_photo_2,
-            R.drawable.gallery_photo_3,
-            R.drawable.gallery_photo_4,
-            R.drawable.gallery_photo_5,
-            R.drawable.gallery_photo_6,
-            R.drawable.gallery_photo_7,
-            R.drawable.gallery_photo_8,
+    int[] IDS = {R.drawable.p10,
+            R.drawable.p2,
+            R.drawable.p3,
+            R.drawable.p4,
+            R.drawable.p1,
+            R.drawable.p6,
+            R.drawable.p7,
+            R.drawable.p8,
+            R.drawable.p9,
+            R.drawable.p5,
+            R.drawable.p1,
+            R.drawable.p3,
+            R.drawable.p5,
+            R.drawable.p10,
+            R.drawable.p6,
+            R.drawable.p8,
     };
 
     @Override
@@ -67,7 +68,7 @@ public class SuggestViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_suggest, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_suggest);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)); //getContext(), 2));
 
         initData();
         return view;
