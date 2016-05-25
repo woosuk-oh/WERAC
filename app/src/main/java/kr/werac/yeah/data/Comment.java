@@ -4,18 +4,19 @@ package kr.werac.yeah.data;
  * Created by Tacademy on 2016-05-18.
  */
 public class Comment {
-    int mid;
+//    int mid;
     int like;
     int uid;
+    String date;
     String content;
 
-    public int getMid() {
-        return mid;
-    }
+//    public int getMid() {
+//        return mid;
+//    }
 
-    public void setMid(int mid) {
-        this.mid = mid;
-    }
+//    public void setMid(int mid) {
+//        this.mid = mid;
+//    }
 
     public int getLike() {
         return like;
@@ -39,5 +40,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

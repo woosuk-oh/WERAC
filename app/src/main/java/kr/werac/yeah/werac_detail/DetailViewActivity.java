@@ -11,9 +11,15 @@ import android.view.View;
 import android.widget.Button;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.werac_modify.ModifyWeracActivity;
 
 public class DetailViewActivity extends AppCompatActivity {
+
+    public static final String EXTRA_WERAC_ID = "MId";
+    public static final int DONT_KNOW_WHY = 1000;
+    int thisMid;
+    WeracItem werac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +31,10 @@ public class DetailViewActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        thisMid = getIntent().getIntExtra(EXTRA_WERAC_ID, DONT_KNOW_WHY);
+
         if (savedInstanceState == null) {
-            DetailWeracFragment f = DetailWeracFragment.newInstance();
+            DetailWeracFragment f = DetailWeracFragment.newInstance(thisMid);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.container_detail, f);
             ft.commit();
@@ -36,6 +44,7 @@ public class DetailViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailViewActivity.this, ModifyWeracActivity.class);
+                intent.putExtra(EXTRA_WERAC_ID, thisMid);
                 startActivity(intent);
             }
         });

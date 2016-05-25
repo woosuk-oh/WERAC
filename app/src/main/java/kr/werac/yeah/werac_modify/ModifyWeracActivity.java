@@ -11,8 +11,11 @@ import android.widget.Button;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.werac_create.CreateDialogFragment;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
 
 public class ModifyWeracActivity extends AppCompatActivity {
+
+    int thisMid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +27,10 @@ public class ModifyWeracActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        thisMid = getIntent().getIntExtra(DetailViewActivity.EXTRA_WERAC_ID, DetailViewActivity.DONT_KNOW_WHY);
 
         if (savedInstanceState == null) {
-            ModifyWeracFragment f = ModifyWeracFragment.newInstance();
+            ModifyWeracFragment f = ModifyWeracFragment.newInstance(thisMid);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.container_create, f);
             ft.commit();

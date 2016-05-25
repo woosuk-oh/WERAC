@@ -20,6 +20,6 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImage(WeracItem werac){
-        imageView.setImageResource(werac.getPicturePath());
+        imageView.setImageResource(R.drawable.p3);
     }
 }

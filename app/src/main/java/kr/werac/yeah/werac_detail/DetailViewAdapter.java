@@ -43,16 +43,10 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //            }
 //            position-=werac.getSchedule().size();
 //        }
-        if (position == 0) return VIEW_TYPE_DETAIL_VIEW;
-        position--;
-        if (position == 0) return VIEW_TYPE_DETAIL_VIEW;
-        position--;
-        if (position == 0) return VIEW_TYPE_DETAIL_VIEW;
-        position--;
-        if (position == 0) return VIEW_TYPE_STAFF;
-        position--;
-        if (position == 0) return VIEW_TYPE_STAFF;
-        position--;
+        if (position < 3) return VIEW_TYPE_DETAIL_VIEW;
+        position-=3;
+        if (position < 2) return VIEW_TYPE_STAFF;
+        position-=2;
         if (position == 0) return VIEW_TYPE_JOINUSERS;
         position--;
         if (position == 0) return VIEW_TYPE_COMMENTS;
@@ -198,13 +192,9 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-//        if (werac == null) return 0;
-//        int size = 2;
-//        if (werac.getSchedule().size() > 0) {
-//            size += 1;
-//            size += werac.getSchedule().size();
-//        }
-//        size += 1;
-        return 10;
+        if(werac != null)
+            return 10;
+        else
+            return 0;
     }
 }

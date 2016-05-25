@@ -36,6 +36,10 @@
             android:label="@string/title_activity_mc_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".mypage.CreaterPageActivity"
+            android:label="@string/title_activity_mc_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".werac_create.CreateWeracActivity"
             android:label="개설페이지"
             android:theme="@style/AppTheme.NoActionBar" />

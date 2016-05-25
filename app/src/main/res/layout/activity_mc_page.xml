@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/iv_my_image"
+        android:id="@+id/iv_mc_image"
         android:layout_below="@+id/aa"
         android:layout_marginTop="60dp"
         android:background="@drawable/user"
@@ -40,9 +40,9 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/iv_my_image"
+        android:layout_below="@+id/iv_mc_image"
         android:text="유저명(임시)"
-        android:id="@+id/tv_my_id"/>
+        android:id="@+id/tv_mc_id"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,18 +51,18 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/tv_my_id"
+        android:layout_below="@+id/tv_mc_id"
         android:text="한줄소개입니다 빠라밤빠(임시)"
-        android:id="@+id/tv_my_comment"/>
+        android:id="@+id/tv_mc_comment"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/tv_my_comment"
+        android:layout_below="@+id/tv_mc_comment"
         android:text="010-1234-1234(임시)"
-        android:id="@+id/tv_my_phone"/>
+        android:id="@+id/tv_mc_phone"/>
 
     <android.support.v4.app.FragmentTabHost
         android:id="@+id/tabHost_mcpage"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/tv_my_phone">
+        android:layout_below="@id/tv_mc_phone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

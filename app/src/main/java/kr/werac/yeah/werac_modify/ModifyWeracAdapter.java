@@ -107,6 +107,9 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 4;
+        if(werac != null) {
+            return 4;
+        }else
+            return 0;
     }
 }

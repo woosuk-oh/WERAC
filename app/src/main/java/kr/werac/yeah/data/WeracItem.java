@@ -1,6 +1,6 @@
 package kr.werac.yeah.data;
 
-import android.graphics.drawable.Drawable;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by dongja94 on 2016-01-18.
  */
 public class WeracItem {
-    Drawable icon;
+    @SerializedName("_id")
     int mid;
     int status;
     int uid;
@@ -19,7 +19,7 @@ public class WeracItem {
     String image;
     String title;
     String title_sub;
-    ArrayList<String> schedule;
+    List<String> schedule;
     String location_detail;
     String location_area;
     String date;
@@ -28,8 +28,8 @@ public class WeracItem {
     int fee;
     int limit_num;
     int join_num;
-    ArrayList<Integer> guests_id;
-    ArrayList<Comment> comments;
+    List<Integer> guests_id;
+    List<Comment> comments;
     int like;
 
 
@@ -42,14 +42,6 @@ public class WeracItem {
     }
 
     int PicturePath;
-
-    public Drawable getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
 
     public int getMid() {
         return mid;
@@ -123,7 +115,7 @@ public class WeracItem {
         this.title_sub = title_sub;
     }
 
-    public ArrayList<String> getSchedule() {
+    public List<String> getSchedule() {
         return schedule;
     }
 
@@ -131,7 +123,7 @@ public class WeracItem {
         this.schedule = schedule;
     }
 
-    public ArrayList<Integer> getGuests_id() {
+    public List<Integer> getGuests_id() {
         return guests_id;
     }
 
@@ -139,7 +131,7 @@ public class WeracItem {
         this.guests_id = guests_id;
     }
 
-    public ArrayList<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 

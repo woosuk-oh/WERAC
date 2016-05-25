@@ -8,33 +8,38 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.werac_create.CreateWeracAdapter;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
+import okhttp3.Request;
 
 public class ModifyWeracFragment extends Fragment {
 
     RecyclerView listView;
     ModifyWeracAdapter mAdapter;
-    public static final String EXTRA_WERAC_ID = "WeracId";
-    String weracId;
+    static int this_MId;
     GridLayoutManager mLayoutManager;
 
 
-    public static ModifyWeracFragment newInstance() {
+    public static ModifyWeracFragment newInstance(int thisMId) {
         ModifyWeracFragment fragment = new ModifyWeracFragment();
+        this_MId = thisMId;
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mAdapter = new ModifyWeracAdapter();
+
     }
 
     @Nullable
@@ -51,56 +56,67 @@ public class ModifyWeracFragment extends Fragment {
     }
 
     private void setData() {
-        for (int i = 0 ; i < 16 ; i++) {
-            WeracItem werac = new WeracItem();
-            werac.setMid(0);
-            werac.setPicturePath(R.drawable.p3);
-            werac.setTitle("[위락 모임]꽃놀이 후 피크닉!");
-            werac.setTitle_sub("한강 둔치에서 배달음식 먹고 이야기 나누고 싶은 분들 함께해요~");
-            ArrayList<String> sch = new ArrayList<>();
-            sch.add(0, "자전거 대여해서 타기");
-            sch.add(1, "잔디밭에 앉아서 배달음식 시켜먹기");
-            werac.setSchedule(sch);
-            werac.setLocation_detail("관악구 봉천동 1632-3");
-            werac.setLocation_area("서울시");
-            werac.setDate("5월 23일");
-            werac.setStart_time("12:30");
-            werac.setEnd_time("17:30");
-            werac.setFee(5000);
-            werac.setHas_mc(false);
-            werac.setMc_id(123);
-            werac.setUid(456);
-            werac.setLimit_num(20);
-            werac.setJoin_num(16);
-            ArrayList<Integer> gi = new ArrayList<>();
-            gi.add(0, 7);
-            gi.add(1, 8);
-            gi.add(2, 9);
-            gi.add(3, 10);
-            gi.add(4, 17);
-            gi.add(5, 81);
-            gi.add(6, 91);
-            gi.add(7, 101);
-            gi.add(8, 72);
-            gi.add(9, 18);
-            gi.add(10, 239);
-            gi.add(11, 101);
-            gi.add(12, 72);
-            gi.add(13, 28);
-            gi.add(14, 92);
-            gi.add(15, 110);
-            werac.setGuests_id(gi);
-            ArrayList<Comment> cmts = new ArrayList<>();
-            Comment cmt1 = new Comment();
-            cmt1.setUid(7);
-            cmt1.setContent("헐진짜재미겠다 ㅠㅠ");
-            Comment cmt2 = new Comment();
-            cmt2.setUid(8);
-            cmt2.setContent("꿀잼예약요 기대함");
-            cmts.add(0, cmt1);
-            cmts.add(1, cmt2);
-            werac.setComments(cmts);
-            mAdapter.setWerac(werac);
-        }
+        NetworkManager.getInstance().getWeracDetail(getContext(), this_MId, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
+                mAdapter.setWerac(result);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+//        for (int i = 0 ; i < 16 ; i++) {
+//            WeracItem werac = new WeracItem();
+//            werac.setMid(0);
+//            werac.setPicturePath(R.drawable.p3);
+//            werac.setTitle("[위락 모임]꽃놀이 후 피크닉!");
+//            werac.setTitle_sub("한강 둔치에서 배달음식 먹고 이야기 나누고 싶은 분들 함께해요~");
+//            ArrayList<String> sch = new ArrayList<>();
+//            sch.add(0, "자전거 대여해서 타기");
+//            sch.add(1, "잔디밭에 앉아서 배달음식 시켜먹기");
+//            werac.setSchedule(sch);
+//            werac.setLocation_detail("관악구 봉천동 1632-3");
+//            werac.setLocation_area("서울시");
+//            werac.setDate("5월 23일");
+//            werac.setStart_time("12:30");
+//            werac.setEnd_time("17:30");
+//            werac.setFee(5000);
+//            werac.setHas_mc(false);
+//            werac.setMc_id(123);
+//            werac.setUid(456);
+//            werac.setLimit_num(20);
+//            werac.setJoin_num(16);
+//            ArrayList<Integer> gi = new ArrayList<>();
+//            gi.add(0, 7);
+//            gi.add(1, 8);
+//            gi.add(2, 9);
+//            gi.add(3, 10);
+//            gi.add(4, 17);
+//            gi.add(5, 81);
+//            gi.add(6, 91);
+//            gi.add(7, 101);
+//            gi.add(8, 72);
+//            gi.add(9, 18);
+//            gi.add(10, 239);
+//            gi.add(11, 101);
+//            gi.add(12, 72);
+//            gi.add(13, 28);
+//            gi.add(14, 92);
+//            gi.add(15, 110);
+//            werac.setGuests_id(gi);
+//            ArrayList<Comment> cmts = new ArrayList<>();
+//            Comment cmt1 = new Comment();
+//            cmt1.setUid(7);
+//            cmt1.setContent("헐진짜재미겠다 ㅠㅠ");
+//            Comment cmt2 = new Comment();
+//            cmt2.setUid(8);
+//            cmt2.setContent("꿀잼예약요 기대함");
+//            cmts.add(0, cmt1);
+//            cmts.add(1, cmt2);
+//            werac.setComments(cmts);
+//            mAdapter.setWerac(werac);
+//        }
     }
 }

@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 
@@ -47,6 +49,6 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
         mWerac = Werac;
         titleView.setText(Werac.getTitle());
         subtitleView.setText(Werac.getTitle_sub());
-        imageView.setImageResource(Werac.getPicturePath());
+        Glide.with(imageView.getContext()).load(Werac.getImage()).into(imageView);
     }
 }

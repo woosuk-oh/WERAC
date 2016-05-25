@@ -20,6 +20,7 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
+import kr.werac.yeah.werac_detail.DetailWeracFragment;
 import okhttp3.Request;
 
 /**
@@ -36,24 +37,6 @@ public class AllViewFragment extends Fragment {
     ImagePagerAdapter ImageAdapter;
     int p;
 
-    int[] IDS = {R.drawable.p10,
-            R.drawable.p2,
-            R.drawable.p3,
-            R.drawable.p4,
-            R.drawable.p1,
-            R.drawable.p6,
-            R.drawable.p7,
-            R.drawable.p8,
-            R.drawable.p9,
-            R.drawable.p5,
-            R.drawable.p1,
-            R.drawable.p3,
-            R.drawable.p5,
-            R.drawable.p10,
-            R.drawable.p6,
-            R.drawable.p8,
-    };
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +47,7 @@ public class AllViewFragment extends Fragment {
             public void onItemClick(View view, WeracItem weracItem) {
                 Toast.makeText(getContext(), "눌렀니?", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailViewActivity.class);
-//                intent.putExtra(TStoreAppListActivity.EXTRA_CATEGORY_CODE, weracItem.getCategoryCode());
+                intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, weracItem.getMid());
                 startActivity(intent);
             }
         });
@@ -109,26 +92,25 @@ public class AllViewFragment extends Fragment {
     }
 
     private void initData() {
-//        NetworkManager.getInstance().getWeracList(getContext(), new NetworkManager.OnResultListener<List<WeracItem>>() {
-//            @Override
-//            public void onSuccess(Request request, List<WeracItem> result) {
-//                mAdapter.clear();
-//                mAdapter.addAll(result);
-//            }
-//
-//            @Override
-//            public void onFail(Request request, IOException exception) {
-//                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        NetworkManager.getInstance().getWeracList(getContext(), 0, new NetworkManager.OnResultListener<List<WeracItem>>() {
+            @Override
+            public void onSuccess(Request request, List<WeracItem> result) {
+                mAdapter.clear();
+                mAdapter.addAll(result);
+            }
 
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        for (int i = 0; i < IDS.length; i++) {
-            WeracItem data = new WeracItem();
-            data.setPicturePath(IDS[i]);
-            data.setTitle("title " + i);
-            data.setTitle_sub("subtitle " + i);
-            mAdapter.add(data);
-        }
+//        for (int i = 0; i < IDS.length; i++) {
+//            WeracItem data = new WeracItem();
+//            data.setPicturePath(IDS[i]);
+//            data.setTitle("title " + i);
+//            data.setTitle_sub("subtitle " + i);
+//            mAdapter.add(data);
+//        }
     }
 }

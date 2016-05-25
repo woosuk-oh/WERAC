@@ -11,6 +11,7 @@ import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.werac_detail.DetailStaffHolder;
 
 /**
  * Created by Tacademy on 2016-05-18.
@@ -68,11 +69,15 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         throw new IllegalArgumentException("invalid position");
     }
-
+    CreateImageHolder.OnItemClickListener mListener;
+    public void setOnItemClickListener(CreateImageHolder.OnItemClickListener listener) {
+        mListener = listener;
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
             CreateImageHolder h = (CreateImageHolder)holder;
+            h.setOnItemClickListener(mListener);
 //            h.setImage(werac);
             return;
         }

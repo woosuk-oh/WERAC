@@ -1,19 +1,23 @@
 package kr.werac.yeah.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
  * Created by Tacademy on 2016-05-16.
  */
 public class User {
+    @SerializedName("_id")
     int uid;
     String email;
     String pw;
     String name;
-    String nickname;
     String comment;
     String phone;
-    List<WeracItem> history_MC;
+    String ImageURL;
+    String date;
+    List<WeracItem> history_mc;
     List<WeracItem> history_create;
     List<WeracItem> history_join;
     List<WeracItem> history_like;
@@ -35,6 +39,14 @@ public class User {
         email = email;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getPw() {
         return pw;
     }
@@ -49,14 +61,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getPhone() {
@@ -75,12 +79,12 @@ public class User {
         this.comment = comment;
     }
 
-    public List<WeracItem> getHistory_MC() {
-        return history_MC;
+    public List<WeracItem> getHistory_mc() {
+        return history_mc;
     }
 
-    public void setHistory_MC(List<WeracItem> history_MC) {
-        this.history_MC = history_MC;
+    public void setHistory_mc(List<WeracItem> history_mc) {
+        this.history_mc = history_mc;
     }
 
     public List<WeracItem> getHistory_create() {
@@ -91,6 +95,13 @@ public class User {
         this.history_create = history_create;
     }
 
+    public String getImageURL() {
+        return ImageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        ImageURL = imageURL;
+    }
     public List<WeracItem> getHistory_join() {
         return history_join;
     }

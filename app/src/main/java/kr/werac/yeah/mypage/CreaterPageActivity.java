@@ -17,11 +17,11 @@ import kr.werac.yeah.data.User;
 import kr.werac.yeah.manager.NetworkManager;
 import okhttp3.Request;
 
-public class MCPageActivity extends AppCompatActivity {
+public class CreaterPageActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MC_ID = "MCId";
+    public static final String EXTRA_CREATER_ID = "CreaterId";
     public static final int DONT_KNOW_WHY = 1000;
-    int mcId;
+    int createrId;
     ImageView iv_mc_image;
     TextView tv_mc_id;
     TextView tv_mc_comment;
@@ -36,11 +36,11 @@ public class MCPageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setTitle("MCPage");
+        setTitle("CreaterPage");
 
-        mcId = getIntent().getIntExtra(EXTRA_MC_ID, DONT_KNOW_WHY);
+        createrId = getIntent().getIntExtra(EXTRA_CREATER_ID, DONT_KNOW_WHY);
         Bundle args = new Bundle();
-        args.putInt(EXTRA_MC_ID, mcId);
+        args.putInt(EXTRA_CREATER_ID, createrId);
 
         iv_mc_image = (ImageView) findViewById(R.id.iv_mc_image);
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
@@ -49,7 +49,7 @@ public class MCPageActivity extends AppCompatActivity {
 
         tabHost = (FragmentTabHost)findViewById(R.id.tabHost_mcpage);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
-        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("진행"), MyMCHistoryFragment.class, args);
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("개설"), MyCreateHistoryFragment.class, args);
 
         initData();
     }
@@ -65,7 +65,7 @@ public class MCPageActivity extends AppCompatActivity {
 
     private void initData() {
 
-        NetworkManager.getInstance().getWeracMC(this, 1, mcId, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMC(this, 2, createrId, new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
                 setUser(result);
@@ -73,7 +73,7 @@ public class MCPageActivity extends AppCompatActivity {
 
             @Override
             public void onFail(Request request, IOException exception) {
-                Toast.makeText(MCPageActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreaterPageActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
