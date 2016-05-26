@@ -1,5 +1,6 @@
 package kr.werac.yeah.werac_create;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,16 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_DETAIL_VIEW = 5;
     public static final int VIEW_TYPE_STAFF = 6;
 
-
     WeracItem werac;
+    Bitmap bm;
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
+        notifyDataSetChanged();
+    }
+
+    public void addImage(Bitmap bm) {
+        this.bm = bm;
         notifyDataSetChanged();
     }
 
@@ -78,7 +84,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (position == 0) {
             CreateImageHolder h = (CreateImageHolder)holder;
             h.setOnItemClickListener(mListener);
-//            h.setImage(werac);
+            h.setImage(bm);
             return;
         }
         position--;

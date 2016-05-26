@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,9 @@ public class CreateWeracFragment extends Fragment {
     public static final String EXTRA_WERAC_ID = "WeracId";
     String weracId;
     GridLayoutManager mLayoutManager;
+    RecyclerView.ViewHolder holder;
+    File mUploadFile = null;
+    WeracItem werac;
 
 
     public static CreateWeracFragment newInstance() {
@@ -40,6 +45,18 @@ public class CreateWeracFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mAdapter = new CreateWeracAdapter();
+        RecyclerView.ViewHolder holder;
+        werac = new WeracItem();
+
+//        if (savedInstanceState != null) {
+//            String path = savedInstanceState.getString("uploadFile");
+//            if (!TextUtils.isEmpty(path)) {
+//                mUploadFile = new File(path);
+//                BitmapFactory.Options opts = new BitmapFactory.Options();
+//                opts.inSampleSize = 2;
+//                Bitmap bm = BitmapFactory.decodeFile(path, opts);
+//            }
+//        }
     }
 
     @Nullable
@@ -65,24 +82,31 @@ public class CreateWeracFragment extends Fragment {
         return view;
     }
 
-    File mUploadFile = null;
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        if (mUploadFile != null) {
+//            outState.putString("uploadfile", mUploadFile.getAbsolutePath());
+//        }
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK) {
-//            Uri uri = data.getData();
-//            String[] projection = {MediaStore.Images.Media.DATA};
-//            Cursor c = getActivity().getContentResolver().query(uri, projection, null, null, null);
-//            if (c.moveToNext()) {
-//                String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
-//                mUploadFile = new File(path);
-//                BitmapFactory.Options opts = new BitmapFactory.Options();
-//                opts.inSampleSize = 2;
-//                Bitmap bm = BitmapFactory.decodeFile(path, opts);
-//                CreateImageHolder.setImage(bm);
-//            }
-//        }
+        if (resultCode == Activity.RESULT_OK) {
+            Uri uri = data.getData();
+            String[] projection = {MediaStore.Images.Media.DATA};
+            Cursor c = getActivity().getContentResolver().query(uri, projection, null, null, null);
+            if (c.moveToNext()) {
+                String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+                mUploadFile = new File(path);
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inSampleSize = 2;
+                Bitmap bm = BitmapFactory.decodeFile(path, opts);
+                mAdapter.addImage(bm);
+            }
+        }
         return;
     }
+
 }
