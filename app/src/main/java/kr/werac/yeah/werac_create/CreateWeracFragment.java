@@ -1,6 +1,7 @@
 package kr.werac.yeah.werac_create;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,23 +18,27 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.NetworkManager;
+import okhttp3.Request;
 
 public class CreateWeracFragment extends Fragment {
 
     RecyclerView listView;
     CreateWeracAdapter mAdapter;
-    public static final String EXTRA_WERAC_ID = "WeracId";
-    String weracId;
     GridLayoutManager mLayoutManager;
     RecyclerView.ViewHolder holder;
-    File mUploadFile = null;
+    File mUploadFile;
     WeracItem werac;
-
+    int hour_x, min_x, Year_x, Month_x, Day_x;
 
     public static CreateWeracFragment newInstance() {
         CreateWeracFragment fragment = new CreateWeracFragment();
@@ -44,6 +49,7 @@ public class CreateWeracFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mUploadFile = null;
         mAdapter = new CreateWeracAdapter();
         RecyclerView.ViewHolder holder;
         werac = new WeracItem();
@@ -78,6 +84,14 @@ public class CreateWeracFragment extends Fragment {
 //                }
             }
         });
+//        mAdapter.OnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                Year_x = year;
+//                Month_x = monthOfYear;
+//                Day_x = dayOfMonth;
+//            }
+//        }, Year_x, Month_x, Day_x));
 
         return view;
     }
@@ -108,5 +122,18 @@ public class CreateWeracFragment extends Fragment {
         }
         return;
     }
+    public void sendWerac() {
+        werac = mAdapter.getWerac();
+        NetworkManager.getInstance().getWeracCreate(getContext(), mUploadFile, werac, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
+                Toast.makeText(getContext(), "Mid (" + result.getMid() + ")가 생성되었움", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

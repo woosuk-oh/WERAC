@@ -13,6 +13,7 @@ import kr.werac.yeah.R;
 
 public class CreateWeracActivity extends AppCompatActivity {
 
+    CreateWeracFragment createWeracFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +24,23 @@ public class CreateWeracActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState == null) {
-            CreateWeracFragment f = CreateWeracFragment.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container_create, f);
-            ft.commit();
-        }
 
-        Button btn = (Button)findViewById(R.id.btn_create_werac);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateDialogFragment f = new CreateDialogFragment();
-                f.show(getSupportFragmentManager(), "create");
-            }
-        });
+        if (savedInstanceState == null) {
+            createWeracFragment = CreateWeracFragment.newInstance();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.container_create, createWeracFragment);
+            ft.commit();
+
+            Button btn = (Button)findViewById(R.id.btn_create_werac);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CreateDialogFragment f_dialog = new CreateDialogFragment();
+                    f_dialog.show(getSupportFragmentManager(), "create");
+                    createWeracFragment.sendWerac();
+                }
+            });
+        }
     }
 
     @Override

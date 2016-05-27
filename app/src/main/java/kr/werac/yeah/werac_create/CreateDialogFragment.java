@@ -24,7 +24,7 @@ public class CreateDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_dialog, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_create, container, false);
         Button btn = (Button)view.findViewById(R.id.btn_dialog_create);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +40,6 @@ public class CreateDialogFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
+        getDialog().getWindow();//.setLayout(width, height);
     }
 }

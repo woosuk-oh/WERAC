@@ -26,8 +26,13 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_DETAIL_VIEW = 5;
     public static final int VIEW_TYPE_STAFF = 6;
 
-    WeracItem werac;
+    WeracItem werac = new WeracItem();
     Bitmap bm;
+
+    CreateImageHolder h_image;
+    CreateTitleHolder h_title;
+    CreateScheduleHolder h_sch;
+    CreateDetailHolder h_detail;
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
@@ -37,6 +42,21 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void addImage(Bitmap bm) {
         this.bm = bm;
         notifyDataSetChanged();
+    }
+
+    public WeracItem getWerac(){
+        werac.setTitle(h_title.getTitle().getTitle());
+        werac.setTitle_sub(h_title.getTitle().getTitle_sub());
+        werac.setSchedule(h_sch.getSchedule());
+        werac.setLocation_detail(h_detail.getDetail().getLocation_detail());
+        werac.setLocation_area(h_detail.getDetail().getLocation_area());
+        werac.setDate(h_detail.getDetail().getDate());
+        werac.setStart_time(h_detail.getDetail().getStart_time());
+        werac.setEnd_time(h_detail.getDetail().getEnd_time());
+        werac.setFee(h_detail.getDetail().getFee());
+        werac.setHas_mc(h_detail.getDetail().isHas_mc());
+        werac.setLimit_num(h_detail.getDetail().getLimit_num());
+        return werac;
     }
 
     @Override
@@ -75,37 +95,47 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         throw new IllegalArgumentException("invalid position");
     }
-    CreateImageHolder.OnItemClickListener mListener;
+    CreateImageHolder.OnItemClickListener mListener_image;
     public void setOnItemClickListener(CreateImageHolder.OnItemClickListener listener) {
-        mListener = listener;
+        mListener_image = listener;
+    }
+
+    CreateDetailHolder.OnItemClickListenerDate mListener_detail_date;
+    public void setOnItemClickListenerDate(CreateDetailHolder.OnItemClickListenerDate listener) {
+        mListener_detail_date = listener;
+    }
+
+    CreateDetailHolder.OnItemClickListenerTime mListener_detail_time;
+    public void setOnItemClickListenerTime(CreateDetailHolder.OnItemClickListenerTime listener) {
+        mListener_detail_time = listener;
     }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
-            CreateImageHolder h = (CreateImageHolder)holder;
-            h.setOnItemClickListener(mListener);
-            h.setImage(bm);
+            h_image = (CreateImageHolder)holder;
+            h_image.setOnItemClickListener(mListener_image);
+            h_image.setImage(bm);
             return;
         }
         position--;
 
         if (position == 0) {
-            CreateTitleHolder h = (CreateTitleHolder)holder;
-//            h.setTitle(werac);
-            return;
-        }
-        position--;
+                h_title = (CreateTitleHolder)holder;
+                return;
+            }
+            position--;
 
-        if (position == 0) {
-            CreateScheduleHolder h = (CreateScheduleHolder)holder;
-            h.setSchedule();
+            if (position == 0) {
+                h_sch = (CreateScheduleHolder)holder;
+                h_sch.setSchedule();
             return ;
         }
         position--;
 
         if (position == 0) {
-            CreateDetailHolder h = (CreateDetailHolder)holder;
-//            h.setDetailWrite(werac);
+            h_detail = (CreateDetailHolder)holder;
+            h_detail.setOnItemClickListenerDate(mListener_detail_date);
+            h_detail.setOnItemClickListenerTime(mListener_detail_time);
             return;
         }
         position--;

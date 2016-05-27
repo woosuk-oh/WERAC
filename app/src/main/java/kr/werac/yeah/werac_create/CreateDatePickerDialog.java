@@ -1,4 +1,4 @@
-package kr.werac.yeah.werac_modify;
+package kr.werac.yeah.werac_create;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import kr.werac.yeah.R;
 /**
  * Created by Tacademy on 2016-05-20.
  */
-public class ModifyDialogFragment extends DialogFragment {
+public class CreateDatePickerDialog extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +40,6 @@ public class ModifyDialogFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
+        getDialog().getWindow();//.setLayout(width, height);
     }
 }

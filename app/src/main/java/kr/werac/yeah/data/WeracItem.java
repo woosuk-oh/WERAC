@@ -118,7 +118,7 @@ public class WeracItem {
         return schedule;
     }
 
-    public void setSchedule(ArrayList<String> schedule) {
+    public void setSchedule(List<String> schedule) {
         this.schedule = schedule;
     }
 
@@ -134,7 +134,7 @@ public class WeracItem {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
