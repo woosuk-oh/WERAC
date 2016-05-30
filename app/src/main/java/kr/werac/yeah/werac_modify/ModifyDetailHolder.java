@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.util.Calendar;
+
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
@@ -29,43 +31,127 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
     EditText edit_fee;
     RadioGroup radio_hasmc;
     EditText edit_lm;
-    int hour_x, min_x, Year_x, Month_x, Day_x;
+    WeracItem werac;
+    ArrayAdapter<CharSequence> adapter;
+    Button btn_add_sch;
+
+
+    public interface OnDateClickListener {
+        void onItemClick(View view);
+    }
+
+    public interface OnTimeClickListener {
+        void onItemClick(View view, int SorE);
+    }
+
+    OnDateClickListener mDateListener;
+
+    public void setOnDateClickListener(OnDateClickListener listener) {
+        mDateListener = listener;
+    }
+
+    OnTimeClickListener mTimeListener;
+
+    public void setOnTimeClickListener(OnTimeClickListener listener) {
+        mTimeListener = listener;
+    }
+
+    public interface OnSchClickListener {
+        void onItemClick(View view);
+    }
+
+    OnSchClickListener mListener_sch;
+
+    public void setOnSchClickListener(OnSchClickListener listener) {
+        mListener_sch = listener;
+    }
 
     public ModifyDetailHolder(View itemView) {
         super(itemView);
-        edit_detail = (EditText)itemView.findViewById(R.id.edit_detail);
+        werac = new WeracItem();
+        edit_detail = (EditText) itemView.findViewById(R.id.edit_detail);
 
-        spinner_area = (Spinner)itemView.findViewById(R.id.spinner_area);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MyApplication.getContext(), R.array.spinner_array, android.R.layout.simple_spinner_item);
+        spinner_area = (Spinner) itemView.findViewById(R.id.spinner_area);
+        adapter = ArrayAdapter.createFromResource(MyApplication.getContext(), R.array.spinner_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_area.setAdapter(adapter);
 
-        edit_date = (Button)itemView.findViewById(R.id.edit_date);
+        edit_date = (Button) itemView.findViewById(R.id.edit_date);
         edit_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog mDPD = new DatePickerDialog(MyApplication.getContext(), myDatePickerListener, Year_x, Month_x, Day_x);
+                if (mDateListener != null) {
+                    mDateListener.onItemClick(v);
+                }
             }
         });
-        edit_time_s = (Button)itemView.findViewById(R.id.edit_time_s);
+        Calendar myCal = Calendar.getInstance();
+        edit_date.setText("" + myCal.get(Calendar.YEAR) + "년" + myCal.get(Calendar.MONTH) + "월" + myCal.get(Calendar.DAY_OF_MONTH) + "일");
+
+        edit_time_s = (Button) itemView.findViewById(R.id.edit_time_s);
         edit_time_s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog myTPD = new TimePickerDialog(MyApplication.getContext(), myTimePickerListener_s, hour_x, min_x, false);
+                if (mTimeListener != null) {
+                    mTimeListener.onItemClick(v, 1);
+                }
             }
         });
-        edit_time_e = (Button)itemView.findViewById(R.id.edit_time_e);
+        edit_time_e = (Button) itemView.findViewById(R.id.edit_time_e);
         edit_time_e.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog myTPD = new TimePickerDialog(MyApplication.getContext(), myTimePickerListener_e, hour_x, min_x, false);
+                if (mTimeListener != null) {
+                    mTimeListener.onItemClick(v, 2);
+                }
             }
         });
-        radio_hasmc = (RadioGroup)itemView.findViewById(R.id.radio_hasmc);
-        edit_lm = (EditText)itemView.findViewById(R.id.edit_lm);
+        edit_fee = (EditText) itemView.findViewById(R.id.edit_fee);
+        radio_hasmc = (RadioGroup) itemView.findViewById(R.id.radio_hasmc);
+        edit_lm = (EditText) itemView.findViewById(R.id.edit_lm);
+
+        btn_add_sch = (Button) itemView.findViewById(R.id.btn_add_sch);
+        btn_add_sch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener_sch != null) {
+                    mListener_sch.onItemClick(v);
+                }
+            }
+        });
     }
 
-    public void setDetailWrite(WeracItem werac){
+
+    public WeracItem getDetail() {
+        werac.setLocation_detail(edit_detail.getText().toString());
+        werac.setLocation_area(spinner_area.getSelectedItem().toString());
+        werac.setDate(edit_date.getText().toString());
+        werac.setStart_time(edit_time_s.getText().toString());
+        werac.setEnd_time(edit_time_e.getText().toString());
+        if (edit_fee.getText().toString() != "")
+            werac.setFee(Integer.parseInt((edit_fee.getText() + "").toString()));
+        if (radio_hasmc.getCheckedRadioButtonId() == 0)
+            werac.setHas_mc(true);
+        else
+            werac.setHas_mc(false);
+        if (edit_lm.getText().toString() != "")
+            werac.setLimit_num(Integer.parseInt((edit_lm.getText() + "").toString()));
+        return werac;
+    }
+
+    public void setDate(int year, int monthOfYear, int dayOfMonth) {
+        int month = monthOfYear + 1;
+        edit_date.setText("" + year + "년" + month + "월" + dayOfMonth + "일");
+    }
+
+    public void setTime(int SorE, int hour_x, int min_x) {
+        if (SorE == 1)
+            edit_time_s.setText("" + hour_x + "시" + min_x + "분");
+        else
+            edit_time_e.setText("" + hour_x + "시" + min_x + "분");
+    }
+
+    public void setDetailWrite(WeracItem werac) {
         edit_detail.setText(werac.getLocation_detail());
         edit_date.setText(werac.getDate());
         edit_time_s.setText(werac.getStart_time());
@@ -73,32 +159,4 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         edit_fee.setText(werac.getFee()+"");
         edit_lm.setText(werac.getLimit_num()+"");
     }
-
-    protected TimePickerDialog.OnTimeSetListener myTimePickerListener_s = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            hour_x = hourOfDay;
-            min_x = minute;
-            edit_time_s.setText("" + hour_x + "시" + min_x + "분");
-        }
-    };
-
-    protected TimePickerDialog.OnTimeSetListener myTimePickerListener_e = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            hour_x = hourOfDay;
-            min_x = minute;
-            edit_time_e.setText("" + hour_x + "시" + min_x + "분");
-        }
-    };
-
-    private DatePickerDialog.OnDateSetListener myDatePickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Year_x = year;
-            Month_x = monthOfYear;
-            Day_x = dayOfMonth;
-            edit_date.setText("" + Month_x + "월" + Day_x + "일");
-        }
-    };
 }

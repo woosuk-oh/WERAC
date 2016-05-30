@@ -6,9 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.werac_create.CreateDetailHolder;
+import kr.werac.yeah.werac_create.CreateImageHolder;
+import kr.werac.yeah.werac_create.CreateScheduleHolder;
+import kr.werac.yeah.werac_create.CreateTitleHolder;
 
 /**
  * Created by Tacademy on 2016-05-18.
@@ -22,10 +28,23 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     WeracItem werac;
+    ModifyImageHolder h_image;
+    ModifyTitleHolder h_title;
+    ModifyScheduleHolder h_sch;
+    ModifyDetailHolder h_detail;
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
         notifyDataSetChanged();
+    }
+
+    public void addSch(String et_sch){
+        werac.getSchedule().add(et_sch);
+        notifyDataSetChanged();
+    }
+
+    public WeracItem getWerac(){
+        return werac;
     }
 
     @Override
@@ -34,8 +53,10 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         position--;
         if (position == 0) return VIEW_TYPE_TITLE;
         position--;
-        if (position == 0) return VIEW_TYPE_SCHEDULE;
-        position--;
+        if(werac.getSchedule().size() > 0) {
+            if (position < werac.getSchedule().size()) return VIEW_TYPE_SCHEDULE;
+            position -= werac.getSchedule().size();
+        }
         if (position == 0) return VIEW_TYPE_DETAIL_WRITE;
         position--;
 
@@ -54,14 +75,7 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return new ModifyTitleHolder(view);
             }
             case VIEW_TYPE_SCHEDULE : {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule, null);
-                Button btn = (Button)view.findViewById(R.id.btn_add_sch);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule_text, null);
                 return new ModifyScheduleHolder(view);
             }
             case VIEW_TYPE_DETAIL_WRITE : {
@@ -72,32 +86,52 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         throw new IllegalArgumentException("invalid position");
     }
 
+    ModifyDetailHolder.OnDateClickListener mDateListener;
+    public void setOnDateClickListener(ModifyDetailHolder.OnDateClickListener listener) {
+        mDateListener = listener;
+    }
+
+    ModifyDetailHolder.OnTimeClickListener mTimeListener;
+    public void setOnTimeClickListener(ModifyDetailHolder.OnTimeClickListener listener) {
+        mTimeListener = listener;
+    }
+
+    ModifyDetailHolder.OnSchClickListener mListener_sch;
+    public void setOnSchClickListener(ModifyDetailHolder.OnSchClickListener listener) {
+        mListener_sch = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
-            ModifyImageHolder h = (ModifyImageHolder)holder;
-            h.setImage(werac);
+            h_image = (ModifyImageHolder)holder;
+            h_image.setImage(werac);
             return;
         }
         position--;
 
         if (position == 0) {
-            ModifyTitleHolder h = (ModifyTitleHolder)holder;
-            h.setTitle(werac);
+            h_title = (ModifyTitleHolder) holder;
+            h_title.setTitle(werac);
             return;
         }
         position--;
 
-        if (position == 0) {
-            ModifyScheduleHolder h = (ModifyScheduleHolder)holder;
-            h.setSchedule(werac.getSchedule());
-            return ;
+        if(werac.getSchedule().size()> 0) {
+            if (position < werac.getSchedule().size()) {
+                h_sch = (ModifyScheduleHolder) holder;
+                h_sch.setSchedule(werac.getSchedule().get(position));
+                return ;
+            }
+            position -= werac.getSchedule().size();
         }
-        position--;
 
         if (position == 0) {
-            ModifyDetailHolder h = (ModifyDetailHolder)holder;
-            h.setDetailWrite(werac);
+            h_detail = (ModifyDetailHolder) holder;
+            h_detail.setDetailWrite(werac);
+            h_detail.setOnDateClickListener(mDateListener);
+            h_detail.setOnTimeClickListener(mTimeListener);
+            h_detail.setOnSchClickListener(mListener_sch);
             return;
         }
         position--;
@@ -108,8 +142,9 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         if(werac != null) {
-            return 4;
-        }else
+            return 3 + werac.getSchedule().size();
+        }else {
             return 0;
+        }
     }
 }

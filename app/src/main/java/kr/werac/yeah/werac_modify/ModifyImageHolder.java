@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 
@@ -20,6 +22,6 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImage(WeracItem werac){
-        imageView.setImageResource(R.drawable.p3);
+        Glide.with(imageView.getContext()).load(werac.getImage()).into(imageView);
     }
 }

@@ -1,5 +1,7 @@
 package kr.werac.yeah.werac_create;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.werac.yeah.R;
@@ -28,6 +31,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     WeracItem werac = new WeracItem();
     Bitmap bm;
+    List<String> MySch = new ArrayList<String>();
 
     CreateImageHolder h_image;
     CreateTitleHolder h_title;
@@ -44,10 +48,15 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
+    public void addSch(String et_sch){
+        MySch.add(et_sch);
+        notifyDataSetChanged();
+    }
+
     public WeracItem getWerac(){
         werac.setTitle(h_title.getTitle().getTitle());
         werac.setTitle_sub(h_title.getTitle().getTitle_sub());
-        werac.setSchedule(h_sch.getSchedule());
+        werac.setSchedule(MySch);
         werac.setLocation_detail(h_detail.getDetail().getLocation_detail());
         werac.setLocation_area(h_detail.getDetail().getLocation_area());
         werac.setDate(h_detail.getDetail().getDate());
@@ -65,8 +74,11 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         position--;
         if (position == 0) return VIEW_TYPE_TITLE;
         position--;
-        if (position == 0) return VIEW_TYPE_SCHEDULE;
-        position--;
+        if(MySch.size() > 0) {
+            if (position < MySch.size()) return VIEW_TYPE_SCHEDULE;
+            position -= MySch.size();
+        }
+
         if (position == 0) return VIEW_TYPE_DETAIL_WRITE;
         position--;
 
@@ -85,7 +97,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return new CreateTitleHolder(view);
             }
             case VIEW_TYPE_SCHEDULE : {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule, null);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_create_schedule_text, null);
                 return new CreateScheduleHolder(view);
             }
             case VIEW_TYPE_DETAIL_WRITE : {
@@ -100,17 +112,24 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mListener_image = listener;
     }
 
-    CreateDetailHolder.OnItemClickListenerDate mListener_detail_date;
-    public void setOnItemClickListenerDate(CreateDetailHolder.OnItemClickListenerDate listener) {
-        mListener_detail_date = listener;
+    CreateDetailHolder.OnDateClickListener mDateListener;
+    public void setOnDateClickListener(CreateDetailHolder.OnDateClickListener listener) {
+        mDateListener = listener;
     }
 
-    CreateDetailHolder.OnItemClickListenerTime mListener_detail_time;
-    public void setOnItemClickListenerTime(CreateDetailHolder.OnItemClickListenerTime listener) {
-        mListener_detail_time = listener;
+    CreateDetailHolder.OnTimeClickListener mTimeListener;
+    public void setOnTimeClickListener(CreateDetailHolder.OnTimeClickListener listener) {
+        mTimeListener = listener;
     }
+
+    CreateDetailHolder.OnSchClickListener mListener_sch;
+    public void setOnSchClickListener(CreateDetailHolder.OnSchClickListener listener) {
+        mListener_sch = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
         if (position == 0) {
             h_image = (CreateImageHolder)holder;
             h_image.setOnItemClickListener(mListener_image);
@@ -120,22 +139,25 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         position--;
 
         if (position == 0) {
-                h_title = (CreateTitleHolder)holder;
-                return;
-            }
-            position--;
-
-            if (position == 0) {
-                h_sch = (CreateScheduleHolder)holder;
-                h_sch.setSchedule();
-            return ;
+            h_title = (CreateTitleHolder)holder;
+            return;
         }
         position--;
 
+        if(MySch.size() > 0) {
+            if (position < MySch.size()) {
+                h_sch = (CreateScheduleHolder)holder;
+                h_sch.setSchedule(MySch.get(position));
+                return ;
+            }
+            position-=MySch.size();
+        }
+
         if (position == 0) {
             h_detail = (CreateDetailHolder)holder;
-            h_detail.setOnItemClickListenerDate(mListener_detail_date);
-            h_detail.setOnItemClickListenerTime(mListener_detail_time);
+            h_detail.setOnDateClickListener(mDateListener);
+            h_detail.setOnTimeClickListener(mTimeListener);
+            h_detail.setOnSchClickListener(mListener_sch);
             return;
         }
         position--;
@@ -145,6 +167,6 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3 + MySch.size();
     }
 }

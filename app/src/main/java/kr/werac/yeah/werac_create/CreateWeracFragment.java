@@ -2,6 +2,8 @@ package kr.werac.yeah.werac_create;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,17 +14,22 @@ import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
@@ -53,7 +60,10 @@ public class CreateWeracFragment extends Fragment {
         mAdapter = new CreateWeracAdapter();
         RecyclerView.ViewHolder holder;
         werac = new WeracItem();
-
+        final Calendar myCal = Calendar.getInstance();
+        Year_x = myCal.get(Calendar.YEAR);
+        Month_x = myCal.get(Calendar.MONTH);
+        Day_x = myCal.get(Calendar.DAY_OF_MONTH);
 //        if (savedInstanceState != null) {
 //            String path = savedInstanceState.getString("uploadFile");
 //            if (!TextUtils.isEmpty(path)) {
@@ -84,15 +94,69 @@ public class CreateWeracFragment extends Fragment {
 //                }
             }
         });
-//        mAdapter.OnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                Year_x = year;
-//                Month_x = monthOfYear;
-//                Day_x = dayOfMonth;
-//            }
-//        }, Year_x, Month_x, Day_x));
 
+        mAdapter.setOnDateClickListener(new CreateDetailHolder.OnDateClickListener() {
+            @Override
+            public void onItemClick(View view) {
+                DatePickerDialog myDPD = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mAdapter.h_detail.setDate(year, monthOfYear, dayOfMonth);
+                    }
+                },  Year_x, Month_x, Day_x);
+                myDPD.show();
+            }
+        });
+
+        mAdapter.setOnTimeClickListener(new CreateDetailHolder.OnTimeClickListener() {
+            @Override
+            public void onItemClick(View view, final int SorE) {
+                TimePickerDialog myTPD = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        mAdapter.h_detail.setTime(SorE, hourOfDay, minute);
+                    }
+                }, hour_x, min_x, false);
+                myTPD.show();
+            }
+        });
+
+        mAdapter.setOnSchClickListener(new CreateDetailHolder.OnSchClickListener() {
+            @Override
+            public void onItemClick(final View view) {
+
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                View AlertView = inflater.inflate(R.layout.fragment_schedule_add_dialog, null);
+                alert.setView(AlertView);
+                final EditText et_sch = (EditText) AlertView.findViewById(R.id.et_sch);
+//              new AlertDialog.Builder(mContext, R.style.MyCustomDialogTheme);
+
+//                alert.setMessage("Enter Your Message");
+//                alert.setTitle("Enter Your Title");
+
+                alert.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
+//                        Editable YouEditTextValue = edittext.getText();
+                        //OR
+                        mAdapter.addSch(et_sch.getText().toString());
+                    }
+                });
+
+                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // what ever you want to do with No option.
+                        dialog.cancel();
+                    }
+                });
+
+                alert.show();
+            }
+        });
         return view;
     }
 

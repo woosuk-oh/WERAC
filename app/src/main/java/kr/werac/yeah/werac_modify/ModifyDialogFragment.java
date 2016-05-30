@@ -7,8 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.NetworkManager;
+import okhttp3.Request;
 
 /**
  * Created by Tacademy on 2016-05-20.
