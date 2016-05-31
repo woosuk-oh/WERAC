@@ -186,6 +186,7 @@ public class CreateWeracFragment extends Fragment {
         }
         return;
     }
+
     public void sendWerac() {
         werac = mAdapter.getWerac();
         NetworkManager.getInstance().getWeracCreate(getContext(), mUploadFile, werac, new NetworkManager.OnResultListener<WeracItem>() {

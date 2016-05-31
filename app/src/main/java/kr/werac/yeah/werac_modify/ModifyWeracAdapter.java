@@ -1,20 +1,16 @@
 package kr.werac.yeah.werac_modify;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import kr.werac.yeah.MyApplication;
+import java.util.ArrayList;
+import java.util.List;
+
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
-import kr.werac.yeah.werac_create.CreateDetailHolder;
-import kr.werac.yeah.werac_create.CreateImageHolder;
-import kr.werac.yeah.werac_create.CreateScheduleHolder;
-import kr.werac.yeah.werac_create.CreateTitleHolder;
 
 /**
  * Created by Tacademy on 2016-05-18.
@@ -26,24 +22,46 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_SCHEDULE = 3;
     public static final int VIEW_TYPE_DETAIL_WRITE = 4;
 
-
     WeracItem werac;
+    Bitmap bm;
     ModifyImageHolder h_image;
     ModifyTitleHolder h_title;
     ModifyScheduleHolder h_sch;
     ModifyDetailHolder h_detail;
+    List<String> MySch = new ArrayList<String>();
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
         notifyDataSetChanged();
     }
 
-    public void addSch(String et_sch){
-        werac.getSchedule().add(et_sch);
+    public void addImage(Bitmap bm) {
+        this.bm = bm;
         notifyDataSetChanged();
     }
 
-    public WeracItem getWerac(){
+    public void addSch(String et_sch){
+        werac.getSchedule().add(et_sch);
+        MySch.add(et_sch);
+        notifyDataSetChanged();
+    }
+
+    public WeracItem getWeracWhole(){
+        return werac;
+    }
+
+    public WeracItem getWeracBy(){
+        werac.setTitle(h_title.getTitle().getTitle());
+        werac.setTitle_sub(h_title.getTitle().getTitle_sub());
+        werac.setSchedule(MySch);
+        werac.setLocation_detail(h_detail.getDetail().getLocation_detail());
+        werac.setLocation_area(h_detail.getDetail().getLocation_area());
+        werac.setDate(h_detail.getDetail().getDate());
+        werac.setStart_time(h_detail.getDetail().getStart_time());
+        werac.setEnd_time(h_detail.getDetail().getEnd_time());
+        werac.setFee(h_detail.getDetail().getFee());
+        werac.setHas_mc(h_detail.getDetail().isHas_mc());
+        werac.setLimit_num(h_detail.getDetail().getLimit_num());
         return werac;
     }
 
@@ -86,6 +104,11 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         throw new IllegalArgumentException("invalid position");
     }
 
+    ModifyImageHolder.OnItemClickListener mListener_image;
+    public void setOnItemClickListener(ModifyImageHolder.OnItemClickListener listener) {
+        mListener_image = listener;
+    }
+
     ModifyDetailHolder.OnDateClickListener mDateListener;
     public void setOnDateClickListener(ModifyDetailHolder.OnDateClickListener listener) {
         mDateListener = listener;
@@ -105,7 +128,10 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
             h_image = (ModifyImageHolder)holder;
-            h_image.setImage(werac);
+            h_image.setImageURL(werac);
+            h_image.setOnItemClickListener(mListener_image);
+            if(bm != null)
+                h_image.setImage(bm);
             return;
         }
         position--;
@@ -120,6 +146,7 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(werac.getSchedule().size()> 0) {
             if (position < werac.getSchedule().size()) {
                 h_sch = (ModifyScheduleHolder) holder;
+                MySch = werac.getSchedule();
                 h_sch.setSchedule(werac.getSchedule().get(position));
                 return ;
             }

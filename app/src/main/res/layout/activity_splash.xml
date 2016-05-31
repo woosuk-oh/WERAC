@@ -9,27 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="kr.werac.yeah.SplashActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="WERAC"
-        android:textColor="@android:color/holo_red_light"
-        android:id="@+id/textView2"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_marginBottom="190dp" />
-
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="223dp"
+        android:layout_height="252dp"
         android:id="@+id/imageView"
-        android:background="@drawable/dia"
-        android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:background="@drawable/splash"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

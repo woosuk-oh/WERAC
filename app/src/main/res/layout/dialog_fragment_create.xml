@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="212dp"
+        android:layout_height="310dp"
         android:id="@+id/iv_dialog_create"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/dia"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="모임이 개설되었습니다! \n    제안 댓글을 받아서 \n 스케줄에 반영해보세요"
-        android:id="@+id/tv_dialog_create"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="80dp"
+        android:background="@drawable/make_popup"
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="확인"
-        android:background="@android:color/white"
-        android:textColor="@android:color/holo_red_light"
+        android:layout_width="151dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/make_popup_btn"
         android:id="@+id/btn_dialog_create"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:layout_below="@+id/iv_dialog_create"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

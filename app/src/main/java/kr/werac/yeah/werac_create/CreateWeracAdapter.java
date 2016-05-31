@@ -89,7 +89,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_IMAGE : {
-                View view = new ImageView(parent.getContext());
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_werac_image, null);
                 return new CreateImageHolder(view);
             }
             case VIEW_TYPE_TITLE : {

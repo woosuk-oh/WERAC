@@ -37,17 +37,5 @@
         android:layout_below="@+id/comment_title"
         android:id="@+id/image_this_user"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rv_comments"
-        android:layout_below="@+id/image_this_user">
-    </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:text="더미"
-        android:layout_below="@+id/rv_comments"/>
 
 </RelativeLayout>

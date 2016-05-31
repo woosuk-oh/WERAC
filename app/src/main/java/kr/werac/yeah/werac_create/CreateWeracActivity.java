@@ -1,5 +1,6 @@
 package kr.werac.yeah.werac_create;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,24 +24,25 @@ public class CreateWeracActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.back);
 
 
         if (savedInstanceState == null) {
             createWeracFragment = CreateWeracFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container_create, createWeracFragment);
-            ft.commit();
+        ft.add(R.id.container_create, createWeracFragment);
+        ft.commit();
 
-            Button btn = (Button)findViewById(R.id.btn_create_werac);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CreateDialogFragment f_dialog = new CreateDialogFragment();
-                    f_dialog.show(getSupportFragmentManager(), "create");
-                    createWeracFragment.sendWerac();
-                }
-            });
-        }
+        Button btn = (Button)findViewById(R.id.btn_create_werac);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateDialogFragment f_dialog = new CreateDialogFragment();
+                f_dialog.show(getSupportFragmentManager(), "create");
+                createWeracFragment.sendWerac();
+            }
+        });
+    }
     }
 
     @Override

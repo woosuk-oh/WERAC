@@ -49,7 +49,6 @@ public class DetailViewActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override

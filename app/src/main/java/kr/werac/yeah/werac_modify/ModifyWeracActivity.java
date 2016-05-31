@@ -16,6 +16,7 @@ import kr.werac.yeah.werac_detail.DetailViewActivity;
 public class ModifyWeracActivity extends AppCompatActivity {
 
     int thisMid;
+    ModifyWeracFragment modifyWeracFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +31,22 @@ public class ModifyWeracActivity extends AppCompatActivity {
         thisMid = getIntent().getIntExtra(DetailViewActivity.EXTRA_WERAC_ID, DetailViewActivity.DONT_KNOW_WHY);
 
         if (savedInstanceState == null) {
-            ModifyWeracFragment f = ModifyWeracFragment.newInstance(thisMid);
+            modifyWeracFragment = ModifyWeracFragment.newInstance(thisMid);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container_create, f);
+            ft.add(R.id.container_create, modifyWeracFragment);
             ft.commit();
-        }
 
-        Button btn = (Button)findViewById(R.id.btn_create_werac);
-        btn.setText("확정");
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateDialogFragment f = new CreateDialogFragment();
-                f.show(getSupportFragmentManager(), "modify");
-            }
-        });
+            Button btn = (Button) findViewById(R.id.btn_create_werac);
+            btn.setText("확정");
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CreateDialogFragment f = new CreateDialogFragment();
+                    f.show(getSupportFragmentManager(), "modify");
+                    modifyWeracFragment.modifyWerac();
+                }
+            });
+        }
     }
 
     @Override

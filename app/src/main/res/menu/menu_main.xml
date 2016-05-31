@@ -6,6 +6,6 @@
         android:id="@+id/action_addItem"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/settings"
+        android:icon="@drawable/main_set"
         android:title="Add New Item"/>
 </menu>

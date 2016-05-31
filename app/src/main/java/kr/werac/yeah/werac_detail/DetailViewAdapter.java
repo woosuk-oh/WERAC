@@ -4,8 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
+import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.WeracItem;
 
 /**
@@ -19,14 +25,23 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_TYPE_DETAIL_VIEW = 4;
     public static final int VIEW_TYPE_STAFF = 5;
     public static final int VIEW_TYPE_JOINUSERS = 6;
-    public static final int VIEW_TYPE_COMMENTS = 7;
-
+    public static final int VIEW_TYPE_COMMENT_ENTER = 7;
+    public static final int VIEW_TYPE_COMMENT_LIST = 8;
+    public static final int VIEW_TYPE_DUMMY = 9;
 
     WeracItem werac;
+    DetailCommentEnterHolder h_cmmt_enter;
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
         notifyDataSetChanged();
+    }
+
+    public void addCommt(Comment cmmt){
+        List<Comment> myCmmt = new ArrayList<>();
+        myCmmt.equals(werac.getComments());
+        myCmmt.add(cmmt);
+        werac.setComments(myCmmt);
     }
 
     @Override
@@ -37,19 +52,20 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         position--;
         if (position == 0) return VIEW_TYPE_SCHEDULE_VIEW;
         position--;
-//        if (werac.getSchedule().size() > 0) {
-//            if (position < werac.getSchedule().size()-1) {
-//                return VIEW_TYPE_SCHEDULE_VIEW;
-//            }
-//            position-=werac.getSchedule().size();
-//        }
         if (position < 3) return VIEW_TYPE_DETAIL_VIEW;
         position-=3;
         if (position < 2) return VIEW_TYPE_STAFF;
         position-=2;
         if (position == 0) return VIEW_TYPE_JOINUSERS;
         position--;
-        if (position == 0) return VIEW_TYPE_COMMENTS;
+        if (position == 0) return VIEW_TYPE_COMMENT_ENTER;
+        position--;
+       if(werac.getComments().size() > 0) {
+            if (position < werac.getComments().size())
+                return VIEW_TYPE_COMMENT_LIST;
+            position -= werac.getComments().size();
+        }
+        if (position == 0) return VIEW_TYPE_DUMMY;
         position--;
 
         throw new IllegalArgumentException("invalid position");
@@ -82,9 +98,17 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_guests, null);
                 return new DetailGuestsHolder(view);
             }
-            case VIEW_TYPE_COMMENTS : {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_comments, null);
-                return new DetailCommentsHolder(view);
+            case VIEW_TYPE_COMMENT_ENTER : {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_comment_enter, null);
+                return new DetailCommentEnterHolder(view);
+            }
+            case VIEW_TYPE_COMMENT_LIST : {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_comment_text, null);
+                return new DetailCommentListHolder(view);
+            }
+            case VIEW_TYPE_DUMMY : {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_dummy, null);
+                return new DetailDummyHolder(view);
             }
         }
         throw new IllegalArgumentException("invalid position");
@@ -93,6 +117,11 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     DetailStaffHolder.OnItemClickListener mListener;
     public void setOnItemClickListener(DetailStaffHolder.OnItemClickListener listener) {
         mListener = listener;
+    }
+
+    DetailCommentEnterHolder.OnCmmtClickListener mListener_cmmt;
+    public void setOnCmmtClickListener(DetailCommentEnterHolder.OnCmmtClickListener listener) {
+        mListener_cmmt = listener;
     }
 
     @Override
@@ -169,19 +198,28 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
         position--;
-//
-//        if (werac.getGuests_id().size() > 0) {
-//            if (position < werac.getGuests_id().size()) {
-////                DetailGuestsHolder h = (DetailGuestsHolder)holder;
-////                h.setGuests(werac, werac.getGuests_id());
-//                return ;
-//            }
-//            position-=werac.getGuests_id().size();
-//        }
 
         if (position == 0) {
-            DetailCommentsHolder h = (DetailCommentsHolder)holder;
-            h.setComments(werac.getComments());
+            h_cmmt_enter = (DetailCommentEnterHolder)holder;
+            h_cmmt_enter.setComments(werac.getComments());
+            h_cmmt_enter.setOnCmmtClickListener(mListener_cmmt);
+            return;
+        }
+
+        position--;
+
+        if(werac.getComments().size() > 0) {
+            if (position < werac.getComments().size()) {
+                DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
+                h_cmmt_list.setmCmt_item(werac.getComments().get(position));
+                return ;
+            }
+            position -= werac.getComments().size();
+        }
+
+        if (position == 0) {
+            DetailDummyHolder h = (DetailDummyHolder)holder;
+            Toast.makeText(MyApplication.getContext(), "더미있어요", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -193,7 +231,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemCount() {
         if(werac != null)
-            return 10;
+            return 11 + werac.getComments().size();
         else
             return 0;
     }
