@@ -1,5 +1,6 @@
 package kr.werac.yeah.werac_create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.main.MainActivity;
 
 /**
  * Created by Tacademy on 2016-05-20.
@@ -30,6 +32,8 @@ public class CreateDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                startActivity(myIntent);
             }
         });
         return view;
@@ -40,6 +44,6 @@ public class CreateDialogFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
         int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow();//.setLayout(width, height);
+        getDialog().getWindow().setLayout(width, height);
     }
 }

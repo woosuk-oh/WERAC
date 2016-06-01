@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -25,9 +26,9 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
 
     EditText edit_detail;
     Spinner spinner_area;
-    Button edit_date;
-    Button edit_time_s;
-    Button edit_time_e;
+    TextView edit_date;
+    TextView edit_time_s;
+    TextView edit_time_e;
     EditText edit_fee;
     RadioGroup radio_hasmc;
     EditText edit_lm;
@@ -76,7 +77,7 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_area.setAdapter(adapter);
 
-        edit_date = (Button) itemView.findViewById(R.id.edit_date);
+        edit_date = (TextView) itemView.findViewById(R.id.edit_date);
         edit_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +89,7 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         Calendar myCal = Calendar.getInstance();
         edit_date.setText("" + myCal.get(Calendar.YEAR) + "년" + myCal.get(Calendar.MONTH) + "월" + myCal.get(Calendar.DAY_OF_MONTH) + "일");
 
-        edit_time_s = (Button) itemView.findViewById(R.id.edit_time_s);
+        edit_time_s = (TextView) itemView.findViewById(R.id.edit_time_s);
         edit_time_s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +98,7 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
-        edit_time_e = (Button) itemView.findViewById(R.id.edit_time_e);
+        edit_time_e = (TextView) itemView.findViewById(R.id.edit_time_e);
         edit_time_e.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

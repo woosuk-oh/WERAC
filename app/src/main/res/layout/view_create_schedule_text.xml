@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:paddingLeft="40dp"
-    android:textSize="12dp"
-    android:paddingTop="16dp"
-    android:gravity="center_vertical"
-    android:hint="@string/create_sch_hint"
-    android:id="@+id/tv_sch"/>
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:src="@drawable/schedule_1"
+        android:id="@+id/create_sch_circle"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@android:color/white"
+        android:textSize="12dp"
+        android:gravity="center_vertical"
+        android:hint="@string/create_sch_hint"
+        android:id="@+id/tv_sch"
+        android:layout_alignParentTop="true"
+        android:textColorHint="@color/create_title_hint_color"
+        android:layout_toRightOf="@+id/create_sch_circle"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <ImageButton
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:id="@+id/btn_sch_delete"
+        android:background="@drawable/make_delete"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

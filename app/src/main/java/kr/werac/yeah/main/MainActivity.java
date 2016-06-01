@@ -6,10 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.SettingActivity;
@@ -59,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("전체"), AllViewFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("제안"), SuggestViewFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("참여"), JoinViewFragment.class, null);
+
+//        tabHost = getTabHost();
+        for(int i=0; i < tabHost.getTabWidget().getChildCount() ; i++)
+        {
+            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(getResources().getColor(R.color.colorWerac));
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+        }
     }
 
     @Override
@@ -74,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        if(item.getItemId() == R.id.action_addItem){
+        if(item.getItemId() == R.id.btn_setting){
             Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
         }else{

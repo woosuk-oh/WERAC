@@ -32,6 +32,7 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     WeracItem werac = new WeracItem();
     Bitmap bm;
     List<String> MySch = new ArrayList<String>();
+    int hasSch = 0;
 
     CreateImageHolder h_image;
     CreateTitleHolder h_title;
@@ -49,8 +50,22 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void addSch(String et_sch){
-        MySch.add(et_sch);
+        if(hasSch == 1) {
+            MySch.set(0, et_sch);
+        }else
+            MySch.add(et_sch);
+        hasSch++;
         notifyDataSetChanged();
+    }
+
+    public void removeSch(String et_sch){
+        for(int i = 0; i < MySch.size(); i++){
+            if(MySch.get(i).equals(et_sch)) {
+                MySch.remove(i);
+                notifyDataSetChanged();
+                return;
+            }
+        }
     }
 
     public WeracItem getWerac(){
@@ -107,8 +122,8 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         throw new IllegalArgumentException("invalid position");
     }
-    CreateImageHolder.OnItemClickListener mListener_image;
-    public void setOnItemClickListener(CreateImageHolder.OnItemClickListener listener) {
+    CreateImageHolder.OnImageClickListener mListener_image;
+    public void setOnImageClickListener(CreateImageHolder.OnImageClickListener listener) {
         mListener_image = listener;
     }
 
@@ -127,12 +142,17 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mListener_sch = listener;
     }
 
+    CreateScheduleHolder.OnSchDelClickListener mListener_sch_del;
+    public void setOnSchDelClickListener(CreateScheduleHolder.OnSchDelClickListener listener) {
+        mListener_sch_del = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (position == 0) {
             h_image = (CreateImageHolder)holder;
-            h_image.setOnItemClickListener(mListener_image);
+            h_image.setOnImageClickListener(mListener_image);
             h_image.setImage(bm);
             return;
         }
@@ -147,7 +167,8 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(MySch.size() > 0) {
             if (position < MySch.size()) {
                 h_sch = (CreateScheduleHolder)holder;
-                h_sch.setSchedule(MySch.get(position));
+                h_sch.setSchedule(MySch.get(position), position);
+                h_sch.setOnSchDelClickListener(mListener_sch_del);
                 return ;
             }
             position-=MySch.size();

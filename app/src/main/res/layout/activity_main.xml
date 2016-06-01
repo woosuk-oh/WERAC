@@ -12,8 +12,13 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"
         android:background="@android:color/white"
-        android:titleTextColor="@android:color/holo_red_light"
         style="@style/MyToolbar.ActionBar">
+
+        <ImageView
+            android:layout_width="106dp"
+            android:layout_height="30dp"
+            android:background="@drawable/main_logo"/>
+
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.app.FragmentTabHost
@@ -29,6 +34,7 @@
             android:orientation="vertical">
             <TabWidget
                 android:id="@android:id/tabs"
+                android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <FrameLayout
@@ -43,10 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/add"
-        app:rippleColor="@android:color/holo_red_light"
-        android:layout_marginRight="31dp"
-        android:layout_marginBottom="32dp"
+        android:src="@drawable/floating_btn"
+        app:rippleColor="@color/colorWerac"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

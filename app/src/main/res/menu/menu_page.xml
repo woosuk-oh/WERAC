@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="kr.werac.yeah.MainActivity">
+    tools:context="kr.werac.yeah.DetailViewActivity">
     <item
-        android:id="@+id/btn_setting"
+        android:id="@+id/btn_like"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/main_set"
+        android:icon="@drawable/page_heart"
         android:title="Add New Item"/>
 </menu>

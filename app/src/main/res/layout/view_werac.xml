@@ -1,26 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_margin="3dp">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="171dp"
         android:layout_height="wrap_content"
         android:id="@+id/image_icon"
         android:layout_margin="3dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="151dp"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textSize="20dp"
+        android:text="[위락게임]좀비게임같이하실분~~"
+        android:textSize="15dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/main_werac_title_color"
         android:id="@+id/text_title"
+        android:layout_below="@+id/image_icon"
         android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:id="@+id/icon_area"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/main_location"
+        android:layout_alignBottom="@+id/text_main_area"
+        android:layout_alignLeft="@+id/image_icon"
+        android:layout_alignStart="@+id/image_icon" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Medium Text"
-        android:id="@+id/text_subtitle"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:text="서울시"
+        android:textColor="@color/main_werac_detail_color"
+        android:id="@+id/text_main_area"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/text_title"
+        android:layout_toRightOf="@+id/icon_area"
+        android:layout_toEndOf="@+id/icon_area" />
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:id="@+id/icon_like"
+        android:background="@drawable/main_heart"
+        android:layout_alignBottom="@+id/icon_area"
+        android:layout_toRightOf="@+id/text_main_area"
+        android:layout_toEndOf="@+id/text_main_area"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23"
+        android:textSize="10dp"
+        android:textColor="@color/main_werac_detail_color"
+        android:id="@+id/text_main_like"
+        android:layout_alignBottom="@+id/icon_like"
+        android:layout_toRightOf="@+id/icon_like"
+        android:layout_toEndOf="@+id/icon_like"
+        android:layout_marginLeft="2dp"/>
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/main_mc"
+        android:id="@+id/image_main_mc"
+        android:layout_alignBottom="@+id/text_main_like"
+        android:layout_alignRight="@+id/image_icon"
+        android:layout_alignEnd="@+id/image_icon" />
+
+
+</RelativeLayout>

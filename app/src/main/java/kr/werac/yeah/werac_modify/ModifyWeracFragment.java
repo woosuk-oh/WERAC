@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.werac_create.CreateImageHolder;
+import kr.werac.yeah.werac_create.CreateScheduleHolder;
 import okhttp3.Request;
 
 public class ModifyWeracFragment extends Fragment {
@@ -143,6 +145,15 @@ public class ModifyWeracFragment extends Fragment {
                 alert.show();
             }
         });
+
+        mAdapter.setOnSchDelClickListener(new ModifyScheduleHolder.OnSchDelClickListener() {
+            @Override
+            public void onItemClick(View view, TextView et_sch) {
+                mAdapter.removeSch(et_sch.getText().toString());
+            }
+        });
+
+
         setData();
         return view;
     }

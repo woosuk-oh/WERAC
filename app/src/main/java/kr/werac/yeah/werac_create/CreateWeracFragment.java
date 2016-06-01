@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -83,8 +84,8 @@ public class CreateWeracFragment extends Fragment {
         listView.setAdapter(mAdapter);
         mLayoutManager = new GridLayoutManager(getContext(), 1);
         listView.setLayoutManager(mLayoutManager);
-        mAdapter.setOnItemClickListener(new CreateImageHolder.OnItemClickListener() {
-
+        mAdapter.addSch("");
+        mAdapter.setOnImageClickListener(new CreateImageHolder.OnImageClickListener() {
             @Override
             public void onItemClick(View view, WeracItem werac) {
 //                private void getImageFromGallery() {
@@ -157,6 +158,14 @@ public class CreateWeracFragment extends Fragment {
                 alert.show();
             }
         });
+
+        mAdapter.setOnSchDelClickListener(new CreateScheduleHolder.OnSchDelClickListener() {
+            @Override
+            public void onItemClick(View view, TextView et_sch) {
+                mAdapter.removeSch(et_sch.getText().toString());
+            }
+        });
+
         return view;
     }
 

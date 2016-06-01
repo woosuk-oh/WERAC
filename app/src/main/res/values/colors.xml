@@ -2,8 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF343C</color>
+    <color name="colorWerac">#FF343C</color>
     <color name="create_title_hint_color">#b6b7ba</color>
     <color name="create_detail_title_color">#444444</color>
     <color name="backgroud_color">#f0eff5</color>
+    <color name="main_werac_title_color">#424242</color>
+    <color name="main_werac_detail_color">#8C9EFF</color>
 </resources>

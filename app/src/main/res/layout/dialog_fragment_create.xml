@@ -7,9 +7,10 @@
         android:layout_width="212dp"
         android:layout_height="310dp"
         android:id="@+id/iv_dialog_create"
-        android:layout_marginTop="80dp"
         android:background="@drawable/make_popup"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
 
     <Button
         android:layout_width="151dp"

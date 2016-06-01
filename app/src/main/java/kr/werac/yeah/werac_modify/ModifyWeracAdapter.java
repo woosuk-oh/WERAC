@@ -11,6 +11,7 @@ import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.werac_create.CreateScheduleHolder;
 
 /**
  * Created by Tacademy on 2016-05-18.
@@ -44,6 +45,16 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         werac.getSchedule().add(et_sch);
         MySch.add(et_sch);
         notifyDataSetChanged();
+    }
+
+    public void removeSch(String et_sch){
+        for(int i = 0; i < MySch.size(); i++){
+            if(MySch.get(i).equals(et_sch)) {
+                MySch.remove(i);
+                notifyDataSetChanged();
+                return;
+            }
+        }
     }
 
     public WeracItem getWeracWhole(){
@@ -124,6 +135,11 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mListener_sch = listener;
     }
 
+    ModifyScheduleHolder.OnSchDelClickListener mListener_sch_del;
+    public void setOnSchDelClickListener(ModifyScheduleHolder.OnSchDelClickListener listener) {
+        mListener_sch_del = listener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
@@ -147,7 +163,8 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (position < werac.getSchedule().size()) {
                 h_sch = (ModifyScheduleHolder) holder;
                 MySch = werac.getSchedule();
-                h_sch.setSchedule(werac.getSchedule().get(position));
+                h_sch.setSchedule(werac.getSchedule().get(position), position);
+                h_sch.setOnSchDelClickListener(mListener_sch_del);
                 return ;
             }
             position -= werac.getSchedule().size();
