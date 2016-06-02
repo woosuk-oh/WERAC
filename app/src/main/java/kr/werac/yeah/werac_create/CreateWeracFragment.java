@@ -85,6 +85,7 @@ public class CreateWeracFragment extends Fragment {
         mLayoutManager = new GridLayoutManager(getContext(), 1);
         listView.setLayoutManager(mLayoutManager);
         mAdapter.addSch("");
+
         mAdapter.setOnImageClickListener(new CreateImageHolder.OnImageClickListener() {
             @Override
             public void onItemClick(View view, WeracItem werac) {

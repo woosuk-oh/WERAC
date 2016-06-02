@@ -5,8 +5,10 @@
     <color name="colorAccent">#FF343C</color>
     <color name="colorWerac">#FF343C</color>
     <color name="create_title_hint_color">#b6b7ba</color>
+    <color name="comment_text_color">#8d8d8d</color>
     <color name="create_detail_title_color">#444444</color>
     <color name="backgroud_color">#f0eff5</color>
     <color name="main_werac_title_color">#424242</color>
     <color name="main_werac_detail_color">#8C9EFF</color>
+    <color name="logout_in_setting">#aaaaaa</color>
 </resources>

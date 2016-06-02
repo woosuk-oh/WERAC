@@ -12,6 +12,9 @@
     <string name="create_title_sub">모임의 부가 설명을 작성해주세요.</string>
     <string name="create_sch_hint">스케쥴을 추가해주세요</string>
     <string name="create_sch_title">모임 스케줄</string>
+    <string name="mypage">내 정보</string>
+    <string name="mcpage">MC 정보</string>
+    <string name="setting">설정</string>
 
     <string-array name="spinner_array">
         <item>서울시</item>

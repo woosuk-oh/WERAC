@@ -30,8 +30,8 @@ public class CreateWeracActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             createWeracFragment = CreateWeracFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.container_create, createWeracFragment);
-        ft.commit();
+            ft.add(R.id.container_create, createWeracFragment);
+            ft.commit();
 
         Button btn = (Button)findViewById(R.id.btn_create_werac);
         btn.setOnClickListener(new View.OnClickListener() {

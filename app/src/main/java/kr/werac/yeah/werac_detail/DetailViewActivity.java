@@ -31,6 +31,7 @@ public class DetailViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.back);
 
         thisMid = getIntent().getIntExtra(EXTRA_WERAC_ID, DONT_KNOW_WHY);
 
@@ -40,7 +41,7 @@ public class DetailViewActivity extends AppCompatActivity {
             ft.add(R.id.container_detail, f);
             ft.commit();
         }
-        Button btn = (Button)findViewById(R.id.btn_detail_werac);
+        Button btn = (Button)findViewById(R.id.btn_detail_to_modify_werac);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

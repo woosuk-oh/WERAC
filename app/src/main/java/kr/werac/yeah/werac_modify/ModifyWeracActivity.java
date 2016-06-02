@@ -37,7 +37,6 @@ public class ModifyWeracActivity extends AppCompatActivity {
             ft.commit();
 
             Button btn = (Button) findViewById(R.id.btn_create_werac);
-            btn.setText("확정");
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

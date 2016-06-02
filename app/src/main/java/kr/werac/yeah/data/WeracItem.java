@@ -30,7 +30,7 @@ public class WeracItem {
     List<Integer> guests_id;
     List<Comment> comments;
     int like;
-
+    List<Integer> image_size;
 
     public int getPicturePath() {
         return PicturePath;
@@ -200,5 +200,17 @@ public class WeracItem {
 
     public void setLike(int like) {
         this.like = like;
+    }
+
+    public void setGuests_id(List<Integer> guests_id) {
+        this.guests_id = guests_id;
+    }
+
+    public List<Integer> getImage_size() {
+        return image_size;
+    }
+
+    public void setImage_size(List<Integer> image_size) {
+        this.image_size = image_size;
     }
 }

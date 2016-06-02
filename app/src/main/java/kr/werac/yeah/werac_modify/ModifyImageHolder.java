@@ -3,6 +3,7 @@ package kr.werac.yeah.werac_modify;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -51,6 +52,7 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
             myBm = bm;
             imageView.setImageBitmap(bm);
         }
+        imageView.setImageResource(R.drawable.make_image);
     }
 
     public Bitmap getImage(){

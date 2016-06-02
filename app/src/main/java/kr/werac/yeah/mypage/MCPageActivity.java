@@ -36,7 +36,7 @@ public class MCPageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setTitle("MCPage");
+        actionBar.setHomeAsUpIndicator(R.drawable.back);
 
         mcId = getIntent().getIntExtra(EXTRA_MC_ID, DONT_KNOW_WHY);
         Bundle args = new Bundle();
@@ -45,7 +45,6 @@ public class MCPageActivity extends AppCompatActivity {
         iv_mc_image = (ImageView) findViewById(R.id.iv_mc_image);
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
         tv_mc_comment = (TextView) findViewById(R.id.tv_mc_comment);
-        tv_mc_phone = (TextView) findViewById(R.id.tv_mc_phone);
 
         tabHost = (FragmentTabHost)findViewById(R.id.tabHost_mcpage);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
@@ -65,7 +64,7 @@ public class MCPageActivity extends AppCompatActivity {
 
     private void initData() {
 
-        NetworkManager.getInstance().getWeracMC(this, 1, mcId, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMC_Create(this, 1, mcId, new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
                 setUser(result);

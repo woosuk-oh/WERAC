@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 
@@ -33,6 +35,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         switch (position){
             case 0:
+//                Glide.with(v.getContext()).load(Werac.getImage()).into(v);
                 v.setImageResource(R.drawable.p3);
                 v.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 container.addView(v);

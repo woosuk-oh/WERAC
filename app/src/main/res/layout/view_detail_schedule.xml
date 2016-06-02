@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <TextView
         android:layout_width="match_parent"
@@ -11,8 +12,8 @@
         android:textSize="16dp"
         android:background="@android:color/white"
         android:textColor="@color/create_detail_title_color"
-        android:paddingLeft="16dp"
-        android:paddingTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/title_sch"
         />
 
@@ -21,4 +22,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/rv_detail_schedule">
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/backgroud_color"
+        android:id="@+id/btn_dummy_vdt2"
+        android:layout_below="@+id/rv_detail_schedule"/>
 </LinearLayout>

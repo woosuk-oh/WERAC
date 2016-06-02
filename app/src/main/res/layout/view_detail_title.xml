@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:layout_margin="10dp">
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@color/backgroud_color"
@@ -31,7 +32,7 @@
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:paddingTop="14dp"
-        android:textColor="@color/colorWerac"
+        android:textColor="@color/create_detail_title_color"
         android:background="@android:color/white"
         android:layout_toRightOf="@+id/image_detail_title"
         android:layout_toEndOf="@+id/image_detail_title"/>
@@ -45,10 +46,10 @@
         android:textSize="12dp"
         android:padding="16dp"/>
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@color/backgroud_color"
-        android:shadowColor="@android:color/transparent"
-        android:id="@+id/btn_dummy_vdt2"/>
+        android:id="@+id/btn_dummy_vdt2"
+        android:layout_below="@+id/tv_subtitle"/>
 </RelativeLayout>

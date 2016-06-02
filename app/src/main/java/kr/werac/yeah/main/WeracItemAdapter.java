@@ -19,7 +19,6 @@ public class WeracItemAdapter extends RecyclerView.Adapter<WeracItemHolder> {
 
     List<WeracItem> weracs = new ArrayList<WeracItem>();
 
-
     public void clear() {
         weracs.clear();
         notifyDataSetChanged();
@@ -32,6 +31,11 @@ public class WeracItemAdapter extends RecyclerView.Adapter<WeracItemHolder> {
 
     public void addAll(List<WeracItem> WeracList) {
         weracs.addAll(WeracList);
+        notifyDataSetChanged();
+    }
+
+    public void equalAll(List<WeracItem> WeracList) {
+        weracs = WeracList;
         notifyDataSetChanged();
     }
 

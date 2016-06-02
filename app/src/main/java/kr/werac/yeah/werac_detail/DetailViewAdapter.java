@@ -219,7 +219,6 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (position == 0) {
             DetailDummyHolder h = (DetailDummyHolder)holder;
-            Toast.makeText(MyApplication.getContext(), "더미있어요", Toast.LENGTH_SHORT).show();
             return;
         }
 

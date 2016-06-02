@@ -2,40 +2,66 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp">
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/backgroud_color"
+        android:id="@+id/btn_dummy_vdce"/>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_below="@+id/btn_dummy_vdce"
+        android:id="@+id/image_staff_title"
+        android:background="@drawable/page_comment"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="댓글  2"
-        android:layout_margin="10dp"
-        android:textSize="20dp"
+        android:text="댓글 2"
+        android:textSize="16dp"
+        android:textStyle="bold"
         android:id="@+id/comment_title"
-        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/btn_dummy_vdce"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="16dp"
         />
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:hint="제안이나 문의를 해주세요"
-        android:layout_toRightOf="@+id/image_this_user"
+        android:textColorHint="@color/create_title_hint_color"
+        android:background="@drawable/border_style"
+        android:textSize="12dp"
         android:layout_below="@+id/comment_title"
-        android:id="@+id/edit_comment"/>
+        android:id="@+id/edit_comment"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/btn_comment_enter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/edit_comment"
-        android:layout_below="@+id/comment_title"
+        android:layout_width="80dp"
+        android:layout_height="34dp"
         android:id="@+id/btn_comment_enter"
-        android:text="입력"
-        android:layout_gravity="right" />
-
-    <ImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/user"
-        android:layout_below="@+id/comment_title"
-        android:id="@+id/image_this_user"/>
-
+        android:text="등  록"
+        android:textSize="12dp"
+        android:textColor="@android:color/white"
+        android:background="@color/create_title_hint_color"
+        android:shadowRadius="0"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:layout_alignTop="@+id/edit_comment"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

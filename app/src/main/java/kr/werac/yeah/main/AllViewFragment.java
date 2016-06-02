@@ -113,4 +113,9 @@ public class AllViewFragment extends Fragment {
 //            mAdapter.add(data);
 //        }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

@@ -40,7 +40,6 @@ public class SuggestViewFragment extends Fragment {
         mAdapter.setOnItemClickListener(new WeracItemHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, WeracItem weracItem) {
-                Toast.makeText(getContext(), "눌렀니?", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailViewActivity.class);
                 intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, weracItem.getMid());
                 startActivity(intent);

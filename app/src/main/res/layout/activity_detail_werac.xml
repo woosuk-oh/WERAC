@@ -17,8 +17,16 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_red_light"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@android:color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/create_detail_title_color"
+                android:textSize="16dp"
+                android:text="상세페이지"/>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -30,14 +38,20 @@
     </FrameLayout>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:text="수정"
-        android:id="@+id/btn_detail_werac"
-        android:background="@android:color/white"
-        android:textColor="@android:color/holo_red_light"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:id="@+id/btn_detail_status_modify_werac"
+        android:background="@drawable/page_btn_status_change"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="70dp"
+        android:id="@+id/btn_detail_to_modify_werac"
+        android:background="@drawable/page_btn_modify"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btn_detail_status_modify_werac"
+        android:layout_toEndOf="@+id/btn_detail_status_modify_werac" />
 
 </RelativeLayout>
