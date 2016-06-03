@@ -30,7 +30,6 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_STAFF = 6;
 
     WeracItem werac = new WeracItem();
-    Bitmap bm;
     List<String> MySch = new ArrayList<String>();
     int hasSch = 0;
 
@@ -44,8 +43,8 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    public void addImage(Bitmap bm) {
-        this.bm = bm;
+    public void addImage(String path, int myW, int myH) {
+        h_image.setImage(path, myW, myH);
         notifyDataSetChanged();
     }
 
@@ -153,7 +152,6 @@ public class CreateWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (position == 0) {
             h_image = (CreateImageHolder)holder;
             h_image.setOnImageClickListener(mListener_image);
-            h_image.setImage(bm);
             return;
         }
         position--;

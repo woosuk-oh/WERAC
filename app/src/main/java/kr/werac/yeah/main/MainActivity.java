@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.SettingActivity;
@@ -21,6 +23,8 @@ import kr.werac.yeah.werac_create.CreateWeracActivity;
 public class MainActivity extends AppCompatActivity {
 
     FragmentTabHost tabHost;
+    int select_tab;
+    int backButtonCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("전체"), AllViewFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("제안"), SuggestViewFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("참여"), JoinViewFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("0").setIndicator("전체"), AllViewFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("1").setIndicator("제안"), SuggestViewFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("2").setIndicator("참여"), JoinViewFragment.class, null);
 
-//        tabHost = getTabHost();
-        for(int i=0; i < tabHost.getTabWidget().getChildCount() ; i++)
-        {
-            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-            tv.setTextColor(getResources().getColor(R.color.colorWerac));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-        }
+        setTabColor();
+
+        backButtonCount = 0;
     }
 
     @Override
@@ -92,5 +92,53 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setTabColor(){
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                select_tab = Integer.parseInt(tabId);
+                TextView tv = (TextView) tabHost.getTabWidget().getChildAt(select_tab).findViewById(android.R.id.title);
+                tv.setTextColor(getResources().getColor(R.color.colorWerac));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+                for(int i = 0; i < tabHost.getTabWidget().getChildCount() ; i++)
+                {
+                    if(i != select_tab) {
+                        TextView tv2 = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                        tv2.setTextColor(getResources().getColor(R.color.tab_not_checked_color));
+                        tv2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+                    }
+                }
+            }
+        });
+
+        for(int i = 0; i < tabHost.getTabWidget().getChildCount() ; i++)
+        {
+            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            if(i == 0)
+                tv.setTextColor(getResources().getColor(R.color.colorWerac));
+            else
+                tv.setTextColor(getResources().getColor(R.color.tab_not_checked_color));
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "종료하시려면 한 번 더 더치해주세요", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
 }

@@ -65,7 +65,7 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
         titleView.setText(Werac.getTitle());
         text_main_area.setText(Werac.getLocation_area());
         text_main_like.setText(Werac.getLike()+"");
-        if(Werac.isHas_mc() == true){
+        if(Werac.isHas_mc() == true && Werac.getMc_id() == null){
             image_main_mc.setVisibility(View.VISIBLE);
         }else
             image_main_mc.setVisibility(View.INVISIBLE);

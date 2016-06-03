@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/aa_my_m">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_mypage"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/create_detail_title_color"
+                android:text="@string/mypage_m"/>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:id="@+id/iv_my_image_m"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/profile_default"
+        android:layout_below="@+id/aa_my_m"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:textColor="@color/create_detail_title_color"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/iv_my_image_m"
+        android:padding="10dp"
+        android:text="유저명"
+        android:id="@+id/tv_my_id_m"/>
+    <EditText
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12dp"
+        android:textColor="@color/create_detail_title_color"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_my_id_m"
+        android:hint="한줄소개를 입력해주세요"
+        android:textColorHint="@color/create_title_hint_color"
+        android:id="@+id/tv_my_comment_m"/>
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12dp"
+        android:inputType="phone"
+        android:textColor="@color/create_detail_title_color"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_my_comment_m"
+        android:hint="핸드폰 번호를 입력해주세요"
+        android:textColorHint="@color/create_title_hint_color"
+        android:id="@+id/tv_my_phone_m"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_modify_profile_m"
+        android:background="@drawable/page_btn_modify"
+        android:layout_below="@+id/tv_my_phone_m"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

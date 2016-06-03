@@ -188,10 +188,12 @@ public class CreateWeracFragment extends Fragment {
             if (c.moveToNext()) {
                 String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
                 mUploadFile = new File(path);
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 2;
-                Bitmap bm = BitmapFactory.decodeFile(path, opts);
-                mAdapter.addImage(bm);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(path, options);
+                int myW = options.outWidth;
+                int myH = options.outHeight;
+                mAdapter.addImage(path, myW, myH);
             }
         }
         return;
@@ -202,7 +204,7 @@ public class CreateWeracFragment extends Fragment {
         NetworkManager.getInstance().getWeracCreate(getContext(), mUploadFile, werac, new NetworkManager.OnResultListener<WeracItem>() {
             @Override
             public void onSuccess(Request request, WeracItem result) {
-                Toast.makeText(getContext(), "Mid (" + result.getMid() + ")가 생성되었움", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Mid (" + result.getMid() + ")가 생성되었움", Toast.LENGTH_SHORT).show();
             }
 
             @Override

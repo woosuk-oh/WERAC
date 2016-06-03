@@ -31,7 +31,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="63dp"
         android:layout_height="63dp"
         android:layout_below="@+id/aa_my"
@@ -61,7 +61,7 @@
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/tv_my_id"
-        android:text="한줄소개입니다 빠라밤빠(임시)"
+        android:text="한 줄 소개가 없습니다!"
         android:id="@+id/tv_my_comment"/>
     <TextView
         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/tv_my_comment"
-        android:text="010-1234-1234(임시)"
+        android:text="핸드폰 번호를 입력해주세요 ㅠㅠ"
         android:id="@+id/tv_my_phone"/>
 
     <ImageButton

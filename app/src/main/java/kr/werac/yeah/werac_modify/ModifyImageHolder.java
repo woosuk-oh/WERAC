@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 
@@ -43,21 +45,20 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setImageURL(WeracItem werac){
-        Glide.with(imageView.getContext()).load(werac.getImage()).into(imageView);
-    }
-
-    public void setImage(Bitmap bm){
-        if(bm != null) {
-            myBm = bm;
-            imageView.setImageBitmap(bm);
+    public void setImage(String path, int myW, int myH){
+        if(path != null) {
+            float scale = MyApplication.getContext().getResources().getDisplayMetrics().density;
+            Glide.with(imageView.getContext()).load(path).override((int)(360*scale), (int)(360 * myH / myW * scale)).into(imageView);
+        }else{
+            imageView.setImageResource(R.drawable.make_image);
         }
-        imageView.setImageResource(R.drawable.make_image);
     }
 
-    public Bitmap getImage(){
-        if(myBm != null)
-            return myBm;
-        return null;
+    public void setImageURL(String path){
+        if(path != null) {
+            Glide.with(imageView.getContext()).load(path).into(imageView);
+        }else{
+            imageView.setImageResource(R.drawable.make_image);
+        }
     }
 }

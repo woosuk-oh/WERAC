@@ -5,13 +5,17 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.manager.NetworkManager;
@@ -22,7 +26,7 @@ public class MCPageActivity extends AppCompatActivity {
     public static final String EXTRA_MC_ID = "MCId";
     public static final int DONT_KNOW_WHY = 1000;
     int mcId;
-    ImageView iv_mc_image;
+    CircleImageView iv_mc_image;
     TextView tv_mc_id;
     TextView tv_mc_comment;
     TextView tv_mc_phone;
@@ -42,13 +46,17 @@ public class MCPageActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putInt(EXTRA_MC_ID, mcId);
 
-        iv_mc_image = (ImageView) findViewById(R.id.iv_mc_image);
+        iv_mc_image = (CircleImageView) findViewById(R.id.iv_mc_image);
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
         tv_mc_comment = (TextView) findViewById(R.id.tv_mc_comment);
 
         tabHost = (FragmentTabHost)findViewById(R.id.tabHost_mcpage);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("진행"), MyMCHistoryFragment.class, args);
+
+        TextView tv = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        tv.setTextColor(getResources().getColor(R.color.colorWerac));
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
 
         initData();
     }
@@ -78,9 +86,15 @@ public class MCPageActivity extends AppCompatActivity {
     }
 
     private void setUser(User result) {
-//        iv_mc_image.setImageResource(result.getImageURL());
+        if(result.getProfile_image() != null)
+            Glide.with(iv_mc_image.getContext()).load(result.getProfile_image()).into(iv_mc_image);
+        else
+            iv_mc_image.setImageResource(R.drawable.profile_default);
         tv_mc_id.setText(result.getName());
-        tv_mc_comment.setText(result.getComment());
+        if(result.getComment() != null)
+            tv_mc_comment.setText(result.getComment());
+        else
+            tv_mc_comment.setText("안녕하세요. " + result.getName() + "입니다.");
 //        tv_mc_phone.setText(result.getPhone());
     }
 

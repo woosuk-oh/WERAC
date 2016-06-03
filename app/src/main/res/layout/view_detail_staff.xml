@@ -31,7 +31,7 @@
         android:layout_marginBottom="4dp"
         android:id="@+id/text_staff" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:id="@+id/image_staff"
@@ -51,5 +51,14 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/text_staff_name"
         android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton_waiting_mc"
+        android:background="@drawable/btn_wating_mc"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/image_staff"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

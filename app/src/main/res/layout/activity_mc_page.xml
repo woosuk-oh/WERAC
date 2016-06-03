@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     tools:context="kr.werac.yeah.mypage.MCPageActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -31,7 +32,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="63dp"
         android:layout_height="63dp"
         android:layout_below="@+id/aa_mc"
@@ -61,7 +62,7 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/tv_mc_id"
-        android:text="한줄소개입니다 빠라밤빠(임시)"
+        android:text="안녕하세요"
         android:id="@+id/tv_mc_comment"/>
 
     <android.support.v4.app.FragmentTabHost

@@ -15,7 +15,7 @@ public class User {
     String name;
     String comment;
     String phone;
-    String ImageURL;
+    String profile_image;
     String date;
     List<WeracItem> history_mc;
     List<WeracItem> history_create;
@@ -95,12 +95,12 @@ public class User {
         this.history_create = history_create;
     }
 
-    public String getImageURL() {
-        return ImageURL;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setImageURL(String imageURL) {
-        ImageURL = imageURL;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
     public List<WeracItem> getHistory_join() {
         return history_join;

@@ -6,7 +6,7 @@ package kr.werac.yeah.data;
 public class Comment {
 //    int mid;
     int like;
-    int uid;
+    User user;
     String date;
     String content;
 
@@ -26,12 +26,12 @@ public class Comment {
         this.like = like;
     }
 
-    public int getUid() {
-        return uid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getContent() {

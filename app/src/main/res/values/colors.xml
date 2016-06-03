@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF343C</color>
     <color name="colorWerac">#FF343C</color>
     <color name="create_title_hint_color">#b6b7ba</color>
+    <color name="tab_not_checked_color">#c9c9c9</color>
     <color name="comment_text_color">#8d8d8d</color>
     <color name="create_detail_title_color">#444444</color>
     <color name="backgroud_color">#f0eff5</color>

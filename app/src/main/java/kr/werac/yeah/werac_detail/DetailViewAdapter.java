@@ -4,12 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.WeracItem;
@@ -39,9 +37,10 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void addCommt(Comment cmmt){
         List<Comment> myCmmt = new ArrayList<>();
-        myCmmt.equals(werac.getComments());
+        myCmmt = werac.getComments();
         myCmmt.add(cmmt);
         werac.setComments(myCmmt);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -194,7 +193,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (position == 0) {
             DetailGuestsHolder h = (DetailGuestsHolder)holder;
-            h.setGuests(werac, werac.getGuests_id());
+            h.setGuests(werac, werac.getGuests());
             return;
         }
         position--;

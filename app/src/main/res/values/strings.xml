@@ -4,6 +4,7 @@
     <string name="title_activity_my_page">MyPage</string>
     <string name="title_activity_mc_page">MCPage</string>
     <string name="title_activity_setting">Setting</string>
+    <string name="title_activity_my_page_modify">내 정보 수정</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,6 +16,8 @@
     <string name="mypage">내 정보</string>
     <string name="mcpage">MC 정보</string>
     <string name="setting">설정</string>
+    <string name="toolbar_create_title">개설하기</string>
+    <string name="mypage_m">내 정보 수정</string>
 
     <string-array name="spinner_array">
         <item>서울시</item>

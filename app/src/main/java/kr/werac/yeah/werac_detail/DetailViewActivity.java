@@ -48,6 +48,7 @@ public class DetailViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailViewActivity.this, ModifyWeracActivity.class);
                 intent.putExtra(EXTRA_WERAC_ID, thisMid);
                 startActivity(intent);
+                finish();
             }
         });
 

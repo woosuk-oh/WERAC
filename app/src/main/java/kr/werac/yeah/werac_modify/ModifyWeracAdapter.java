@@ -24,7 +24,6 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_DETAIL_WRITE = 4;
 
     WeracItem werac;
-    Bitmap bm;
     ModifyImageHolder h_image;
     ModifyTitleHolder h_title;
     ModifyScheduleHolder h_sch;
@@ -36,13 +35,7 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    public void addImage(Bitmap bm) {
-        this.bm = bm;
-        notifyDataSetChanged();
-    }
-
     public void addSch(String et_sch){
-        werac.getSchedule().add(et_sch);
         MySch.add(et_sch);
         notifyDataSetChanged();
     }
@@ -55,6 +48,12 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return;
             }
         }
+    }
+
+    public void changeImage(String path, int myW, int myH){
+        h_image.setImage(path, myW, myH);
+        werac.setImage(path);
+        notifyDataSetChanged();
     }
 
     public WeracItem getWeracWhole(){
@@ -144,10 +143,8 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
             h_image = (ModifyImageHolder)holder;
-            h_image.setImageURL(werac);
+            h_image.setImageURL(werac.getImage());
             h_image.setOnItemClickListener(mListener_image);
-            if(bm != null)
-                h_image.setImage(bm);
             return;
         }
         position--;
@@ -186,7 +183,12 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         if(werac != null) {
-            return 3 + werac.getSchedule().size();
+            if(werac.getSchedule() == null) {
+                werac.setSchedule(MySch);
+                return 3;
+            }
+            else
+                return 3 + werac.getSchedule().size();
         }else {
             return 0;
         }

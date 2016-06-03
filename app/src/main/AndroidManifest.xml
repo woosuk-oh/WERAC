@@ -32,6 +32,10 @@
             android:label="@string/title_activity_my_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".mypage.MyPageModifyActivity"
+            android:label="@string/title_activity_my_page_modify"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".mypage.MCPageActivity"
             android:label="@string/title_activity_mc_page"
             android:theme="@style/AppTheme.NoActionBar" />

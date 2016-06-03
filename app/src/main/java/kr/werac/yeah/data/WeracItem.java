@@ -12,8 +12,8 @@ public class WeracItem {
     @SerializedName("_id")
     int mid;
     int status;
-    int uid;
-    int mc_id;
+    User creator;
+    User mc_id;
     boolean has_mc;
     String reg_date;
     String image;
@@ -27,7 +27,7 @@ public class WeracItem {
     String end_time;
     int fee;
     int limit_num;
-    List<Integer> guests_id;
+    List<Integer> guests;
     List<Comment> comments;
     int like;
     List<Integer> image_size;
@@ -58,19 +58,19 @@ public class WeracItem {
         this.status = status;
     }
 
-    public int getUid() {
-        return uid;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
-    public int getMc_id() {
+    public User getMc_id() {
         return mc_id;
     }
 
-    public void setMc_id(int mc_id) {
+    public void setMc_id(User mc_id) {
         this.mc_id = mc_id;
     }
 
@@ -122,12 +122,12 @@ public class WeracItem {
         this.schedule = schedule;
     }
 
-    public List<Integer> getGuests_id() {
-        return guests_id;
+    public List<Integer> getGuests() {
+        return guests;
     }
 
-    public void setGuests_id(ArrayList<Integer> guests_id) {
-        this.guests_id = guests_id;
+    public void setGuests(ArrayList<Integer> guests) {
+        this.guests = guests;
     }
 
     public List<Comment> getComments() {
@@ -203,7 +203,7 @@ public class WeracItem {
     }
 
     public void setGuests_id(List<Integer> guests_id) {
-        this.guests_id = guests_id;
+        this.guests = guests_id;
     }
 
     public List<Integer> getImage_size() {
