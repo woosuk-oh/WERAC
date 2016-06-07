@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:src="@drawable/schedule_1"
+        android:id="@+id/create_sch_circle"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@android:color/white"
+        android:textSize="12dp"
+        android:gravity="center_vertical"
+        android:hint="@string/create_sch_hint"
+        android:id="@+id/textview_sch"
+        android:layout_alignParentTop="true"
+        android:textColorHint="@color/create_title_hint_color"
+        android:layout_toRightOf="@+id/create_sch_circle"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+</RelativeLayout>
+

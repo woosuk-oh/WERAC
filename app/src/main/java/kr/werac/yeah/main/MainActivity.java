@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentTabHost tabHost;
     int select_tab;
-    int backButtonCount;
+    int backButtonCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("참여"), JoinViewFragment.class, null);
 
         setTabColor();
-
-        backButtonCount = 0;
     }
 
     @Override
@@ -134,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            backButtonCount = 0;
         }
         else
         {

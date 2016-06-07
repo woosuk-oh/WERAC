@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="440.3dp"
+    android:background="@drawable/create_detail_box"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp">
+
+    <Button
+        android:layout_width="356dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="2.3dp"
+        android:background="@drawable/make_add_btn"
+        android:id="@+id/btn_add_sch"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="6dp"
+        android:id="@+id/btn_dummy2"
+        android:layout_below="@+id/btn_add_sch"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:gravity="center_vertical"
+        android:text="모임 장소 : "
+        android:textSize="16dp"
+        android:layout_marginTop="53dp"
+        android:id="@+id/text_detail"
+        android:layout_marginLeft="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:id="@+id/edit_detail"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:layout_alignBaseline="@+id/text_detail"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/edit_time_s"
+        android:layout_alignStart="@+id/edit_time_s" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:gravity="center_vertical"
+        android:text="모임 지역 : "
+        android:layout_marginLeft="42dp"
+        android:id="@+id/text_area"
+        android:textSize="16dp"
+        android:layout_below="@+id/text_detail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <Spinner
+        android:layout_width="75dp"
+        android:layout_height="45.5dp"
+        android:id="@+id/spinner_area"
+        android:spinnerMode="dropdown"
+        android:gravity="center"
+        android:layout_marginRight="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_alignBaseline="@+id/text_area"
+        android:layout_alignBottom="@+id/text_area"
+        android:layout_alignRight="@+id/btn_add_sch"
+        android:layout_alignEnd="@+id/btn_add_sch" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:gravity="center_vertical"
+        android:text="모임 날짜 : "
+        android:layout_marginLeft="42dp"
+        android:textSize="16dp"
+        android:id="@+id/text_date"
+        android:layout_below="@+id/text_area"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:shadowColor="@android:color/transparent"
+        android:text="날짜 선택"
+        android:id="@+id/edit_date"
+        android:textSize="16dp"
+        android:layout_alignBaseline="@+id/text_date"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/edit_time_s"
+        android:layout_alignStart="@+id/edit_time_s" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:text="모임 시간 : "
+        android:layout_marginLeft="42dp"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:id="@+id/text_time"
+        android:layout_below="@+id/text_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="45.5dp"
+        android:id="@+id/edit_time_s"
+        android:gravity="center"
+        android:text="00시 00분 부터"
+        android:background="@android:color/white"
+        android:shadowColor="@android:color/transparent"
+        android:textSize="16dp"
+        android:layout_below="@+id/text_date"
+        android:layout_toLeftOf="@+id/edit_time_e"
+        android:layout_toStartOf="@+id/edit_time_e" />
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="45.5dp"
+        android:id="@+id/edit_time_e"
+        android:gravity="center"
+        android:text="00시 00분 까지"
+        android:background="@android:color/white"
+        android:shadowColor="@android:color/transparent"
+        android:textSize="16dp"
+        android:layout_alignTop="@+id/edit_time_s"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:text="참가비 : "
+        android:layout_marginLeft="42dp"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:id="@+id/text_fee"
+        android:layout_below="@+id/text_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:id="@+id/edit_fee"
+        android:textSize="16dp"
+        android:inputType="number"
+        android:gravity="center"
+        android:layout_below="@+id/edit_time_s"
+        android:layout_alignBaseline="@+id/text_fee"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/edit_time_s"
+        android:layout_alignStart="@+id/edit_time_s" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:text="진행자 : "
+        android:layout_marginLeft="42dp"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:id="@+id/text_mc"
+        android:layout_below="@+id/text_fee"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="45.5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/radio_hasmc"
+        android:layout_below="@+id/text_fee"
+        android:layout_alignLeft="@+id/edit_fee"
+        android:layout_alignStart="@+id/edit_fee">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유"
+            android:id="@+id/radio_mco"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="무"
+            android:checked="true"
+            android:id="@+id/radio_mcx"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:text="참여 정원 : "
+        android:layout_marginLeft="42dp"
+        android:textSize="16dp"
+        android:gravity="center_vertical"
+        android:id="@+id/text_lm"
+        android:layout_below="@+id/text_mc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:id="@+id/edit_lm"
+        android:inputType="number"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:layout_below="@+id/radio_hasmc"
+        android:layout_alignBaseline="@+id/text_lm"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/edit_fee"
+        android:layout_alignStart="@+id/edit_fee" />
+
+
+    <TextView
+        android:id="@+id/nothing2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/edit_lm"/>
+
+</RelativeLayout>
