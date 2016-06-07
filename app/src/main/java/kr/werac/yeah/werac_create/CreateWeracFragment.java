@@ -6,19 +6,15 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
-import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
@@ -132,7 +127,7 @@ public class CreateWeracFragment extends Fragment {
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
-                View AlertView = inflater.inflate(R.layout.fragment_schedule_add_dialog, null);
+                View AlertView = inflater.inflate(R.layout.dialog_schedule_add, null);
                 alert.setView(AlertView);
                 final EditText et_sch = (EditText) AlertView.findViewById(R.id.et_sch);
 //              new AlertDialog.Builder(mContext, R.style.MyCustomDialogTheme);

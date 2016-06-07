@@ -43,6 +43,14 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void add_recomment(Comment cmmt){
+        List<Comment> myCmmt = new ArrayList<>();
+        myCmmt = werac.getComments();
+        myCmmt.add(cmmt);
+        werac.setComments(myCmmt);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0) return VIEW_TYPE_IMAGE;
@@ -118,9 +126,14 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mListener = listener;
     }
 
-    DetailCommentEnterHolder.OnCmmtClickListener mListener_cmmt;
-    public void setOnCmmtClickListener(DetailCommentEnterHolder.OnCmmtClickListener listener) {
+    DetailCommentEnterHolder.OnCmmtEnterClickListener mListener_cmmt;
+    public void setOnCmmtClickListener(DetailCommentEnterHolder.OnCmmtEnterClickListener listener) {
         mListener_cmmt = listener;
+    }
+
+    DetailCommentListHolder.OnCommentItemClickListener mListener_cmmt_item;
+    public void setOnCmmtItemClickListener(DetailCommentListHolder.OnCommentItemClickListener listener) {
+        mListener_cmmt_item = listener;
     }
 
     @Override
@@ -211,6 +224,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (position < werac.getComments().size()) {
                 DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
                 h_cmmt_list.setmCmt_item(werac.getComments().get(position));
+                h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
                 return ;
             }
             position -= werac.getComments().size();

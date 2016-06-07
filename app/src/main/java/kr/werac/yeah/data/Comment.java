@@ -1,5 +1,7 @@
 package kr.werac.yeah.data;
 
+import java.util.List;
+
 /**
  * Created by Tacademy on 2016-05-18.
  */
@@ -9,6 +11,7 @@ public class Comment {
     User user;
     String date;
     String content;
+    List<Comment> recomment;
 
 //    public int getMid() {
 //        return mid;
@@ -48,5 +51,13 @@ public class Comment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<Comment> getRecomment() {
+        return recomment;
+    }
+
+    public void setRecomment(List<Comment> recomment) {
+        this.recomment = recomment;
     }
 }

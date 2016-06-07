@@ -6,11 +6,13 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.List;
@@ -182,6 +184,46 @@ public class NetworkManager {
         return request;
     }
 
+    private static final String URL_Detail_like = MY_SERVER + "/listdetail/%s/like";
+
+    public Request getWeracDetailLike(Object tag, int mid, OnResultListener<WeracItem> listener) {
+
+        String url = String.format(URL_Detail_like, mid);
+
+        RequestBody body = new FormBody.Builder()
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WeracItem> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    WeracItemResult data = gson.fromJson(text, WeracItemResult.class);
+                    result.result = data.werac;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
     private static final String URL_MC_CREATER = MY_SERVER + "/%s/%s";
 
     public Request getWeracMC_Create(Object tag, int who, int who_id, OnResultListener<User> listener) {
@@ -222,14 +264,14 @@ public class NetworkManager {
         return request;
     }
 
-    private static final String URL_MY_PAGE = MY_SERVER + "/my_profile/%s";
+    private static final String URL_MY_PAGE = MY_SERVER + "/my_profile";
 
-    public Request getWeracMy(Object tag, int my_id, OnResultListener<User> listener) {
+    public Request getWeracMy(Object tag, OnResultListener<User> listener) {
 
-        String url = String.format(URL_MY_PAGE, my_id);
+//        String url = String.format(URL_MY_PAGE, my_id);
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(URL_MY_PAGE)
                 .build();
 
         final NetworkResult<User> result = new NetworkResult<>();
@@ -258,11 +300,11 @@ public class NetworkManager {
         return request;
     }
 
-    private static final String URL_MY_PAGE_MODIFY = MY_SERVER + "/my_profile/%s";
+    private static final String URL_MY_PAGE_MODIFY = MY_SERVER + "/my_profile";
 
-    public Request getWeracMyModify(Object tag, int my_id, User user, File mUploadFile, OnResultListener<User> listener) {
+    public Request getWeracMyModify(Object tag, User user, File mUploadFile, OnResultListener<User> listener) {
 
-        String url = String.format(URL_MY_PAGE_MODIFY, my_id);
+//        String url = String.format(URL_MY_PAGE_MODIFY, my_id);
 
         MultipartBody.Builder myBuilder = new MultipartBody.Builder();
         myBuilder.addFormDataPart("name", user.getName())
@@ -277,7 +319,7 @@ public class NetworkManager {
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(URL_MY_PAGE_MODIFY)
                 .post(body)
                 .build();
 
@@ -307,7 +349,7 @@ public class NetworkManager {
         return request;
     }
 
-    private static final String URL_CREATE_WERAC = MY_SERVER + "/create/%s";
+    private static final String URL_CREATE_WERAC = MY_SERVER + "/create";
 
     public Request getWeracCreate(Object tag,
 //                                  String token,
@@ -315,7 +357,7 @@ public class NetworkManager {
                                   WeracItem werac,
                                    OnResultListener<WeracItem> listener) {
 
-        String url = String.format(URL_CREATE_WERAC, 2);//token
+//        String url = String.format(URL_CREATE_WERAC, 2);//token
         int sch_num = 0;
         sch_num = werac.getSchedule().size();
 
@@ -342,7 +384,7 @@ public class NetworkManager {
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(URL_CREATE_WERAC)
                 .post(body)
                 .build();
 
@@ -441,7 +483,7 @@ public class NetworkManager {
     return request;
 }
 
-    private static final String URL_ADD_COMMENT = MY_SERVER + "/listDetail/%s/comment?content=%s&uid=%s";
+    private static final String URL_ADD_COMMENT = MY_SERVER + "/listDetail/%s/comment?content=%s";
 
     public Request getWeracAddComment(Object tag,
 //                                  String token,
@@ -449,7 +491,7 @@ public class NetworkManager {
                                       String cmmt,
                                       OnResultListener<Comment> listener) {
 
-        String url = String.format(URL_ADD_COMMENT, mid, cmmt, 2);//token
+        String url = String.format(URL_ADD_COMMENT, mid, cmmt);//token
 
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -487,4 +529,93 @@ public class NetworkManager {
         return request;
     }
 
+    private static final String URL_SIGN_IN = MY_SERVER + "/login";
+
+    public Request signin(Object tag,
+                          String email,
+                          String password,
+                          OnResultListener<User> listener) {
+
+        RequestBody body = new FormBody.Builder()
+                .add("pw", password)
+                .add("email", email)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_SIGN_IN)
+                .post(body)
+                .build();
+
+        final NetworkResult<User> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    UserResult data = gson.fromJson(text, UserResult.class);
+                    result.result = data.user;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String URL_SIGN_UP = MY_SERVER + "/join";
+
+    public Request signup(Object tag,
+                          String name,
+                          String email,
+                          String password,
+                          String phone,
+                          OnResultListener<User> listener) {
+
+        RequestBody body = new FormBody.Builder()
+                .add("pw", password)
+                .add("email", email)
+                .add("name", name)
+                .add("phone", phone)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_SIGN_UP)
+                .post(body)
+                .build();
+
+        final NetworkResult<User> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    User data = gson.fromJson(text, User.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
 }

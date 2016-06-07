@@ -55,9 +55,15 @@
             android:name=".werac_modify.ModifyWeracActivity"
             android:label="수정페이지"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SettingActivity"
+        <activity
+            android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".login.SignUpActivity"></activity>
     </application>
 
 </manifest>

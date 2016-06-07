@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class MyLikeHistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_join, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_join);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         initData();
         return view;
@@ -69,10 +70,10 @@ public class MyLikeHistoryFragment extends Fragment {
     }
 
     private void initData() {
-        NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, 2, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMy(getContext(), new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
-                if(result.getHistory_like() != null)
+                if (result.getHistory_like() != null)
                     mAdapter.equalAll(result.getHistory_like());
             }
 

@@ -91,7 +91,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     private void initData() {
 
-        NetworkManager.getInstance().getWeracMy(this, 2, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMy(this, new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
                 setUser(result);

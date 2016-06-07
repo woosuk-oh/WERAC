@@ -112,7 +112,7 @@ public class MyPageModifyActivity extends AppCompatActivity {
 
     private void initData() {
 
-        NetworkManager.getInstance().getWeracMy(this, 2, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMy(this, new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
                 setUser(result);
@@ -128,7 +128,7 @@ public class MyPageModifyActivity extends AppCompatActivity {
 
     private void modifyMyInfo() {
 
-        NetworkManager.getInstance().getWeracMyModify(this, 2, user, mUploadFile, new NetworkManager.OnResultListener<User>() {
+        NetworkManager.getInstance().getWeracMyModify(this, user, mUploadFile, new NetworkManager.OnResultListener<User>() {
             @Override
             public void onSuccess(Request request, User result) {
                 Toast.makeText(MyPageModifyActivity.this, "수정되었습니다" , Toast.LENGTH_SHORT).show();

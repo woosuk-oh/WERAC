@@ -1,15 +1,18 @@
 package kr.werac.yeah.werac_detail;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -19,6 +22,7 @@ import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
+import kr.werac.yeah.manager.PropertyManager;
 import kr.werac.yeah.mypage.CreaterPageActivity;
 import kr.werac.yeah.mypage.MCPageActivity;
 import okhttp3.Request;
@@ -83,12 +87,12 @@ public class DetailWeracFragment extends Fragment {
             }
         });
 
-        mAdapter.setOnCmmtClickListener(new DetailCommentEnterHolder.OnCmmtClickListener() {
+        mAdapter.setOnCmmtClickListener(new DetailCommentEnterHolder.OnCmmtEnterClickListener() {
             @Override
             public void onItemClick(View view, EditText edit_comment) {
                 Comment newComment = new Comment();
                 User user = new User();
-                user.setUid(2);
+                user = PropertyManager.getInstance().getUser();
 //                user.setProfile_image();
                 newComment.setUser(user);
                 newComment.setContent(edit_comment.getText().toString());
@@ -96,6 +100,42 @@ public class DetailWeracFragment extends Fragment {
                 mAdapter.addCommt(newComment);
                 addComment(edit_comment.getText().toString());
                 edit_comment.setText("");
+            }
+        });
+
+        mAdapter.setOnCmmtItemClickListener(new DetailCommentListHolder.OnCommentItemClickListener() {
+            @Override
+            public void onItemClick(View view, TextView writer) {
+                if(writer.getText().toString() == "2번이"){
+
+                }else {
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                    View AlertView = inflater.inflate(R.layout.dialog_recomment_add, null);
+                    alert.setView(AlertView);
+                    final EditText et_recomment = (EditText) AlertView.findViewById(R.id.et_recomment);
+
+                    alert.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Comment newComment = new Comment();
+                            User user = new User();
+                            user.setUid(2);
+                            newComment.setUser(user);
+                            newComment.setContent(et_recomment.getText().toString());
+                            newComment.setLike(0);
+                            mAdapter.add_recomment(newComment);
+                        }
+                    });
+
+                    alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    alert.show();
+                }
             }
         });
 

@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,8 +31,6 @@ import java.util.Calendar;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
-import kr.werac.yeah.werac_create.CreateImageHolder;
-import kr.werac.yeah.werac_create.CreateScheduleHolder;
 import okhttp3.Request;
 
 public class ModifyWeracFragment extends Fragment {
@@ -118,7 +115,7 @@ public class ModifyWeracFragment extends Fragment {
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
-                View AlertView = inflater.inflate(R.layout.fragment_schedule_add_dialog, null);
+                View AlertView = inflater.inflate(R.layout.dialog_schedule_add, null);
                 alert.setView(AlertView);
                 final EditText et_sch = (EditText) AlertView.findViewById(R.id.et_sch);
 //              new AlertDialog.Builder(mContext, R.style.MyCustomDialogTheme);

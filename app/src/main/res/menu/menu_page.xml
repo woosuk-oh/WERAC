@@ -6,6 +6,5 @@
         android:id="@+id/btn_like"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/page_heart"
         android:title="Add New Item"/>
 </menu>

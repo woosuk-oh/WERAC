@@ -23,12 +23,12 @@ public class DetailCommentEnterHolder extends RecyclerView.ViewHolder {
     Button btn_comment_enter;
     EditText edit_comment;
 
-    public interface OnCmmtClickListener {
+    public interface OnCmmtEnterClickListener {
         void onItemClick(View view, EditText edit_comment);
     }
 
-    OnCmmtClickListener mListener_cmmt;
-    public void setOnCmmtClickListener(OnCmmtClickListener listener) {
+    OnCmmtEnterClickListener mListener_cmmt;
+    public void setOnCmmtClickListener(OnCmmtEnterClickListener listener) {
         mListener_cmmt = listener;
     }
 

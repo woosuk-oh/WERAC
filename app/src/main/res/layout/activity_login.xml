@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".login.LoginActivity">
+    
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="166dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/login_logo"
+        android:id="@+id/iv_logo" />
+
+    <EditText
+        android:layout_width="273dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/hint_email"
+        android:textColorHint="@color/login_hint_color"
+        android:textSize="12dp"
+        android:background="@drawable/border_bottom_style"
+        android:ems="10"
+        android:id="@+id/et_email"
+        android:paddingLeft="37dp"
+        android:layout_below="@+id/iv_logo"
+        android:layout_marginTop="44dp"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="273dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"
+        android:textColorHint="@color/login_hint_color"
+        android:background="@drawable/border_bottom_style"
+        android:textSize="12dp"
+        android:ems="10"
+        android:id="@+id/et_password"
+        android:layout_marginTop="13dp"
+        android:paddingLeft="37dp"
+        android:layout_below="@+id/et_email"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView4"
+        android:background="@drawable/login_id"
+        android:layout_marginTop="2dp"
+        android:layout_alignTop="@+id/et_email"
+        android:layout_alignLeft="@+id/et_email"
+        android:layout_alignStart="@+id/et_email" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView5"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/login_password"
+        android:layout_alignTop="@+id/et_password"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password" />
+
+    <ImageButton
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:id="@+id/ibtn_login"
+        android:background="@drawable/btn_login"
+        android:layout_below="@+id/et_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <ImageButton
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:id="@+id/ibtn_sign_up"
+        android:background="@drawable/btn_sing_up"
+        android:layout_below="@+id/ibtn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp" />
+
+</RelativeLayout>

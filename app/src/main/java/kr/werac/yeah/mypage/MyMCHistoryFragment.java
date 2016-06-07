@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,13 @@ public class MyMCHistoryFragment extends Fragment {
     RecyclerView recyclerView;
     WeracItemAdapter mAdapter;
     int mcId;
+    String who;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mcId = 0;
         if (getArguments() != null) {
             mcId = getArguments().getInt(MCPageActivity.EXTRA_MC_ID);
         }
@@ -62,7 +65,7 @@ public class MyMCHistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_join, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_join);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         initData();
         return view;
@@ -76,18 +79,34 @@ public class MyMCHistoryFragment extends Fragment {
 
     private void initData() {
 
-        NetworkManager.getInstance().getWeracMy(getContext(), 2, new NetworkManager.OnResultListener<User>() {
-            @Override
-            public void onSuccess(Request request, User result) {
-                if(result.getHistory_mc() != null)
-                    mAdapter.equalAll(result.getHistory_mc());
-            }
+        if(mcId == 0) {
+            NetworkManager.getInstance().getWeracMy(getContext(), new NetworkManager.OnResultListener<User>() {
+                @Override
+                public void onSuccess(Request request, User result) {
+                    if (result.getHistory_mc() != null)
+                        mAdapter.equalAll(result.getHistory_mc());
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else
+        {
+            NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, 2, new NetworkManager.OnResultListener<User>() {
+                @Override
+                public void onSuccess(Request request, User result) {
+                    if(result.getHistory_mc() != null)
+                        mAdapter.equalAll(result.getHistory_mc());
+                }
+
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 //        for (int i = 0; i < IDS.length; i++) {
 //            WeracItem data = new WeracItem();

@@ -18,6 +18,14 @@
     <string name="setting">설정</string>
     <string name="toolbar_create_title">개설하기</string>
     <string name="mypage_m">내 정보 수정</string>
+    <string name="title_activity_login">로그인</string>
+    <string name="hint_email">이메일을 입력해주세요</string>
+    <string name="hint_password">비밀번호를 입력해주세요</string>
+    <string name="name">사용자명</string>
+    <string name="hint_name">이름 혹은 닉네임을 입력해주세요</string>
+    <string name="login_info">로그인 정보</string>
+    <string name="phone">연락처</string>
+    <string name="hint_phone">핸드폰 번호를 입력해주세요</string>
 
     <string-array name="spinner_array">
         <item>서울시</item>

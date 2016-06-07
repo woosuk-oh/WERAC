@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class MyCreateHistoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        id = 0;
         if (getArguments() != null) {
             id = getArguments().getInt(CreaterPageActivity.EXTRA_CREATER_ID);
         }
@@ -61,7 +63,7 @@ public class MyCreateHistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_join, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_join);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         return view;
     }
@@ -73,18 +75,34 @@ public class MyCreateHistoryFragment extends Fragment {
     }
 
     private void initData() {
-        NetworkManager.getInstance().getWeracMy(getContext(), 2, new NetworkManager.OnResultListener<User>() {
-            @Override
-            public void onSuccess(Request request, User result) {
-                if(result.getHistory_create() != null)
-                    mAdapter.equalAll(result.getHistory_create());
-            }
+        if(id == 0) {
+            NetworkManager.getInstance().getWeracMy(getContext(), new NetworkManager.OnResultListener<User>() {
+                @Override
+                public void onSuccess(Request request, User result) {
+                    if (result.getHistory_create() != null)
+                        mAdapter.equalAll(result.getHistory_create());
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else
+        {
+            NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, 2, new NetworkManager.OnResultListener<User>() {
+                @Override
+                public void onSuccess(Request request, User result) {
+                    if(result.getHistory_create() != null)
+                        mAdapter.equalAll(result.getHistory_create());
+                }
+
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 //        for (int i = 0; i < IDS.length; i++) {
 //            WeracItem data = new WeracItem();
 //            data.setPicturePath(IDS[i]);

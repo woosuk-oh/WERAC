@@ -4,13 +4,21 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageView3"
+        android:background="@drawable/recomment"
+        android:layout_marginLeft="23dp"
+        android:layout_centerVertical="true"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="37dp"
         android:layout_height="37dp"
         android:id="@+id/image_rcmt_writer"
         android:background="@drawable/profile_default"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginBottom="16dp"/>
 
     <TextView
@@ -40,37 +48,5 @@
         android:gravity="center_vertical"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="13.5dp"/>
-    
-    <ImageButton
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:background="@drawable/page_comment_heart1"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
-        android:id="@+id/imageButton"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView" />
-
-    <TextView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:text="23"
-        android:textColor="@color/colorWerac"
-        android:textSize="10dp"
-        android:id="@+id/text_cmmt_like"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="27dp"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignStart="@+id/imageButton" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_below="@+id/image_rcmt_writer"
-        android:layout_alignLeft="@+id/image_rcmt_writer"
-        android:layout_alignStart="@+id/image_rcmt_writer" />
 
 </RelativeLayout>
