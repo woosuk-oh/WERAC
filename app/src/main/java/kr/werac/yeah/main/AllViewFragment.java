@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
-import kr.werac.yeah.werac_detail.DetailWeracFragment;
 import okhttp3.Request;
 
 /**
@@ -35,12 +33,20 @@ public class AllViewFragment extends Fragment {
     WeracItemAdapter mAdapter;
     ViewPager imagepager;
     ImagePagerAdapter ImageAdapter;
-    int p;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new WeracItemAdapter();
+        ImageAdapter = new ImagePagerAdapter();
+        ImageAdapter.setOnItemClickListener(new ImagePagerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, WeracItem mWerac) {
+                Intent intent = new Intent(getContext(), DetailViewActivity.class);
+                intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, mWerac.getMid());
+                startActivity(intent);
+            }
+        });
 
         mAdapter.setOnItemClickListener(new WeracItemHolder.OnItemClickListener() {
             @Override
@@ -58,29 +64,16 @@ public class AllViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_all, container, false);
-        imagepager = (ViewPager) view.findViewById(R.id.imagepager);
-        ImageAdapter = new ImagePagerAdapter(getActivity());
-        imagepager.setAdapter(ImageAdapter);
-        p = 0;
 
-        imagepager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-                p = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-        imagepager.setCurrentItem(2, true);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_all);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+        imagepager = (ViewPager) view.findViewById(R.id.imagepager);
+        imagepager.setAdapter(ImageAdapter);
+        imagepager.setCurrentItem(0, true);
+
 
         return view;
     }
@@ -97,6 +90,7 @@ public class AllViewFragment extends Fragment {
             public void onSuccess(Request request, List<WeracItem> result) {
                 mAdapter.clear();
                 mAdapter.addAll(result);
+                ImageAdapter.InitialData(result.get(1), result.get(3), result.get(4));
             }
 
             @Override

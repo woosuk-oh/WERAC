@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
@@ -48,7 +49,7 @@ public class DetailWeracFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_werac, container, false);
         listView = (RecyclerView)view.findViewById(R.id.rv_list_detail);
         listView.setAdapter(mAdapter);
@@ -69,15 +70,16 @@ public class DetailWeracFragment extends Fragment {
         listView.setLayoutManager(mLayoutManager);
         mAdapter.setOnItemClickListener(new DetailStaffHolder.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, WeracItem werac, int who, User mcId) {
+            public void onItemClick(View view, WeracItem werac, int who) {
                 if(who == 1) {
-                    if(mcId.getUid() != 0) {
-                        Intent intent1 = new Intent(getActivity(), MCPageActivity.class);
-                        intent1.putExtra(MCPageActivity.EXTRA_MC_ID, werac.getMc_id().getUid());
-                        startActivity(intent1);
-                    }else if(mcId.getUid() == 0){
+                    if(werac.isHas_mc() == true && werac.getMc_id() != null) {
+                            Intent intent1 = new Intent(getActivity(), MCPageActivity.class);
+                            intent1.putExtra(MCPageActivity.EXTRA_MC_ID, werac.getMc_id().getUid());
+                            startActivity(intent1);
+                        }else if(werac.isHas_mc() == true){
 //                        dialog
-                        Toast.makeText(getContext(), "진행자로 지원되었습니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "진행자로 지원되었습니다", Toast.LENGTH_SHORT).show();
+                            applyMC();
                     }
                 }else if(who == 2) {
                     Intent intent2 = new Intent(getActivity(), CreaterPageActivity.class);
@@ -87,27 +89,56 @@ public class DetailWeracFragment extends Fragment {
             }
         });
 
-        mAdapter.setOnCmmtClickListener(new DetailCommentEnterHolder.OnCmmtEnterClickListener() {
+        mAdapter.setOnCmmtEnterListener(new DetailCommentEnterHolder.OnCmmtEnterClickListener() {
             @Override
             public void onItemClick(View view, EditText edit_comment) {
                 Comment newComment = new Comment();
                 User user = new User();
                 user = PropertyManager.getInstance().getUser();
-//                user.setProfile_image();
                 newComment.setUser(user);
                 newComment.setContent(edit_comment.getText().toString());
                 newComment.setLike(0);
                 mAdapter.addCommt(newComment);
-                addComment(edit_comment.getText().toString());
+                addComment(newComment);
                 edit_comment.setText("");
             }
         });
 
         mAdapter.setOnCmmtItemClickListener(new DetailCommentListHolder.OnCommentItemClickListener() {
             @Override
-            public void onItemClick(View view, TextView writer) {
-                if(writer.getText().toString() == "2번이"){
+            public void onItemClick(View view, final Comment comment) {
+                if(comment.getUser().getUid() == PropertyManager.getInstance().getUser().getUid()){
 
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                    View AlertView = inflater.inflate(R.layout.dialog_recomment_add, null);
+                    alert.setView(AlertView);
+                    final EditText et_modi_comment = (EditText) AlertView.findViewById(R.id.et_recomment);
+                    et_modi_comment.setText(comment.getContent());
+
+                    alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            comment.setContent(et_modi_comment.getText().toString());
+                            mAdapter.modify_comment(comment);
+                            modifyComment(comment);
+                        }
+                    });
+
+                    alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    alert.setNeutralButton("삭제", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mAdapter.remove_comment(comment);
+                            removeComment(comment);
+                        }
+                    });
+
+                    alert.show();
                 }else {
                     final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                     LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -120,7 +151,7 @@ public class DetailWeracFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             Comment newComment = new Comment();
                             User user = new User();
-                            user.setUid(2);
+                            user = PropertyManager.getInstance().getUser();
                             newComment.setUser(user);
                             newComment.setContent(et_recomment.getText().toString());
                             newComment.setLike(0);
@@ -136,6 +167,38 @@ public class DetailWeracFragment extends Fragment {
 
                     alert.show();
                 }
+            }
+        });
+
+        mAdapter.setOnCmmtLikeClickListener(new DetailCommentListHolder.OnCommentLikeClickListener() {
+            @Override
+            public void onItemClick(View view, Comment comment) {
+                cmmtLike(comment.getCmmtid());
+                int like = comment.getLike();
+                for(int i = 0; i < like; i++) {
+                    if(comment.getLikeList().get(i) == PropertyManager.getInstance().getUser().getUid()){
+                        comment.getLikeList().remove(i);
+                        like--;
+                    }
+                }
+                if(like == comment.getLike()) {
+                    List<Integer> myLL = comment.getLikeList();
+                    myLL.add(like, PropertyManager.getInstance().getUser().getUid());
+                    comment.setLikeList(myLL);
+                    like++;
+                }
+                comment.setLike(like);
+                mAdapter.modify_comment(comment);
+                Toast.makeText(getContext(), "좋아요 눌림", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mAdapter.setOnGuestListClickListener(new DetailGuestsHolder.OnGuestListClickListener(){
+            @Override
+            public void onItemClick(View view, int weracId) {
+                Intent intent = new Intent(getActivity(), GuestListActivity.class);
+                intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, weracId);
+                startActivity(intent);
             }
         });
 
@@ -158,10 +221,66 @@ public class DetailWeracFragment extends Fragment {
     }
 
 
-    private void addComment(String myCmmt) {
+    private void addComment(Comment myCmmt) {
         NetworkManager.getInstance().getWeracAddComment(getContext(), this_MId, myCmmt, new NetworkManager.OnResultListener<Comment>() {
             @Override
             public void onSuccess(Request request, Comment result) {
+//                mAdapter.addCommt(result);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void modifyComment(Comment myCmmt) {
+        NetworkManager.getInstance().getWeracModifyComment(getContext(), this_MId, myCmmt, new NetworkManager.OnResultListener<Comment>() {
+            @Override
+            public void onSuccess(Request request, Comment result) {
+//                mAdapter.addCommt(result);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void removeComment(Comment myCmmt) {
+        NetworkManager.getInstance().getWeracRemoveComment(getContext(), this_MId, myCmmt, new NetworkManager.OnResultListener<Comment>() {
+            @Override
+            public void onSuccess(Request request, Comment result) {
+//                mAdapter.addCommt(result);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void cmmtLike(String cmmtId){
+        NetworkManager.getInstance().getWeracLikeComment(getContext(), this_MId, cmmtId, new NetworkManager.OnResultListener<Comment>() {
+            @Override
+            public void onSuccess(Request request, Comment result) {
+//                mAdapter.addCommt(result);
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void applyMC(){
+        NetworkManager.getInstance().applyMC(getContext(), this_MId, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
 //                mAdapter.addCommt(result);
             }
 

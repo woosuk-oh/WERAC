@@ -40,5 +40,16 @@
         android:layout_marginLeft="16dp"
         android:id="@+id/rv_guests_image">
     </android.support.v7.widget.RecyclerView>
+    
+    <ImageButton
+        android:layout_width="124dp"
+        android:layout_height="30dp"
+        android:id="@+id/ibtn_see_guest_list"
+        android:layout_below="@+id/text_guest_title"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:background="@drawable/page_userlist_btn"/>
 
 </RelativeLayout>

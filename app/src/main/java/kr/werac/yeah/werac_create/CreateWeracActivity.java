@@ -40,6 +40,7 @@ public class CreateWeracActivity extends AppCompatActivity {
                 CreateDialogFragment f_dialog = new CreateDialogFragment();
                 f_dialog.show(getSupportFragmentManager(), "create");
                 createWeracFragment.sendWerac();
+                finish();
             }
         });
     }

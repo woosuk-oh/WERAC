@@ -42,15 +42,15 @@
         android:layout_marginLeft="13.5dp"/>
     
     <ImageButton
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:background="@drawable/page_comment_heart1"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
-        android:id="@+id/imageButton"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView" />
+        android:layout_width="60dp"
+        android:layout_height="43dp"
+        android:background="@drawable/comment_heart1"
+        android:layout_marginRight="31dp"
+        android:layout_marginEnd="31dp"
+        android:id="@+id/ibtn_cmmt_like"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="16dp"
@@ -58,19 +58,12 @@
         android:text="23"
         android:textColor="@color/colorWerac"
         android:textSize="10dp"
+        android:gravity="center"
         android:id="@+id/text_cmmt_like"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="27dp"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignStart="@+id/imageButton" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_below="@+id/image_rcmt_writer"
-        android:layout_alignLeft="@+id/image_rcmt_writer"
-        android:layout_alignStart="@+id/image_rcmt_writer" />
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/ibtn_cmmt_like"
+        android:layout_alignEnd="@+id/ibtn_cmmt_like"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp" />
 
 </RelativeLayout>

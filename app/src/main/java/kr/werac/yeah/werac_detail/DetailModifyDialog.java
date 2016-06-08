@@ -15,7 +15,7 @@ import kr.werac.yeah.main.MainActivity;
 /**
  * Created by Tacademy on 2016-05-20.
  */
-public class DetailStatusChangeDialog extends DialogFragment {
+public class DetailModifyDialog extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class DetailStatusChangeDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_fragment_status_change, container, false);
-        Button btn = (Button)view.findViewById(R.id.btn_dialog_status_change);
+        View view = inflater.inflate(R.layout.dialog_fragment_modify, container, false);
+        Button btn = (Button)view.findViewById(R.id.btn_dialog_modify);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.werac_create.CreateDialogFragment;
+import kr.werac.yeah.werac_detail.DetailModifyDialog;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
 
 public class ModifyWeracActivity extends AppCompatActivity {
@@ -40,9 +41,10 @@ public class ModifyWeracActivity extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CreateDialogFragment f = new CreateDialogFragment();
+                    DetailModifyDialog f = new DetailModifyDialog();
                     f.show(getSupportFragmentManager(), "modify");
                     modifyWeracFragment.modifyWerac();
+                    finish();
                 }
             });
         }

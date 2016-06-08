@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="관심있는 모임 상태 변경, 진행자 신청시 개설자 알림"
+        android:text="@string/push_desc"
         android:textSize="10dp"
         android:textColor="@color/comment_text_color"
         android:id="@+id/textView2"
@@ -78,7 +78,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:text="개인 정보 취급 방침"
+        android:text="@string/rulesforprivacy"
         android:id="@+id/text_rule_for_privacy"
         android:layout_below="@+id/text_helpdesk"
         android:background="@android:color/white"
@@ -89,7 +89,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:text="이용약관"
+        android:text="@string/usingrule"
         android:id="@+id/text_rule_for_using"
         android:textSize="15dp"
         android:layout_below="@+id/text_rule_for_privacy"
@@ -100,7 +100,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:text="로그아웃"
+        android:text="@string/logout"
         android:id="@+id/text_logout"
         android:background="@android:color/white"
         android:textColor="@color/logout_in_setting"

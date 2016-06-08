@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.main.MainActivity;
@@ -15,7 +16,7 @@ import kr.werac.yeah.main.MainActivity;
 /**
  * Created by Tacademy on 2016-05-20.
  */
-public class DetailStatusChangeDialog extends DialogFragment {
+public class DetailCloseWeracDialog extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +28,12 @@ public class DetailStatusChangeDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_status_change, container, false);
+
+        TextView tv = (TextView)view.findViewById(R.id.tv_dialog_title);
+        tv.setText("모임이 마감되었습니다");
+        tv = (TextView)view.findViewById(R.id.tv_dialog_subtitle);
+        tv.setText("    참여자들과 함께\n모임을 즐겨보세요");
+
         Button btn = (Button)view.findViewById(R.id.btn_dialog_status_change);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

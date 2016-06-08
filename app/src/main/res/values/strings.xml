@@ -26,6 +26,12 @@
     <string name="login_info">로그인 정보</string>
     <string name="phone">연락처</string>
     <string name="hint_phone">핸드폰 번호를 입력해주세요</string>
+    <string name="alarm">알림</string>
+    <string name="push_desc">관심있는 모임 상태 변경, 진행자 신청시 개설자 알림</string>
+    <string name="logout">로그아웃</string>
+    <string name="usingrule">이용약관</string>
+    <string name="rulesforprivacy">개인 정보 취급 방침</string>
+    <string name="guestlist">참여리스트</string>
 
     <string-array name="spinner_array">
         <item>서울시</item>

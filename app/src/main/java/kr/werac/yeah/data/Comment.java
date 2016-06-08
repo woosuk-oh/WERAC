@@ -1,5 +1,7 @@
 package kr.werac.yeah.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,10 +9,13 @@ import java.util.List;
  */
 public class Comment {
 //    int mid;
+    @SerializedName("_id")
+    String cmmtid;
     int like;
     User user;
     String date;
     String content;
+    List<Integer> likeList;
     List<Comment> recomment;
 
 //    public int getMid() {
@@ -59,5 +64,21 @@ public class Comment {
 
     public void setRecomment(List<Comment> recomment) {
         this.recomment = recomment;
+    }
+
+    public List<Integer> getLikeList() {
+        return likeList;
+    }
+
+    public void setLikeList(List<Integer> likeList) {
+        this.likeList = likeList;
+    }
+
+    public String getCmmtid() {
+        return cmmtid;
+    }
+
+    public void setCmmtid(String cmmtid) {
+        this.cmmtid = cmmtid;
     }
 }

@@ -1,11 +1,13 @@
 package kr.werac.yeah.werac_detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -33,6 +35,7 @@ public class DetailViewActivity extends AppCompatActivity {
     WeracItem werac;
     MenuItem LikeMenu;
     int like;
+    Button btn_detail_1, btn_detail_2, btn_detail_360;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,28 +56,6 @@ public class DetailViewActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.container_detail, f);
             ft.commit();
-        }
-
-        setData();
-
-        if(werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()) {
-            Button btn = (Button) findViewById(R.id.btn_detail_to_modify_werac);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(DetailViewActivity.this, ModifyWeracActivity.class);
-                    intent.putExtra(EXTRA_WERAC_ID, thisMid);
-                    startActivity(intent);
-                }
-            });
-            btn = (Button) findViewById(R.id.btn_detail_status_modify_werac);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CreateDialogFragment f_dialog = new CreateDialogFragment();
-                    f_dialog.show(getSupportFragmentManager(), "create");
-                }
-            });
         }
     }
 
@@ -126,9 +107,10 @@ public class DetailViewActivity extends AppCompatActivity {
         NetworkManager.getInstance().getWeracDetail(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
             @Override
             public void onSuccess(Request request, WeracItem result) {
-                if(result.getLikeList() != null){
-                    werac = result;
-                    for (int i = 0; i < werac.getLikeList().size(); i++) {
+                werac = result;
+                buttonSetting();
+                if(werac.getLike() != 0){
+                    for (int i = 0; i < werac.getLike(); i++) {
                         if (werac.getLikeList().get(i) == PropertyManager.getInstance().getUser().getUid()) {
                             like = 1;
                             LikeMenu.setIcon(R.drawable.page_heart2);
@@ -144,5 +126,102 @@ public class DetailViewActivity extends AppCompatActivity {
                 Toast.makeText(DetailViewActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void changeStatus(){
+        NetworkManager.getInstance().getWeracChangeStatus(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
+                werac = result;
+
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(DetailViewActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void joinWerac(){
+//        NetworkManager.getInstance().getWeracChangeStatus(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
+//            @Override
+//            public void onSuccess(Request request, WeracItem result) {
+//                werac = result;
+//
+//            }
+//
+//            @Override
+//            public void onFail(Request request, IOException exception) {
+//                Toast.makeText(DetailViewActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+    public void buttonSetting(){
+
+        btn_detail_1 = (Button) findViewById(R.id.btn_detail_to_modify_werac);
+        btn_detail_2 = (Button) findViewById(R.id.btn_detail_status_modify_werac);
+        btn_detail_360 = (Button) findViewById(R.id.btn_detail_close_werac);
+
+        if(werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()) {
+            if(werac.getStatus() == 1) {
+
+                btn_detail_1.setVisibility(View.VISIBLE);
+                btn_detail_1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(DetailViewActivity.this, ModifyWeracActivity.class);
+                        intent.putExtra(EXTRA_WERAC_ID, thisMid);
+                        startActivity(intent);
+                    }
+                });
+
+                btn_detail_2.setVisibility(View.VISIBLE);
+                btn_detail_2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DetailStatusChangeDialog f_dialog = new DetailStatusChangeDialog();
+                        f_dialog.show(getSupportFragmentManager(), "create");
+                        changeStatus();
+                        finish();
+                    }
+                });
+
+                btn_detail_360.setVisibility(View.INVISIBLE);
+            }else if(werac.getStatus() == 2) {
+                btn_detail_1.setVisibility(View.INVISIBLE);
+                btn_detail_2.setVisibility(View.INVISIBLE);
+
+                btn_detail_360.setVisibility(View.VISIBLE);
+                btn_detail_360.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        changeStatus();
+                    }
+                });
+            }else if(werac.getStatus() == 3) {
+                btn_detail_1.setVisibility(View.INVISIBLE);
+                btn_detail_2.setVisibility(View.INVISIBLE);
+                btn_detail_360.setVisibility(View.INVISIBLE);
+            }
+        }else{
+            if(werac.getStatus() == 2) {
+                btn_detail_1.setVisibility(View.INVISIBLE);
+                btn_detail_2.setVisibility(View.INVISIBLE);
+                btn_detail_360.setVisibility(View.VISIBLE);
+                btn_detail_360.setBackground(getResources().getDrawable(R.drawable.page_join_btn));
+                btn_detail_360.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        joinWerac();
+                    }
+                });
+            }else{
+                btn_detail_1.setVisibility(View.INVISIBLE);
+                btn_detail_2.setVisibility(View.INVISIBLE);
+                btn_detail_360.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }

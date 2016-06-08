@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
+import kr.werac.yeah.data.UserResult;
 import kr.werac.yeah.main.MainActivity;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.manager.PropertyManager;
@@ -39,18 +40,21 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
             final String email = et_email.getText().toString();
             final String password = et_password.getText().toString();
-            NetworkManager.getInstance().signin(this, email, password,
-                new NetworkManager.OnResultListener<User>(){
+            NetworkManager.getInstance().login(this, email, password,
+                new NetworkManager.OnResultListener<UserResult>(){
                     @Override
-                    public void onSuccess(Request request, User result) {
-                        PropertyManager.getInstance().setLogin(true);
-                        PropertyManager.getInstance().setUser(result);
-                        PropertyManager.getInstance().setEmail(email);
-                        PropertyManager.getInstance().setPassword(password);
+                    public void onSuccess(Request request, UserResult result) {
+                        if(result.getSuccess() == 1) {
+                            PropertyManager.getInstance().setLogin(true);
+                            PropertyManager.getInstance().setUser(result.getUser());
+                            PropertyManager.getInstance().setEmail(email);
+                            PropertyManager.getInstance().setPassword(password);
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else
+                            Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

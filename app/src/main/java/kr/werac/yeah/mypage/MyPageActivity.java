@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -81,10 +82,20 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_my, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home) {
+        if(item.getItemId() == R.id.home){
             finish();
+        }else if(item.getItemId() == R.id.btn_push_alarm){
+            Intent intent = new Intent(MyPageActivity.this, AlarmActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

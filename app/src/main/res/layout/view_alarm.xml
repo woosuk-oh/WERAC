@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="68dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2016-06-08"
+        android:id="@+id/tv_alarm_date"
+        android:textSize="12dp"
+        android:textColor="@color/create_detail_title_color"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="14dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="김예지님이 진행자로 참여 요청하였습니다"
+        android:id="@+id/tv_alarm_message"
+        android:textSize="16dp"
+        android:textColor="@color/comment_text_color"
+        android:layout_below="@+id/tv_alarm_date"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="14dp"/>
+</RelativeLayout>

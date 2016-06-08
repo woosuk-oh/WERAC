@@ -23,12 +23,11 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
     ImageView image_staff_title;
     TextView imageButton_waiting_mc;
     public int who;
-    public User mcId;
 
     WeracItem werac;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, WeracItem werac, int who, User mcId);
+        void onItemClick(View view, WeracItem werac, int who);
     }
 
     OnItemClickListener mListener;
@@ -48,7 +47,7 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClick(v, werac, who, mcId);
+                    mListener.onItemClick(v, werac, who);
                 }
             }
         });
@@ -68,12 +67,10 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
                     else
                         Glide.with(image_staff.getContext()).load(werac.getMc_id().getProfile_image()).into(image_staff);
                     text_staff_name.setText("" + werac.getMc_id().getName());
-                    mcId = werac.getMc_id();
                 }else if(werac.isHas_mc() == true && werac.getMc_id() == null){
                     imageButton_waiting_mc.setVisibility(View.VISIBLE);
                     image_staff.setVisibility(View.INVISIBLE);
                     text_staff_name.setVisibility(View.INVISIBLE);
-                    mcId = werac.getMc_id();
                 }else if(werac.isHas_mc() == false){
                     imageButton_waiting_mc.setVisibility(View.INVISIBLE);
                     if(werac.getCreator().getProfile_image() == null)
@@ -81,7 +78,6 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
                     else
                         Glide.with(image_staff.getContext()).load(werac.getCreator().getProfile_image()).into(image_staff);
                     text_staff_name.setText("" + werac.getCreator().getName());
-                    mcId = werac.getCreator();
                 }
                 break;
             case 1:

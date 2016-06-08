@@ -10,25 +10,35 @@
         android:background="@drawable/splash"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="50dp" />
 
-    <Button
-        android:layout_width="151dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/make_popup_btn"
-        android:id="@+id/btn_dialog_modify"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상태가 전환되었습니다"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/main_werac_detail_color"
+        android:id="@+id/tv_dialog_title"
         android:layout_below="@+id/iv_dialog_create"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="모임이 수정되었습니다"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/main_werac_detail_color"
-        android:id="@+id/tv_dialog_title"
-        android:layout_below="@+id/iv_dialog_create"
+        android:textSize="16dp"
+        android:text="    참가 신청을 받아\n모임을 진행해 보세요"
+        android:id="@+id/tv_dialog_subtitle"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_dialog_title"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="151dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/make_popup_btn"
+        android:id="@+id/btn_dialog_status_change"
+        android:layout_below="@+id/tv_dialog_title"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

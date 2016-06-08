@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.btn_setting){
             Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
-        }else{
-            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-            startActivity(intent);
-        }
+        }//else{
+//            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+//            startActivity(intent);
+//        }
         return super.onOptionsItemSelected(item);
     }
 

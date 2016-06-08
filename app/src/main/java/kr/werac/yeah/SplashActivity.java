@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import kr.werac.yeah.data.User;
+import kr.werac.yeah.data.UserResult;
 import kr.werac.yeah.login.LoginActivity;
 import kr.werac.yeah.main.MainActivity;
 import kr.werac.yeah.manager.NetworkManager;
@@ -29,34 +30,24 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        AccessToken token = AccessToken.getCurrentAccessToken();
-//        if (token == null) {
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-//                    finish();
-//                }
-//            }, 2000);
-//        } else {
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    autologin();
-                }
-            }, 2000);
-        }
+        autologin();
+    }
 
     public void autologin(){
         String email = PropertyManager.getInstance().getEmail();
         if (!TextUtils.isEmpty(email)) {
             String password = PropertyManager.getInstance().getPassword();
-            NetworkManager.getInstance().signin(this, email, password, new NetworkManager.OnResultListener<User>() {
+            NetworkManager.getInstance().login(this, email, password, new NetworkManager.OnResultListener<UserResult>() {
                 @Override
-                public void onSuccess(Request request, User result) {
-                    PropertyManager.getInstance().setLogin(true);
-                    PropertyManager.getInstance().setUser(result);
-                    goMainActivity();
+                public void onSuccess(Request request, UserResult result) {
+                    if(result.getSuccess() == 1) {
+                        PropertyManager.getInstance().setLogin(true);
+                        PropertyManager.getInstance().setUser(result.getUser());
+                        goMainActivity();
+                    }else{
+                        Toast.makeText(SplashActivity.this, "저장된 아이디 없음", Toast.LENGTH_SHORT).show();
+                        goLoginActivity();
+                    }
                 }
 
                 @Override
@@ -65,7 +56,8 @@ public class SplashActivity extends AppCompatActivity {
                     goLoginActivity();
                 }
             });
-        }
+        }else
+            goLoginActivity();
     }
 
     private void goMainActivity() {
