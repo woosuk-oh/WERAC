@@ -26,6 +26,7 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
     TextView text_main_like;
     WeracItem mWerac;
     ImageView image_main_mc;
+    ImageView iv_close;
 
     public interface OnItemClickListener {
         void onItemClick(View view, WeracItem mWerac);
@@ -43,6 +44,7 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
         text_main_area = (TextView)itemView.findViewById(R.id.text_main_area);
         text_main_like = (TextView)itemView.findViewById(R.id.text_main_like);
         image_main_mc = (ImageView)itemView.findViewById(R.id.image_main_mc);
+        iv_close = (ImageView)itemView.findViewById(R.id.iv_close);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +63,17 @@ public class WeracItemHolder extends RecyclerView.ViewHolder{
         float scale = MyApplication.getContext().getResources().getDisplayMetrics().density;
         float myHeight = 171 * height / width * scale;
         imageView.setLayoutParams(new RelativeLayout.LayoutParams((int)(171*scale), (int)myHeight));
-        Glide.with(imageView.getContext()).load(Werac.getImage()).into(imageView);
-        titleView.setText(Werac.getTitle());
+        if(Werac.getStatus() == 3) {
+            iv_close.setLayoutParams(new RelativeLayout.LayoutParams((int)(171*scale), (int)myHeight));
+            iv_close.setVisibility(View.VISIBLE);
+            Glide.with(imageView.getContext()).load(Werac.getImage()).into(imageView);
+            titleView.setText("[완료]" + Werac.getTitle());
+        }
+        else {
+            iv_close.setVisibility(View.INVISIBLE);
+            Glide.with(imageView.getContext()).load(Werac.getImage()).into(imageView);
+            titleView.setText(Werac.getTitle());
+        }
         text_main_area.setText(Werac.getLocation_area());
         text_main_like.setText(Werac.getLike()+"");
         if(Werac.isHas_mc() == true && Werac.getMc_id() == null){

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "861284791402",
+    "project_id": "werac-1337"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861284791402:android:2694ae5ca970cb44",
+        "android_client_info": {
+          "package_name": "kr.werac.yeah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPpbI8Osu4RsIXne-Mt4ReYUY_mZv2lcE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

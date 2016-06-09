@@ -43,7 +43,8 @@ public class AlarmHolder extends RecyclerView.ViewHolder {
 
     public void setAlram(Alarm alarm){
         myAlarm = alarm;
-        tv_alarm_date.setText(alarm.getDate());
+        String date = alarm.getDate().substring(0, 10);
+        tv_alarm_date.setText(date);
         tv_alarm_message.setText(alarm.getComment());
     }
 }

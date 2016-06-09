@@ -81,5 +81,12 @@
         android:layout_alignRight="@+id/image_icon"
         android:layout_alignEnd="@+id/image_icon" />
 
+    <ImageView
+        android:layout_width="171dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        android:background="@drawable/close_werac"
+        android:id="@+id/iv_close" />
+
 
 </RelativeLayout>

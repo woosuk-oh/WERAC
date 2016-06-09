@@ -262,6 +262,48 @@ public class NetworkManager {
         return request;
     }
 
+    private static final String URL_APPLY_MC_RESULT = MY_SERVER + "/apply_result/%s";
+
+    public Request applyMCResult(Object tag, int mid, int uid, int resultMC, OnResultListener<WeracItem> listener) {
+
+        String url = String.format(URL_APPLY_MC_RESULT, mid);
+
+        RequestBody body = new FormBody.Builder()
+                .add("uid", uid+"")
+                .add("result", resultMC+"")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WeracItem> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+//                    WeracItemResult data = gson.fromJson(text, WeracItemResult.class);
+//                    result.result = data.werac;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
     private static final String URL_MC_CREATER = MY_SERVER + "/%s/%s";
 
     public Request getWeracMC_Create(Object tag, int who, int who_id, OnResultListener<User> listener) {
@@ -412,6 +454,11 @@ public class NetworkManager {
                 .addFormDataPart("fee", werac.getFee()+"")
                 .addFormDataPart("limit_num", werac.getLimit_num()+"");
 
+        if(werac.isHas_mc() == true)
+            myBuilder.addFormDataPart("has_mc", "true");
+        else
+            myBuilder.addFormDataPart("has_mc", "false");
+
         if(image != null)
             myBuilder.addFormDataPart("image", image.getName(), RequestBody.create(MediaType.parse("image/jpeg"), image));
 
@@ -531,6 +578,49 @@ public class NetworkManager {
                                   OnResultListener<WeracItem> listener) {
 
         String url = String.format(URL_CHANGE_STATUS_WERAC, Mid);//token
+
+        RequestBody body = new FormBody.Builder()
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        final NetworkResult<WeracItem> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+//                    WeracItem data = gson.fromJson(text, WeracItem.class);
+//                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String URL_JOIN_WERAC = MY_SERVER + "/participate/%s";
+
+    public Request getWeracJoin(Object tag,
+//                                  String token,
+                                        int Mid,
+                                        OnResultListener<WeracItem> listener) {
+
+        String url = String.format(URL_JOIN_WERAC, Mid);//token
 
         RequestBody body = new FormBody.Builder()
                 .build();
@@ -751,11 +841,13 @@ public class NetworkManager {
     public Request login(Object tag,
                          String email,
                          String password,
+                         String registrationToken,
                          OnResultListener<UserResult> listener) {
 
         RequestBody body = new FormBody.Builder()
                 .add("pw", password)
                 .add("email", email)
+                .add("gcmtoken", registrationToken)
                 .build();
 
         Request request = new Request.Builder()
@@ -877,7 +969,6 @@ public class NetworkManager {
     private static final String URL_ALARM = MY_SERVER + "/my_profile/alarm";
 
     public Request getAlarm(Object tag, OnResultListener<Alarms> listener) {
-
 
         Request request = new Request.Builder()
                 .url(URL_ALARM)

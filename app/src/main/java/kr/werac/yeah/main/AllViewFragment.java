@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import kr.werac.yeah.R;
@@ -31,8 +32,12 @@ public class AllViewFragment extends Fragment {
     }
     RecyclerView recyclerView;
     WeracItemAdapter mAdapter;
+    StaggeredGridLayoutManager mLayoutManager;
     ViewPager imagepager;
     ImagePagerAdapter ImageAdapter;
+
+    boolean isLast = false;
+    boolean isMoreData = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,13 +73,35 @@ public class AllViewFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_all);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(mLayoutManager);
 
         imagepager = (ViewPager) view.findViewById(R.id.imagepager);
         imagepager.setAdapter(ImageAdapter);
         imagepager.setCurrentItem(0, true);
 
-
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                if (isLast && newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    getMoreData();
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                int totalCount = mAdapter.getItemCount();
+//                int[] index = new int[2];
+//                index[0] = 0;
+//                index[1] = 1;
+//                int[] lastVisibleItem = mLayoutManager.findLastVisibleItemPositions(index);
+//                if (totalCount > 0 && (lastVisibleItem[0] >= totalCount/2 -1 || lastVisibleItem[1] >= totalCount/2 - 1)) {
+//                    isLast = true;
+//                } else {
+//                    isLast = false;
+//                }
+//            }
+//        });
         return view;
     }
 
@@ -112,4 +139,29 @@ public class AllViewFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
+//    public void getMoreData(){
+//        if (!isMoreData && mAdapter.isMore()) {
+//            isMoreData = true;
+//            final int page = mAdapter.getLastPage() + 1;
+//            try {
+//                NetworkManager.getInstance().getTStoreSearchProductList(getContext(), mAdapter.getKeyword(), page, 10, NetworkManager.SEARCH_PRODUCT_ORDER_R, new NetworkManager.OnResultListener<TStoreCategoryProduct>() {
+//                    @Override
+//                    public void onSuccess(Request request, TStoreCategoryProduct result) {
+//                        mAdapter.addAll(result.products.productList);
+//                        mAdapter.setLastPage(page);
+//                        isMoreData = false;
+//                    }
+//
+//                    @Override
+//                    public void onFail(Request request, IOException exception) {
+//                        isMoreData = false;
+//                    }
+//                });
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//                isMoreData = false;
+//            }
+//        }
+//    }
 }

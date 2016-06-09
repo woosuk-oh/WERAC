@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
             final String email = et_email.getText().toString();
             final String password = et_password.getText().toString();
-            NetworkManager.getInstance().login(this, email, password,
+            NetworkManager.getInstance().login(this, email, password, PropertyManager.getInstance().getRegistrationToken(),
                 new NetworkManager.OnResultListener<UserResult>(){
                     @Override
                     public void onSuccess(Request request, UserResult result) {

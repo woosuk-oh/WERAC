@@ -40,6 +40,7 @@ public class DetailCloseWeracDialog extends DialogFragment {
             public void onClick(View v) {
                 dismiss();
                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(myIntent);
             }
         });

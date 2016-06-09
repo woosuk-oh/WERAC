@@ -47,6 +47,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmHolder> {
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public int getItemCount() {
         return alarms.size();
     }

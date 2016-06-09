@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".main.MainActivity">
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@color/backgroud_color"
@@ -33,6 +33,6 @@
         android:layout_margin="3dp"
         android:layout_below="@+id/btn_dummy_fva2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
     />
 </RelativeLayout>

@@ -35,6 +35,7 @@ public class MyMCHistoryFragment extends Fragment {
     RecyclerView recyclerView;
     WeracItemAdapter mAdapter;
     int mcId;
+    int mId;
     String who;
 
 
@@ -44,6 +45,7 @@ public class MyMCHistoryFragment extends Fragment {
         mcId = 0;
         if (getArguments() != null) {
             mcId = getArguments().getInt(MCPageActivity.EXTRA_MC_ID);
+            mId = getArguments().getInt(DetailViewActivity.EXTRA_WERAC_ID);
         }
 
         mAdapter = new WeracItemAdapter();
@@ -94,7 +96,7 @@ public class MyMCHistoryFragment extends Fragment {
             });
         }else
         {
-            NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, 2, new NetworkManager.OnResultListener<User>() {
+            NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, mcId, new NetworkManager.OnResultListener<User>() {
                 @Override
                 public void onSuccess(Request request, User result) {
                     if(result.getHistory_mc() != null)

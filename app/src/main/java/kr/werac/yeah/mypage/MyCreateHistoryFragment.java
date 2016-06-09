@@ -54,6 +54,7 @@ public class MyCreateHistoryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -90,7 +91,7 @@ public class MyCreateHistoryFragment extends Fragment {
             });
         }else
         {
-            NetworkManager.getInstance().getWeracMC_Create(getContext(), 1, 2, new NetworkManager.OnResultListener<User>() {
+            NetworkManager.getInstance().getWeracMC_Create(getContext(), 2, id, new NetworkManager.OnResultListener<User>() {
                 @Override
                 public void onSuccess(Request request, User result) {
                     if(result.getHistory_create() != null)

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
     TextView edit_time_e;
     EditText edit_fee;
     RadioGroup radio_hasmc;
+    RadioButton rb_true;
+    RadioButton rb_false;
     EditText edit_lm;
     WeracItem werac;
     ArrayAdapter<CharSequence> adapter;
@@ -101,6 +104,9 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
         });
         edit_fee = (EditText)itemView.findViewById(R.id.edit_fee);
         radio_hasmc = (RadioGroup)itemView.findViewById(R.id.radio_hasmc);
+        rb_true = (RadioButton)itemView .findViewById(R.id.radio_mco);
+        rb_false = (RadioButton)itemView .findViewById(R.id.radio_mcx);
+
         edit_lm = (EditText)itemView.findViewById(R.id.edit_lm);
 
         btn_add_sch = (Button)itemView.findViewById(R.id.btn_add_sch);
@@ -123,7 +129,8 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
         werac.setEnd_time(edit_time_e.getText().toString());
         if((edit_fee.getText()+"").toString() != "")
             werac.setFee(Integer.parseInt((edit_fee.getText()+"").toString()));
-        if (radio_hasmc.getCheckedRadioButtonId() == 0)
+
+        if (radio_hasmc.getCheckedRadioButtonId() == R.id.radio_mco)
             werac.setHas_mc(true);
         else
             werac.setHas_mc(false);
@@ -141,14 +148,14 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
 
         if(SorE == 1) {
             if(min_x == 0)
-                edit_time_s.setText("" + hour_x + "시" + min_x + "0분 부터");
+                edit_time_s.setText("" + hour_x + "시" + min_x + "0분");
             else
-                edit_time_s.setText("" + hour_x + "시" + min_x + "분 부터");
+                edit_time_s.setText("" + hour_x + "시" + min_x + "분");
         }else {
             if(min_x == 0)
-                edit_time_e.setText("" + hour_x + "시" + min_x + "0분 까지");
+                edit_time_e.setText("" + hour_x + "시" + min_x + "0분");
             else
-                edit_time_e.setText("" + hour_x + "시" + min_x + "분 까지");
+                edit_time_e.setText("" + hour_x + "시" + min_x + "분");
         }
     }
 }

@@ -53,7 +53,7 @@ public class DetailGuestsHolder extends RecyclerView.ViewHolder {
         weracId = werac.getMid();
         text_guest_title.setText("참여 정원 " + Guests_id.size() + "/" + werac.getLimit_num() + "명");
 
-        if(werac.getStatus() == 3 && werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()){
+        if(werac.getStatus() == 2 && werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()){
             ibtn_see_guest_list.setVisibility(View.VISIBLE);
             rv_guests_image.setVisibility(View.INVISIBLE);
         }else {

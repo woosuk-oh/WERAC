@@ -1,5 +1,6 @@
 package kr.werac.yeah;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,8 +41,8 @@ public class SettingActivity extends AppCompatActivity {
                 NetworkManager.getInstance().logout(this, new NetworkManager.OnResultListener<User>(){
                     @Override
                     public void onSuccess(Request request, User result) {
-
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }

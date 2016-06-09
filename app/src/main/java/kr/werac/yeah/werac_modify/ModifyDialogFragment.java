@@ -1,5 +1,6 @@
 package kr.werac.yeah.werac_modify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.main.MainActivity;
 import kr.werac.yeah.manager.NetworkManager;
 import okhttp3.Request;
 
@@ -36,6 +38,9 @@ public class ModifyDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(myIntent);
             }
         });
         return view;

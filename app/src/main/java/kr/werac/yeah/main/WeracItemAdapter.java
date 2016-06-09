@@ -39,6 +39,33 @@ public class WeracItemAdapter extends RecyclerView.Adapter<WeracItemHolder> {
         notifyDataSetChanged();
     }
 
+    private int totalCount = 0;
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    private int lastPage = 0;
+
+    public int getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    public boolean isMore() {
+//        if (totalCount == 0) return false;
+//        if (totalCount > items.size()) return true;
+//        return false;
+        return totalCount == 0 ? false : (totalCount > weracs.size() ? true : false);
+    }
+
     WeracItemHolder.OnItemClickListener mListener;
     public void setOnItemClickListener(WeracItemHolder.OnItemClickListener listener) {
         mListener = listener;

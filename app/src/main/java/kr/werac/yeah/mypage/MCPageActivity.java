@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,9 @@ import java.io.IOException;
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
+import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
 import okhttp3.Request;
 
 public class MCPageActivity extends AppCompatActivity {
@@ -26,11 +29,14 @@ public class MCPageActivity extends AppCompatActivity {
     public static final String EXTRA_MC_ID = "MCId";
     public static final int DONT_KNOW_WHY = 1000;
     int mcId;
+    int mId;
     CircleImageView iv_mc_image;
     TextView tv_mc_id;
     TextView tv_mc_comment;
     TextView tv_mc_phone;
     FragmentTabHost tabHost;
+    ImageView tv_mc_accept;
+    int applyMCResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +49,23 @@ public class MCPageActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.back);
 
         mcId = getIntent().getIntExtra(EXTRA_MC_ID, DONT_KNOW_WHY);
+        mId = getIntent().getIntExtra(DetailViewActivity.EXTRA_WERAC_ID, DONT_KNOW_WHY);
         Bundle args = new Bundle();
         args.putInt(EXTRA_MC_ID, mcId);
+        args.putInt(DetailViewActivity.EXTRA_WERAC_ID, mId);
 
         iv_mc_image = (CircleImageView) findViewById(R.id.iv_mc_image);
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
         tv_mc_comment = (TextView) findViewById(R.id.tv_mc_comment);
+        tv_mc_accept = (ImageView) findViewById(R.id.tv_mc_accept);
+        tv_mc_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                applyMCResult = 1;
+                applyResult(applyMCResult);
+                finish();
+            }
+        });
 
         tabHost = (FragmentTabHost)findViewById(R.id.tabHost_mcpage);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
@@ -96,6 +113,19 @@ public class MCPageActivity extends AppCompatActivity {
         else
             tv_mc_comment.setText("안녕하세요. " + result.getName() + "입니다.");
 //        tv_mc_phone.setText(result.getPhone());
+    }
+
+    public void applyResult(int TapplyMCResult){
+        NetworkManager.getInstance().applyMCResult(this, mId, mcId, TapplyMCResult, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(MCPageActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

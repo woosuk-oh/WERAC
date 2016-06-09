@@ -133,7 +133,6 @@ public class DetailViewActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, WeracItem result) {
                 werac = result;
-
             }
 
             @Override
@@ -144,18 +143,17 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
     public void joinWerac(){
-//        NetworkManager.getInstance().getWeracChangeStatus(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
-//            @Override
-//            public void onSuccess(Request request, WeracItem result) {
-//                werac = result;
-//
-//            }
-//
-//            @Override
-//            public void onFail(Request request, IOException exception) {
-//                Toast.makeText(DetailViewActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        NetworkManager.getInstance().getWeracJoin(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
+            @Override
+            public void onSuccess(Request request, WeracItem result) {
+                werac = result;
+            }
+
+            @Override
+            public void onFail(Request request, IOException exception) {
+                Toast.makeText(DetailViewActivity.this, "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void buttonSetting(){
@@ -184,7 +182,6 @@ public class DetailViewActivity extends AppCompatActivity {
                         DetailStatusChangeDialog f_dialog = new DetailStatusChangeDialog();
                         f_dialog.show(getSupportFragmentManager(), "create");
                         changeStatus();
-                        finish();
                     }
                 });
 
@@ -214,6 +211,7 @@ public class DetailViewActivity extends AppCompatActivity {
                 btn_detail_360.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(DetailViewActivity.this, "참여되었습니다", Toast.LENGTH_SHORT).show();
                         joinWerac();
                     }
                 });

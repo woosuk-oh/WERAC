@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import kr.werac.yeah.R;
 
@@ -37,10 +38,12 @@ public class CreateWeracActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateDialogFragment f_dialog = new CreateDialogFragment();
-                f_dialog.show(getSupportFragmentManager(), "create");
-                createWeracFragment.sendWerac();
-                finish();
+                int i = createWeracFragment.sendWerac();
+                if(i == 1) {
+                    CreateDialogFragment f_dialog = new CreateDialogFragment();
+                    f_dialog.show(getSupportFragmentManager(), "create");
+                }else
+                    Toast.makeText(CreateWeracActivity.this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }

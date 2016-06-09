@@ -7,14 +7,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:background="@color/backgroud_color"
         android:id="@+id/btn_dummy_vds"
         android:layout_below="@+id/text_werac_detail"/>
 
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:background="@drawable/page_mc"
         android:layout_below="@+id/btn_dummy_vds"
         android:id="@+id/image_staff_title"
         android:layout_marginLeft="16dp"

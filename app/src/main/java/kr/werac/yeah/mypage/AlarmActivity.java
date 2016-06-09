@@ -43,9 +43,9 @@ public class AlarmActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new AlarmHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Alarm alarm) {
-
                 if(alarm.getStatus() == 1) {
                     Intent intent = new Intent(AlarmActivity.this, MCPageActivity.class);
+                    intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
                     intent.putExtra(MCPageActivity.EXTRA_MC_ID, alarm.getUid());
                     startActivity(intent);
                 }else if(alarm.getStatus() == 2) {
@@ -54,6 +54,7 @@ public class AlarmActivity extends AppCompatActivity {
                     Intent intent = new Intent(AlarmActivity.this, DetailViewActivity.class);
                     intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
                     startActivity(intent);
+                }else if(alarm.getStatus() == 4) {
                 }
             }
         });
@@ -65,7 +66,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void initAlarm(){
-        NetworkManager.getInstance().getAlarm(MyApplication.getContext(), new NetworkManager.OnResultListener<Alarms>() {
+        NetworkManager.getInstance().getAlarm(this, new NetworkManager.OnResultListener<Alarms>() {
             @Override
             public void onSuccess(Request request, Alarms result) {
                 mAdapter.clear();

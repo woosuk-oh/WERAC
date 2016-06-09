@@ -50,7 +50,7 @@
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/iv_my_image"
-        android:text="유저명(임시)"
+        android:text="익명"
         android:id="@+id/tv_my_id"/>
     <TextView
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/tv_my_id"
-        android:text="한 줄 소개가 없습니다!"
+        android:text="한 줄 소개가 없습니다ㅠㅠ"
         android:id="@+id/tv_my_comment"/>
     <TextView
         android:layout_width="match_parent"
