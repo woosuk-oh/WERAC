@@ -196,11 +196,12 @@ public class CreateWeracFragment extends Fragment {
 
     public int sendWerac() {
         werac = mAdapter.getWerac();
+        int Mid;
         if (mUploadFile != null) {
             NetworkManager.getInstance().getWeracCreate(getContext(), mUploadFile, werac, new NetworkManager.OnResultListener<WeracItem>() {
                 @Override
                 public void onSuccess(Request request, WeracItem result) {
-//                Toast.makeText(getContext(), "Mid (" + result.getMid() + ")가 생성되었움", Toast.LENGTH_SHORT).show();
+                    werac = result;
                 }
 
                 @Override
@@ -212,5 +213,8 @@ public class CreateWeracFragment extends Fragment {
         }else {
             return 0;
         }
+    }
+    public int getWeracId(){
+        return werac.getMid();
     }
 }

@@ -41,6 +41,9 @@ public class GuestListItemAdapter extends RecyclerView.Adapter<GuestListItemHold
 
     @Override
     public int getItemCount() {
-        return guests.size();
+        if(guests != null)
+            return guests.size();
+        else
+            return 0;
     }
 }

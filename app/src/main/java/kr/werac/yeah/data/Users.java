@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Tacademy on 2016-06-08.
  */
 public class Users {
-    @SerializedName("result")
+    @SerializedName("guests")
     List<User> users;
 
     public List<User> getUsers() {

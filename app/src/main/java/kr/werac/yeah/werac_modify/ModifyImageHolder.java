@@ -49,6 +49,7 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
         if(path != null) {
             float scale = MyApplication.getContext().getResources().getDisplayMetrics().density;
             Glide.with(imageView.getContext()).load(path).override((int)(360*scale), (int)(360 * myH / myW * scale)).into(imageView);
+            //Glide.with(imageView.getContext()).load(path).into(imageView);
         }else{
             imageView.setImageResource(R.drawable.make_image);
         }

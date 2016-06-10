@@ -115,7 +115,7 @@
         android:layout_height="45.5dp"
         android:id="@+id/edit_time_s"
         android:gravity="center"
-        android:text="00시 00분 부터"
+        android:text="00시 00분"
         android:background="@android:color/white"
         android:shadowColor="@android:color/transparent"
         android:textSize="16dp"
@@ -128,7 +128,7 @@
         android:layout_height="45.5dp"
         android:id="@+id/edit_time_e"
         android:gravity="center"
-        android:text="00시 00분 까지"
+        android:text="00시 00분"
         android:background="@android:color/white"
         android:shadowColor="@android:color/transparent"
         android:textSize="16dp"
@@ -229,5 +229,17 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@+id/edit_lm"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45.5dp"
+        android:text=" ~ "
+        android:gravity="center"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/edit_time_s"
+        android:layout_alignRight="@+id/edit_time_e"
+        android:layout_alignEnd="@+id/edit_time_e"
+        android:layout_alignLeft="@+id/edit_date"
+        android:layout_alignStart="@+id/edit_date" />
 
 </RelativeLayout>

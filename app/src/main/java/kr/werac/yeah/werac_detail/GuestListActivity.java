@@ -1,6 +1,5 @@
 package kr.werac.yeah.werac_detail;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,22 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.List;
 
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
-import kr.werac.yeah.data.Alarm;
-import kr.werac.yeah.data.Alarms;
-import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.Users;
 import kr.werac.yeah.manager.NetworkManager;
-import kr.werac.yeah.mypage.AlarmAdapter;
-import kr.werac.yeah.mypage.AlarmHolder;
-import kr.werac.yeah.mypage.MCPageActivity;
 import okhttp3.Request;
 
 public class GuestListActivity extends AppCompatActivity {

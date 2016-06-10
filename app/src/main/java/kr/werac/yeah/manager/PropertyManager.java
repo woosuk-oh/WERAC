@@ -87,4 +87,14 @@ public class PropertyManager {
     public String getRegistrationToken(){
         return mPrefs.getString(FIELD_REGISTRATION_ID, "");
     }
+
+
+    private static final String FIELD_PUSH = "push";
+    public void setPush(String push) {
+        mEditor.putString(FIELD_PUSH, push);
+        mEditor.commit();
+    }
+    public String getPush() {
+        return mPrefs.getString(FIELD_PUSH, "");
+    }
 }

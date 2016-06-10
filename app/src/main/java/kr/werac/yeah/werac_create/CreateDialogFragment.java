@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.main.MainActivity;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
 
 /**
  * Created by Tacademy on 2016-05-20.
@@ -32,8 +33,10 @@ public class CreateDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                Intent myIntent = new Intent(getActivity(), DetailViewActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                int mid = getArguments().getInt(DetailViewActivity.EXTRA_WERAC_ID);
+                myIntent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, mid);
                 startActivity(myIntent);
             }
         });

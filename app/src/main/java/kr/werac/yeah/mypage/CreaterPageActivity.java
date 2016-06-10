@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class CreaterPageActivity extends AppCompatActivity {
     TextView tv_mc_id;
     TextView tv_mc_comment;
     TextView mc_creator_page_toolbar_title;
+    ImageView tv_mc_accept;
     FragmentTabHost tabHost;
 
     @Override
@@ -49,6 +51,8 @@ public class CreaterPageActivity extends AppCompatActivity {
         iv_mc_image = (CircleImageView) findViewById(R.id.iv_mc_image);
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
         tv_mc_comment = (TextView) findViewById(R.id.tv_mc_comment);
+        tv_mc_accept = (ImageView)findViewById(R.id.tv_mc_accept);
+        tv_mc_accept.setVisibility(View.INVISIBLE);
         mc_creator_page_toolbar_title = (TextView)findViewById(R.id.mc_creator_page_toolbar_title);
         mc_creator_page_toolbar_title.setText("개설자 정보");
 

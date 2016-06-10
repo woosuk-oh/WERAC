@@ -13,6 +13,7 @@ import java.util.List;
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.WeracItem;
 
 /**
  * Created by Tacademy on 2016-05-19.
@@ -47,8 +48,10 @@ public class DetailCommentEnterHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setComments(List<Comment> comments){
-        comment_title.setText("댓글 " + comments.size());
+    public void setComments(WeracItem werac){
+        comment_title.setText("댓글 " + werac.getComments().size());
+        if(werac.getStatus() == 3)
+            edit_comment.setVisibility(View.INVISIBLE);
     }
 
     public EditText getComments(){

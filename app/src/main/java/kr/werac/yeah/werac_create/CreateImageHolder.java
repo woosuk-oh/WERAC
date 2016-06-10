@@ -49,8 +49,8 @@ public class CreateImageHolder extends RecyclerView.ViewHolder {
     public void setImage(String path, int myW, int myH){
         if(path != null) {
             float scale = MyApplication.getContext().getResources().getDisplayMetrics().density;
-//            imageView.setLayoutParams(new RelativeLayout.LayoutParams((int)(360*scale), RelativeLayout.LayoutParams.WRAP_CONTENT));
             Glide.with(imageView.getContext()).load(path).override((int)(360*scale), (int)(360 * myH / myW * scale)).into(imageView);
+//            Glide.with(imageView.getContext()).load(path).into(imageView);
         }else{
             imageView.setImageResource(R.drawable.make_image);
         }

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
@@ -72,14 +72,14 @@ public class DetailWeracFragment extends Fragment {
             @Override
             public void onItemClick(View view, WeracItem werac, int who) {
                 if(who == 1) {
-                    if(werac.isHas_mc() == true && werac.getMc_id() != null) {
-                            Intent intent1 = new Intent(getActivity(), MCPageActivity.class);
-                            intent1.putExtra(MCPageActivity.EXTRA_MC_ID, werac.getMc_id().getUid());
-                            startActivity(intent1);
-                        }else if(werac.isHas_mc() == true){
+                    if(werac.isHas_mc() == true && werac.getMc() != null) {
+                        Intent intent1 = new Intent(getActivity(), MCPageActivity.class);
+                        intent1.putExtra(MCPageActivity.EXTRA_MC_ID, werac.getMc().getUid());
+                        intent1.putExtra(CreaterPageActivity.EXTRA_CREATER_ID, werac.getCreator().getUid());
+                        startActivity(intent1);
+                    }else if(werac.isHas_mc() == true){
 //                        dialog
-                            Toast.makeText(getContext(), "진행자로 지원되었습니다", Toast.LENGTH_SHORT).show();
-                            applyMC();
+                        applyMC();
                     }
                 }else if(who == 2) {
                     Intent intent2 = new Intent(getActivity(), CreaterPageActivity.class);
@@ -278,10 +278,13 @@ public class DetailWeracFragment extends Fragment {
     }
 
     public void applyMC(){
-        NetworkManager.getInstance().applyMC(getContext(), this_MId, new NetworkManager.OnResultListener<WeracItem>() {
+        NetworkManager.getInstance().applyMC(getContext(), this_MId, new NetworkManager.OnResultListener<Result>() {
             @Override
-            public void onSuccess(Request request, WeracItem result) {
-//                mAdapter.addCommt(result);
+            public void onSuccess(Request request, Result result) {
+                if(result.getSuccess() == 1)
+                    Toast.makeText(getContext(), "진행자로 지원되었습니다", Toast.LENGTH_SHORT).show();
+                else if(result.getSuccess() == 0)
+                    Toast.makeText(getContext(), "이미 진행 지원하셨습니다", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -289,5 +292,10 @@ public class DetailWeracFragment extends Fragment {
                 Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void join(){
+        mAdapter.participate_user(PropertyManager.getInstance().getUser());
+        Toast.makeText(getActivity(), "참여되었습니다", Toast.LENGTH_SHORT).show();
     }
 }

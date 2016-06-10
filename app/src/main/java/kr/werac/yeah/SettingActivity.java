@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import okhttp3.Request;
 public class SettingActivity extends AppCompatActivity {
 
     TextView text_logout;
+    Switch switch_push;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,13 @@ public class SettingActivity extends AppCompatActivity {
                 NetworkManager.getInstance().logout(this, new NetworkManager.OnResultListener<User>(){
                     @Override
                     public void onSuccess(Request request, User result) {
+                        PropertyManager.getInstance().setEmail("");
+                        PropertyManager.getInstance().setLogin(false);
+                        PropertyManager.getInstance().setPassword("");
+                        PropertyManager.getInstance().setPush("true");
+                        PropertyManager.getInstance().setRegistrationToken("");
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }
@@ -52,6 +60,24 @@ public class SettingActivity extends AppCompatActivity {
                         Toast.makeText(SettingActivity.this, "error : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+        switch_push = (Switch)findViewById(R.id.switch_push);
+
+        if(PropertyManager.getInstance().getPush().equals("false")) {
+            switch_push.setChecked(false);
+        }else{
+            switch_push.setChecked(true);
+        }
+
+        switch_push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    PropertyManager.getInstance().setPush("true");
+                else
+                    PropertyManager.getInstance().setPush("false");
+
             }
         });
     }

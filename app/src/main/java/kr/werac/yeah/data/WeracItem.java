@@ -2,7 +2,6 @@ package kr.werac.yeah.data;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class WeracItem {
     int mid;
     int status;
     User creator;
-    User mc_id;
+    User mc;
     boolean has_mc;
     String reg_date;
     String image;
@@ -27,7 +26,7 @@ public class WeracItem {
     String end_time;
     int fee;
     int limit_num;
-    List<Integer> guests;
+    List<User> guests;
     List<Comment> comments;
     int like;
     List<Integer> likeList;
@@ -67,12 +66,12 @@ public class WeracItem {
         this.creator = creator;
     }
 
-    public User getMc_id() {
-        return mc_id;
+    public User getMc() {
+        return mc;
     }
 
-    public void setMc_id(User mc_id) {
-        this.mc_id = mc_id;
+    public void setMc(User mc) {
+        this.mc = mc;
     }
 
     public boolean isHas_mc() {
@@ -123,11 +122,11 @@ public class WeracItem {
         this.schedule = schedule;
     }
 
-    public List<Integer> getGuests() {
+    public List<User> getGuests() {
         return guests;
     }
 
-    public void setGuests(ArrayList<Integer> guests) {
+    public void setGuests(List<User> guests) {
         this.guests = guests;
     }
 
@@ -203,20 +202,12 @@ public class WeracItem {
         this.like = like;
     }
 
-    public void setGuests_id(List<Integer> guests_id) {
-        this.guests = guests_id;
-    }
-
     public List<Integer> getImage_size() {
         return image_size;
     }
 
     public void setImage_size(List<Integer> image_size) {
         this.image_size = image_size;
-    }
-
-    public void setGuests(List<Integer> guests) {
-        this.guests = guests;
     }
 
     public List<Integer> getLikeList() {

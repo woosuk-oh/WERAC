@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
     TextView edit_time_e;
     EditText edit_fee;
     RadioGroup radio_hasmc;
+    RadioButton rb_true;
+    RadioButton rb_false;
     EditText edit_lm;
     WeracItem werac;
     ArrayAdapter<CharSequence> adapter;
@@ -72,9 +75,9 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         werac = new WeracItem();
         edit_detail = (EditText) itemView.findViewById(R.id.edit_detail);
 
-        spinner_area = (Spinner) itemView.findViewById(R.id.spinner_area);
-        adapter = ArrayAdapter.createFromResource(MyApplication.getContext(), R.array.spinner_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_area = (Spinner)itemView.findViewById(R.id.spinner_area);
+        adapter = ArrayAdapter.createFromResource(MyApplication.getContext(), R.array.spinner_array, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner_area.setAdapter(adapter);
 
         edit_date = (TextView) itemView.findViewById(R.id.edit_date);
@@ -109,6 +112,9 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         });
         edit_fee = (EditText) itemView.findViewById(R.id.edit_fee);
         radio_hasmc = (RadioGroup) itemView.findViewById(R.id.radio_hasmc);
+
+        rb_true = (RadioButton)itemView .findViewById(R.id.radio_mco);
+        rb_false = (RadioButton)itemView .findViewById(R.id.radio_mcx);
         edit_lm = (EditText) itemView.findViewById(R.id.edit_lm);
 
         btn_add_sch = (Button) itemView.findViewById(R.id.btn_add_sch);
@@ -131,7 +137,7 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         werac.setEnd_time(edit_time_e.getText().toString());
         if (edit_fee.getText().toString() != "")
             werac.setFee(Integer.parseInt((edit_fee.getText() + "").toString()));
-        if (radio_hasmc.getCheckedRadioButtonId() == 0)
+        if (radio_hasmc.getCheckedRadioButtonId() ==  R.id.radio_mco)
             werac.setHas_mc(true);
         else
             werac.setHas_mc(false);

@@ -1,29 +1,25 @@
 package kr.werac.yeah.werac_detail;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.manager.PropertyManager;
-import kr.werac.yeah.werac_create.CreateDialogFragment;
 import kr.werac.yeah.werac_modify.ModifyWeracActivity;
 import okhttp3.Request;
 
@@ -35,6 +31,8 @@ public class DetailViewActivity extends AppCompatActivity {
     WeracItem werac;
     MenuItem LikeMenu;
     int like;
+    ImageView container_detail_close;
+    DetailWeracFragment myDetailWeracFragment;
     Button btn_detail_1, btn_detail_2, btn_detail_360;
 
     @Override
@@ -51,12 +49,21 @@ public class DetailViewActivity extends AppCompatActivity {
 
         thisMid = getIntent().getIntExtra(EXTRA_WERAC_ID, DONT_KNOW_WHY);
 
-        if (savedInstanceState == null) {
-            DetailWeracFragment f = DetailWeracFragment.newInstance(thisMid);
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container_detail, f);
-            ft.commit();
-        }
+        myDetailWeracFragment = DetailWeracFragment.newInstance(thisMid);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.container_detail, myDetailWeracFragment);
+        ft.commit();
+
+        btn_detail_1 = (Button) findViewById(R.id.btn_detail_to_modify_werac);
+        btn_detail_2 = (Button) findViewById(R.id.btn_detail_status_modify_werac);
+        btn_detail_360 = (Button) findViewById(R.id.btn_detail_close_werac);
+        btn_detail_1.setVisibility(View.INVISIBLE);
+        btn_detail_2.setVisibility(View.INVISIBLE);
+        btn_detail_360.setVisibility(View.INVISIBLE);
+
+        container_detail_close = (ImageView)findViewById(R.id.detail_close);
+        container_detail_close.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -143,10 +150,15 @@ public class DetailViewActivity extends AppCompatActivity {
     }
 
     public void joinWerac(){
-        NetworkManager.getInstance().getWeracJoin(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<WeracItem>() {
+        NetworkManager.getInstance().getWeracJoin(DetailViewActivity.this, thisMid, new NetworkManager.OnResultListener<Result>() {
             @Override
-            public void onSuccess(Request request, WeracItem result) {
-                werac = result;
+            public void onSuccess(Request request, Result result) {
+                if(result.getSuccess() == 1)
+                    myDetailWeracFragment.join();
+                else if(result.getSuccess() == 2)
+                    Toast.makeText(DetailViewActivity.this, "참여 정원이 꽉 찼습니다", Toast.LENGTH_SHORT).show();
+                else if(result.getSuccess() == 3)
+                    Toast.makeText(DetailViewActivity.this, "이미 참여하셨습니다", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -158,49 +170,52 @@ public class DetailViewActivity extends AppCompatActivity {
 
     public void buttonSetting(){
 
-        btn_detail_1 = (Button) findViewById(R.id.btn_detail_to_modify_werac);
-        btn_detail_2 = (Button) findViewById(R.id.btn_detail_status_modify_werac);
-        btn_detail_360 = (Button) findViewById(R.id.btn_detail_close_werac);
-
         if(werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()) {
             if(werac.getStatus() == 1) {
-
                 btn_detail_1.setVisibility(View.VISIBLE);
                 btn_detail_1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(DetailViewActivity.this, ModifyWeracActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.putExtra(EXTRA_WERAC_ID, thisMid);
                         startActivity(intent);
                     }
                 });
-
                 btn_detail_2.setVisibility(View.VISIBLE);
                 btn_detail_2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DetailStatusChangeDialog f_dialog = new DetailStatusChangeDialog();
+                        Bundle args = new Bundle();
+                        args.putInt(DetailViewActivity.EXTRA_WERAC_ID, thisMid);
+                        f_dialog.setArguments(args);
                         f_dialog.show(getSupportFragmentManager(), "create");
                         changeStatus();
                     }
                 });
-
                 btn_detail_360.setVisibility(View.INVISIBLE);
             }else if(werac.getStatus() == 2) {
                 btn_detail_1.setVisibility(View.INVISIBLE);
                 btn_detail_2.setVisibility(View.INVISIBLE);
-
                 btn_detail_360.setVisibility(View.VISIBLE);
                 btn_detail_360.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         changeStatus();
+                        Toast.makeText(DetailViewActivity.this, "마감되었습니다", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(DetailViewActivity.this, DetailViewActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.putExtra(EXTRA_WERAC_ID, thisMid);
+                        startActivity(intent);
+                        finish();
                     }
                 });
             }else if(werac.getStatus() == 3) {
                 btn_detail_1.setVisibility(View.INVISIBLE);
                 btn_detail_2.setVisibility(View.INVISIBLE);
                 btn_detail_360.setVisibility(View.INVISIBLE);
+                container_detail_close.setVisibility(View.VISIBLE);
             }
         }else{
             if(werac.getStatus() == 2) {
@@ -211,7 +226,6 @@ public class DetailViewActivity extends AppCompatActivity {
                 btn_detail_360.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(DetailViewActivity.this, "참여되었습니다", Toast.LENGTH_SHORT).show();
                         joinWerac();
                     }
                 });
@@ -219,6 +233,8 @@ public class DetailViewActivity extends AppCompatActivity {
                 btn_detail_1.setVisibility(View.INVISIBLE);
                 btn_detail_2.setVisibility(View.INVISIBLE);
                 btn_detail_360.setVisibility(View.INVISIBLE);
+                if (werac.getStatus() == 3)
+                    container_detail_close.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.data.User;
 
 /**
  * Created by dongja94 on 2016-01-18.
@@ -16,20 +17,15 @@ import kr.werac.yeah.R;
 public class GuestItemAdapter extends RecyclerView.Adapter<GuestItemHolder> {
 
 
-    List<Integer> Guests_items = new ArrayList<Integer>();
+    List<User> Guests_items = new ArrayList<User>();
 
-    public void addAll(List<Integer> Guests_items){
+    public void addAll(List<User> Guests_items){
         this.Guests_items.addAll(Guests_items);
         notifyDataSetChanged();
     }
 
     public void clear() {
         Guests_items.clear();
-        notifyDataSetChanged();
-    }
-
-    public void add(Integer Guests_item) {
-        Guests_items.add(R.drawable.profile_default);
         notifyDataSetChanged();
     }
 
@@ -46,8 +42,8 @@ public class GuestItemAdapter extends RecyclerView.Adapter<GuestItemHolder> {
 
     @Override
     public void onBindViewHolder(GuestItemHolder holder, int position) {
-        holder.setGuest_item(R.drawable.profile_default);//Guests_items.get(position));
-        holder.setOnItemClickListener(mListener);
+        holder.setGuest_item(Guests_items.get(position).getProfile_image());//Guests_items.get(position));
+//        holder.setOnItemClickListener(mListener);
     }
 
     @Override
@@ -57,6 +53,9 @@ public class GuestItemAdapter extends RecyclerView.Adapter<GuestItemHolder> {
 
     @Override
     public int getItemCount() {
-        return Guests_items.size();
+        if(Guests_items.size() != 0)
+            return Guests_items.size();
+        else
+            return 0;
     }
 }

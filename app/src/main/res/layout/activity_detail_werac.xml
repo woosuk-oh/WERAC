@@ -30,6 +30,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_close"
+        android:background="@drawable/close_werac"
+        android:elevation="1dp"
+        android:visibility="invisible"
+        android:focusable="false" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

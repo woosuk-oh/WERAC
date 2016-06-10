@@ -10,6 +10,7 @@ import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
 
 /**
@@ -69,6 +70,14 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             }
         }
+    }
+
+    public void participate_user(User user){
+        List<User> myG = new ArrayList<>();
+        myG = werac.getGuests();
+        myG.add(user);
+        werac.setGuests(myG);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -229,23 +238,26 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             DetailStaffHolder h = (DetailStaffHolder) holder;
             h.setStaff(werac, 1);
-            h.setOnItemClickListener(mListener);
+            if(werac.getStatus() != 3)
+                h.setOnItemClickListener(mListener);
             return;
         }
         position--;
 
         if (position == 0) {
             DetailGuestsHolder h = (DetailGuestsHolder)holder;
-            h.setGuests(werac, werac.getGuests());
-            h.setOnGuestListClickListener(mListener_guest_list);
+            h.setGuests(werac);
+            if(werac.getStatus() == 2)
+                h.setOnGuestListClickListener(mListener_guest_list);
             return;
         }
         position--;
 
         if (position == 0) {
             h_cmmt_enter = (DetailCommentEnterHolder)holder;
-            h_cmmt_enter.setComments(werac.getComments());
-            h_cmmt_enter.setOnCmmtClickListener(mListener_cmmt);
+            h_cmmt_enter.setComments(werac);
+            if(werac.getStatus() != 3)
+                h_cmmt_enter.setOnCmmtClickListener(mListener_cmmt);
             return;
         }
 
@@ -255,8 +267,10 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (position < werac.getComments().size()) {
                 DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
                 h_cmmt_list.setmCmt_item(werac.getComments().get(position));
-                h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
-                h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
+                if(werac.getStatus() != 3) {
+                    h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
+                    h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
+                }
                 return ;
             }
             position -= werac.getComments().size();

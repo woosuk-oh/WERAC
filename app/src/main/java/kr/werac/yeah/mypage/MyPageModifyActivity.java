@@ -75,6 +75,7 @@ public class MyPageModifyActivity extends AppCompatActivity {
                 getUser();
                 modifyMyInfo();
                 Intent intent = new Intent(MyPageModifyActivity.this, MyPageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }

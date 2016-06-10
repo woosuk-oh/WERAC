@@ -49,12 +49,17 @@ public class AlarmActivity extends AppCompatActivity {
                     intent.putExtra(MCPageActivity.EXTRA_MC_ID, alarm.getUid());
                     startActivity(intent);
                 }else if(alarm.getStatus() == 2) {
-
+                    Intent intent = new Intent(AlarmActivity.this, DetailViewActivity.class);
+                    intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
+                    startActivity(intent);
                 }else if(alarm.getStatus() == 3) {
                     Intent intent = new Intent(AlarmActivity.this, DetailViewActivity.class);
                     intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
                     startActivity(intent);
                 }else if(alarm.getStatus() == 4) {
+                    Intent intent = new Intent(AlarmActivity.this, DetailViewActivity.class);
+                    intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
+                    startActivity(intent);
                 }
             }
         });

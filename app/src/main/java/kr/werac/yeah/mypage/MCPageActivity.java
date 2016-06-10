@@ -28,8 +28,7 @@ public class MCPageActivity extends AppCompatActivity {
 
     public static final String EXTRA_MC_ID = "MCId";
     public static final int DONT_KNOW_WHY = 1000;
-    int mcId;
-    int mId;
+    int mcId, mId, uId;
     CircleImageView iv_mc_image;
     TextView tv_mc_id;
     TextView tv_mc_comment;
@@ -50,6 +49,7 @@ public class MCPageActivity extends AppCompatActivity {
 
         mcId = getIntent().getIntExtra(EXTRA_MC_ID, DONT_KNOW_WHY);
         mId = getIntent().getIntExtra(DetailViewActivity.EXTRA_WERAC_ID, DONT_KNOW_WHY);
+        uId = getIntent().getIntExtra(CreaterPageActivity.EXTRA_CREATER_ID, DONT_KNOW_WHY);
         Bundle args = new Bundle();
         args.putInt(EXTRA_MC_ID, mcId);
         args.putInt(DetailViewActivity.EXTRA_WERAC_ID, mId);

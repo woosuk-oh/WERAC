@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.werac.yeah.R;
-import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
 
 /**
@@ -60,14 +59,14 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
             case 0:
                 text_staff.setText("진행자");
                 image_staff_title.setImageResource(R.drawable.page_mc);
-                if(werac.isHas_mc() == true && werac.getMc_id() != null) {
+                if(werac.isHas_mc() == true && werac.getMc() != null) {
                     imageButton_waiting_mc.setVisibility(View.INVISIBLE);
-                    if(werac.getMc_id().getProfile_image() == null)
+                    if(werac.getMc().getProfile_image() == null)
                         image_staff.setImageResource(R.drawable.profile_default);
                     else
-                        Glide.with(image_staff.getContext()).load(werac.getMc_id().getProfile_image()).into(image_staff);
-                    text_staff_name.setText("" + werac.getMc_id().getName());
-                }else if(werac.isHas_mc() == true && werac.getMc_id() == null){
+                        Glide.with(image_staff.getContext()).load(werac.getMc().getProfile_image()).into(image_staff);
+                    text_staff_name.setText("" + werac.getMc().getName());
+                }else if(werac.isHas_mc() == true && werac.getMc() == null){
                     imageButton_waiting_mc.setVisibility(View.VISIBLE);
                     image_staff.setVisibility(View.INVISIBLE);
                     text_staff_name.setVisibility(View.INVISIBLE);

@@ -32,8 +32,10 @@ public class DetailStatusChangeDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                Intent myIntent = new Intent(getActivity(), DetailViewActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                int mid = getArguments().getInt(DetailViewActivity.EXTRA_WERAC_ID);
+                myIntent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, mid);
                 startActivity(myIntent);
             }
         });

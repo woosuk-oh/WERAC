@@ -12,15 +12,16 @@ import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.data.Alarms;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.UserResult;
 import kr.werac.yeah.data.Users;
+import kr.werac.yeah.data.UsersResult;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.data.WeracItemResult;
 import kr.werac.yeah.data.WeracItems;
@@ -224,7 +225,7 @@ public class NetworkManager {
 
     private static final String URL_APPLY_MC = MY_SERVER + "/apply/%s";
 
-    public Request applyMC(Object tag, int mid, OnResultListener<WeracItem> listener) {
+    public Request applyMC(Object tag, int mid, OnResultListener<Result> listener) {
 
         String url = String.format(URL_APPLY_MC, mid);
 
@@ -236,7 +237,7 @@ public class NetworkManager {
                 .post(body)
                 .build();
 
-        final NetworkResult<WeracItem> result = new NetworkResult<>();
+        final NetworkResult<Result> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
         mClient.newCall(request).enqueue(new Callback() {
@@ -250,8 +251,8 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-//                    WeracItemResult data = gson.fromJson(text, WeracItemResult.class);
-//                    result.result = data.werac;
+                    Result data = gson.fromJson(text, Result.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());
@@ -527,6 +528,11 @@ public class NetworkManager {
                 .addFormDataPart("fee", werac.getFee()+"")
                 .addFormDataPart("limit_num", werac.getLimit_num()+"");
 
+        if(werac.isHas_mc() == true)
+            myBuilder.addFormDataPart("has_mc", "true");
+        else
+            myBuilder.addFormDataPart("has_mc", "false");
+
         for(int i = 0; i < sch_num; i++){
             myBuilder.addFormDataPart("schedule[]", werac.getSchedule().get(i));
         }
@@ -618,7 +624,7 @@ public class NetworkManager {
     public Request getWeracJoin(Object tag,
 //                                  String token,
                                         int Mid,
-                                        OnResultListener<WeracItem> listener) {
+                                        OnResultListener<Result> listener) {
 
         String url = String.format(URL_JOIN_WERAC, Mid);//token
 
@@ -630,7 +636,7 @@ public class NetworkManager {
                 .post(body)
                 .build();
 
-        final NetworkResult<WeracItem> result = new NetworkResult<>();
+        final NetworkResult<Result> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
         mClient.newCall(request).enqueue(new Callback() {
@@ -644,8 +650,8 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-//                    WeracItem data = gson.fromJson(text, WeracItem.class);
-//                    result.result = data;
+                    Result data = gson.fromJson(text, Result.class);
+                    result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());
@@ -1024,8 +1030,8 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-                    Users data = gson.fromJson(text, Users.class);
-                    result.result = data;
+                    UsersResult data = gson.fromJson(text, UsersResult.class);
+                    result.result = data.getMyusers();
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {
                     result.excpetion = new IOException(response.message());

@@ -67,11 +67,15 @@
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".login.SignUpActivity" />
+        <activity android:name=".login.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"  />
+        <activity android:name=".login.AgreementActivity"
+            android:theme="@style/AppTheme.NoActionBar"  />
         <activity
             android:name=".mypage.AlarmActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".werac_detail.GuestListActivity"></activity>
+        <activity android:name=".werac_detail.GuestListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

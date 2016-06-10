@@ -31,6 +31,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.main.MainActivity;
+import kr.werac.yeah.manager.PropertyManager;
 import kr.werac.yeah.mypage.AlarmActivity;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -74,9 +75,9 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setTicker("Werac 메시지")
+                .setTicker("Werac")
                 .setSmallIcon(R.drawable.push_icon)
-                .setContentTitle("Werac 메시지")
+                .setContentTitle("Werac")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -85,6 +86,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        if (PropertyManager.getInstance().getPush() == "true")
+            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }

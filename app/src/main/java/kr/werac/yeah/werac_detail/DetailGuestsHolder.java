@@ -49,20 +49,22 @@ public class DetailGuestsHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setGuests(WeracItem werac, List<Integer> Guests_id){
+    public void setGuests(WeracItem werac){
         weracId = werac.getMid();
-        text_guest_title.setText("참여 정원 " + Guests_id.size() + "/" + werac.getLimit_num() + "명");
+        text_guest_title.setText("참여 정원 " + werac.getGuests().size() + "/" + werac.getLimit_num() + "명");
 
         if(werac.getStatus() == 2 && werac.getCreator().getUid() == PropertyManager.getInstance().getUser().getUid()){
             ibtn_see_guest_list.setVisibility(View.VISIBLE);
             rv_guests_image.setVisibility(View.INVISIBLE);
         }else {
+            ibtn_see_guest_list.setVisibility(View.INVISIBLE);
+            rv_guests_image.setVisibility(View.VISIBLE);
             mAdapter = new GuestItemAdapter();
             rv_guests_image.setAdapter(mAdapter);
             mLayoutManager = new LinearLayoutManager(MyApplication.getContext(), LinearLayoutManager.HORIZONTAL, false);
             rv_guests_image.setLayoutManager(mLayoutManager);
 
-            mAdapter.addAll(Guests_id);
+            mAdapter.addAll(werac.getGuests());
         }
     }
 }

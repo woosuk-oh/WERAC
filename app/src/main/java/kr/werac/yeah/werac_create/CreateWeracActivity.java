@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import kr.werac.yeah.R;
+import kr.werac.yeah.werac_detail.DetailViewActivity;
 
 public class CreateWeracActivity extends AppCompatActivity {
 
@@ -36,16 +37,20 @@ public class CreateWeracActivity extends AppCompatActivity {
 
         Button btn = (Button)findViewById(R.id.btn_create_werac);
         btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = createWeracFragment.sendWerac();
-                if(i == 1) {
-                    CreateDialogFragment f_dialog = new CreateDialogFragment();
-                    f_dialog.show(getSupportFragmentManager(), "create");
-                }else
-                    Toast.makeText(CreateWeracActivity.this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    int i = createWeracFragment.sendWerac();
+                    if(i == 0) {
+                        Toast.makeText(CreateWeracActivity.this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
+                    }else{
+                        CreateDialogFragment f_dialog = new CreateDialogFragment();
+                        Bundle args = new Bundle();
+                        args.putInt(DetailViewActivity.EXTRA_WERAC_ID, createWeracFragment.getWeracId());
+                        f_dialog.setArguments(args);
+                        f_dialog.show(getSupportFragmentManager(), "create");
+                    }
+                }
+            });
     }
     }
 

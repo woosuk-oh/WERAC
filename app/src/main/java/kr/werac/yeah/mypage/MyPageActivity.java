@@ -28,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.manager.NetworkManager;
+import kr.werac.yeah.manager.PropertyManager;
 import kr.werac.yeah.werac_modify.ModifyWeracFragment;
 import okhttp3.Request;
 
@@ -106,6 +107,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, User result) {
                 setUser(result);
+                PropertyManager.getInstance().setUser(result);
             }
 
             @Override

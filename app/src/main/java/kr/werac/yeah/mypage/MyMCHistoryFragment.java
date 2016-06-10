@@ -36,6 +36,7 @@ public class MyMCHistoryFragment extends Fragment {
     WeracItemAdapter mAdapter;
     int mcId;
     int mId;
+    int uid;
     String who;
 
 
@@ -46,13 +47,13 @@ public class MyMCHistoryFragment extends Fragment {
         if (getArguments() != null) {
             mcId = getArguments().getInt(MCPageActivity.EXTRA_MC_ID);
             mId = getArguments().getInt(DetailViewActivity.EXTRA_WERAC_ID);
+            uid = getArguments().getInt(CreaterPageActivity.EXTRA_CREATER_ID);
         }
 
         mAdapter = new WeracItemAdapter();
         mAdapter.setOnItemClickListener(new WeracItemHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, WeracItem weracItem) {
-                Toast.makeText(getContext(), "눌렀니?", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), DetailViewActivity.class);
                 intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, weracItem.getMid());
                 startActivity(intent);
