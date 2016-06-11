@@ -32,6 +32,9 @@ public class GuestItemHolder extends RecyclerView.ViewHolder {
     }
 
     public void setGuest_item(String Guest_image){
-        Glide.with(iv_guests.getContext()).load(Guest_image).into(iv_guests);
+        if(Guest_image != null)
+            Glide.with(iv_guests.getContext()).load(Guest_image).into(iv_guests);
+        else
+            Glide.with(iv_guests.getContext()).load(R.drawable.profile_default).into(iv_guests);
     }
 }

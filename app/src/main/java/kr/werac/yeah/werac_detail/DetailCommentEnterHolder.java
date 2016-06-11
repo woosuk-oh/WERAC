@@ -14,6 +14,7 @@ import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.PropertyManager;
 
 /**
  * Created by Tacademy on 2016-05-19.

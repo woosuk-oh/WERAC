@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class CreateWeracActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.back);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         if (savedInstanceState == null) {
             createWeracFragment = CreateWeracFragment.newInstance();
@@ -44,14 +46,11 @@ public class CreateWeracActivity extends AppCompatActivity {
                         Toast.makeText(CreateWeracActivity.this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
                     }else{
                         CreateDialogFragment f_dialog = new CreateDialogFragment();
-                        Bundle args = new Bundle();
-                        args.putInt(DetailViewActivity.EXTRA_WERAC_ID, createWeracFragment.getWeracId());
-                        f_dialog.setArguments(args);
                         f_dialog.show(getSupportFragmentManager(), "create");
                     }
                 }
             });
-    }
+        }
     }
 
     @Override

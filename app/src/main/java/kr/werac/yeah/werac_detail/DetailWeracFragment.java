@@ -1,5 +1,6 @@
 package kr.werac.yeah.werac_detail;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +12,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.CommentResult;
 import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
@@ -76,8 +80,9 @@ public class DetailWeracFragment extends Fragment {
                         Intent intent1 = new Intent(getActivity(), MCPageActivity.class);
                         intent1.putExtra(MCPageActivity.EXTRA_MC_ID, werac.getMc().getUid());
                         intent1.putExtra(CreaterPageActivity.EXTRA_CREATER_ID, werac.getCreator().getUid());
+                        intent1.putExtra(DetailViewActivity.EXTRA_WERAC_ID, 1000);
                         startActivity(intent1);
-                    }else if(werac.isHas_mc() == true){
+                    }else if(werac.isHas_mc() == true && werac.getStatus() != 3){
 //                        dialog
                         applyMC();
                     }
@@ -98,9 +103,16 @@ public class DetailWeracFragment extends Fragment {
                 newComment.setUser(user);
                 newComment.setContent(edit_comment.getText().toString());
                 newComment.setLike(0);
-                mAdapter.addCommt(newComment);
+                List<Integer> myLikeList = new ArrayList<Integer>();
+                myLikeList = null;
+                newComment.setLikeList(myLikeList);
+//                mAdapter.addCommt(newComment);
                 addComment(newComment);
                 edit_comment.setText("");
+
+                InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(edit_comment.getWindowToken(), 0);
+                listView.smoothScrollBy(0, 3000);
             }
         });
 
@@ -222,10 +234,10 @@ public class DetailWeracFragment extends Fragment {
 
 
     private void addComment(Comment myCmmt) {
-        NetworkManager.getInstance().getWeracAddComment(getContext(), this_MId, myCmmt, new NetworkManager.OnResultListener<Comment>() {
+        NetworkManager.getInstance().getWeracAddComment(getContext(), this_MId, myCmmt, new NetworkManager.OnResultListener<CommentResult>() {
             @Override
-            public void onSuccess(Request request, Comment result) {
-//                mAdapter.addCommt(result);
+            public void onSuccess(Request request, CommentResult result) {
+                mAdapter.addCommt(result.getComment());
             }
 
             @Override
@@ -264,17 +276,20 @@ public class DetailWeracFragment extends Fragment {
     }
 
     public void cmmtLike(String cmmtId){
-        NetworkManager.getInstance().getWeracLikeComment(getContext(), this_MId, cmmtId, new NetworkManager.OnResultListener<Comment>() {
-            @Override
-            public void onSuccess(Request request, Comment result) {
+        if(cmmtId != null) {
+            NetworkManager.getInstance().getWeracLikeComment(getContext(), this_MId, cmmtId, new NetworkManager.OnResultListener<Comment>() {
+                @Override
+                public void onSuccess(Request request, Comment result) {
 //                mAdapter.addCommt(result);
-            }
+                }
 
-            @Override
-            public void onFail(Request request, IOException exception) {
-                Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail(Request request, IOException exception) {
+                    Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else
+            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
     }
 
     public void applyMC(){
@@ -298,4 +313,5 @@ public class DetailWeracFragment extends Fragment {
         mAdapter.participate_user(PropertyManager.getInstance().getUser());
         Toast.makeText(getActivity(), "참여되었습니다", Toast.LENGTH_SHORT).show();
     }
+
 }

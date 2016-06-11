@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (result.getSuccess() == 1) {
                                 PropertyManager.getInstance().setLogin(true);
                                 PropertyManager.getInstance().setUser(result.getUser());
-                                if (!PropertyManager.getInstance().getPush().equals("true") && !PropertyManager.getInstance().getPush().equals("false")) {
+                                if (!PropertyManager.getInstance().getPush().equals("false")) {
                                     PropertyManager.getInstance().setPush("true");
                                 }
                                 PropertyManager.getInstance().setEmail(email);

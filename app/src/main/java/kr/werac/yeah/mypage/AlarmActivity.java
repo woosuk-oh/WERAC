@@ -19,6 +19,7 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.Alarm;
 import kr.werac.yeah.data.Alarms;
 import kr.werac.yeah.manager.NetworkManager;
+import kr.werac.yeah.manager.PropertyManager;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
 import okhttp3.Request;
 
@@ -47,6 +48,7 @@ public class AlarmActivity extends AppCompatActivity {
                     Intent intent = new Intent(AlarmActivity.this, MCPageActivity.class);
                     intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, alarm.getMid());
                     intent.putExtra(MCPageActivity.EXTRA_MC_ID, alarm.getUid());
+                    intent.putExtra(CreaterPageActivity.EXTRA_CREATER_ID, PropertyManager.getInstance().getUser().getUid());
                     startActivity(intent);
                 }else if(alarm.getStatus() == 2) {
                     Intent intent = new Intent(AlarmActivity.this, DetailViewActivity.class);

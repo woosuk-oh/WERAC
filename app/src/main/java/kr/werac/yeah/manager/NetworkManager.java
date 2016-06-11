@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.data.Alarms;
 import kr.werac.yeah.data.Comment;
+import kr.werac.yeah.data.CommentResult;
 import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.UserResult;
@@ -668,7 +669,7 @@ public class NetworkManager {
 //                                  String token,
                                       int mid,
                                       Comment cmmt,
-                                      OnResultListener<Comment> listener) {
+                                      OnResultListener<CommentResult> listener) {
 
         String url = String.format(URL_ADD_COMMENT, mid, cmmt.getContent());//token
 
@@ -681,7 +682,7 @@ public class NetworkManager {
                 .post(body)
                 .build();
 
-        final NetworkResult<Comment> result = new NetworkResult<>();
+        final NetworkResult<CommentResult> result = new NetworkResult<>();
         result.request = request;
         result.listener = listener;
         mClient.newCall(request).enqueue(new Callback() {
@@ -695,7 +696,7 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String text = response.body().string();
-                    Comment data = gson.fromJson(text, Comment.class);
+                    CommentResult data = gson.fromJson(text, CommentResult.class);
                     result.result = data;
                     mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
                 } else {

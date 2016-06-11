@@ -1,6 +1,7 @@
 package kr.werac.yeah.mypage;
 
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
 import kr.werac.yeah.manager.NetworkManager;
+import kr.werac.yeah.manager.PropertyManager;
 import kr.werac.yeah.werac_detail.DetailViewActivity;
 import okhttp3.Request;
 
@@ -58,6 +60,10 @@ public class MCPageActivity extends AppCompatActivity {
         tv_mc_id = (TextView) findViewById(R.id.tv_mc_id);
         tv_mc_comment = (TextView) findViewById(R.id.tv_mc_comment);
         tv_mc_accept = (ImageView) findViewById(R.id.tv_mc_accept);
+        if(uId == PropertyManager.getInstance().getUser().getUid() && mId != 1000){
+            tv_mc_accept.setVisibility(View.VISIBLE);
+        }else
+            tv_mc_accept.setVisibility(View.INVISIBLE);
         tv_mc_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

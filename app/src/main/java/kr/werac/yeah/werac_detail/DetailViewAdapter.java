@@ -12,6 +12,7 @@ import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.WeracItem;
+import kr.werac.yeah.manager.PropertyManager;
 
 /**
  * Created by Tacademy on 2016-05-18.
@@ -39,7 +40,14 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void addCommt(Comment cmmt){
         List<Comment> myCmmt = new ArrayList<>();
         myCmmt = werac.getComments();
+        cmmt.setUser(PropertyManager.getInstance().getUser());
+        cmmt.setLike(0);
         myCmmt.add(cmmt);
+        werac.setComments(myCmmt);
+        notifyDataSetChanged();
+    }
+
+    public void equalCommt(List<Comment> myCmmt){
         werac.setComments(myCmmt);
         notifyDataSetChanged();
     }
@@ -263,16 +271,16 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         position--;
 
-        if(werac.getComments().size() > 0) {
-            if (position < werac.getComments().size()) {
-                DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
-                h_cmmt_list.setmCmt_item(werac.getComments().get(position));
-                if(werac.getStatus() != 3) {
-                    h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
-                    h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
+            if(werac.getComments().size() > 0) {
+                if (position < werac.getComments().size()) {
+                    DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
+                    h_cmmt_list.setmCmt_item(werac.getComments().get(position));
+                    if(werac.getStatus() != 3) {
+                        h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
+                        h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
+                    }
+                    return ;
                 }
-                return ;
-            }
             position -= werac.getComments().size();
         }
 

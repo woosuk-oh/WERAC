@@ -16,7 +16,7 @@ public class Comment {
     String date;
     String content;
     List<Integer> likeList;
-    List<Comment> recomment;
+    List<Comment> reply;
 
 //    public int getMid() {
 //        return mid;
@@ -58,12 +58,12 @@ public class Comment {
         this.date = date;
     }
 
-    public List<Comment> getRecomment() {
-        return recomment;
+    public List<Comment> getReply() {
+        return reply;
     }
 
-    public void setRecomment(List<Comment> recomment) {
-        this.recomment = recomment;
+    public void setReply(List<Comment> reply) {
+        this.reply = reply;
     }
 
     public List<Integer> getLikeList() {

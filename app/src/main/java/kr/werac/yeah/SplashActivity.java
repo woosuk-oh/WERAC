@@ -102,7 +102,7 @@ public class SplashActivity extends AppCompatActivity {
                     if(result.getSuccess() == 1) {
                         PropertyManager.getInstance().setLogin(true);
                         PropertyManager.getInstance().setUser(result.getUser());
-                        if (!PropertyManager.getInstance().getPush().equals("true") && !PropertyManager.getInstance().getPush().equals("false")) {
+                        if (!PropertyManager.getInstance().getPush().equals("false")) {
                             PropertyManager.getInstance().setPush("true");
                         }
                         Toast.makeText(SplashActivity.this, "자동로그인", Toast.LENGTH_SHORT).show();

@@ -72,6 +72,8 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
                     text_staff_name.setVisibility(View.INVISIBLE);
                 }else if(werac.isHas_mc() == false){
                     imageButton_waiting_mc.setVisibility(View.INVISIBLE);
+                    image_staff.setVisibility(View.VISIBLE);
+                    text_staff_name.setVisibility(View.VISIBLE);
                     if(werac.getCreator().getProfile_image() == null)
                         image_staff.setImageResource(R.drawable.profile_default);
                     else
@@ -81,9 +83,11 @@ public class DetailStaffHolder extends RecyclerView.ViewHolder {
                 break;
             case 1:
                 imageButton_waiting_mc.setVisibility(View.INVISIBLE);
+                image_staff.setVisibility(View.VISIBLE);
+                text_staff_name.setVisibility(View.VISIBLE);
                 text_staff.setText("개설자");
                 if(werac.getCreator().getProfile_image() == null)
-                    image_staff.setImageResource(R.drawable.profile_default);
+                    Glide.with(image_staff.getContext()).load(R.drawable.profile_default).into(image_staff);
                 else
                     Glide.with(image_staff.getContext()).load(werac.getCreator().getProfile_image()).into(image_staff);
                 text_staff_name.setText("" + werac.getCreator().getName());

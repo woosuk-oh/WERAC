@@ -165,5 +165,13 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
         edit_time_e.setText(werac.getEnd_time());
         edit_fee.setText(werac.getFee()+"");
         edit_lm.setText(werac.getLimit_num()+"");
+        if(werac.isHas_mc()) {
+            rb_true.setChecked(true);
+            if(werac.getMc() != null){
+                rb_false.setVisibility(View.INVISIBLE);
+            }
+        }else{
+            rb_false.setChecked(true);
+        }
     }
 }
