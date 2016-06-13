@@ -82,4 +82,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp" />
 
+    <ImageButton
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:id="@+id/ibtn_facebook_login"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_login"
+        android:layout_below="@+id/ibtn_sign_up"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

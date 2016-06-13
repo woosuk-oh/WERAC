@@ -152,12 +152,14 @@ public class DetailWeracFragment extends Fragment {
 
                     alert.show();
                 }else {
+                    Toast.makeText(getContext(), "남의 댓글 눌리긴 눌림", Toast.LENGTH_SHORT).show();
                     final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                     LayoutInflater inflater = getActivity().getLayoutInflater();
 
                     View AlertView = inflater.inflate(R.layout.dialog_recomment_add, null);
                     alert.setView(AlertView);
                     final EditText et_recomment = (EditText) AlertView.findViewById(R.id.et_recomment);
+//                    et_recomment.setHint(R.string.recomment_hint);
 
                     alert.setPositiveButton("입력", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -202,6 +204,45 @@ public class DetailWeracFragment extends Fragment {
                 comment.setLike(like);
                 mAdapter.modify_comment(comment);
                 Toast.makeText(getContext(), "좋아요 눌림", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mAdapter.setOnCmmtItemClickListener(new DetailCommentListHolder.OnCommentItemClickListener() {
+            @Override
+            public void onItemClick(View view, final Comment comment) {
+                if(comment.getUser().getUid() == PropertyManager.getInstance().getUser().getUid()){
+
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                    View AlertView = inflater.inflate(R.layout.dialog_recomment_add, null);
+                    alert.setView(AlertView);
+                    final EditText et_modi_comment = (EditText) AlertView.findViewById(R.id.et_recomment);
+                    et_modi_comment.setText(comment.getContent());
+
+                    alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            comment.setContent(et_modi_comment.getText().toString());
+                            mAdapter.modify_comment(comment);
+                            modifyComment(comment);
+                        }
+                    });
+
+                    alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    alert.setNeutralButton("삭제", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mAdapter.remove_comment(comment);
+                            removeComment(comment);
+                        }
+                    });
+
+                    alert.show();
+                }
             }
         });
 

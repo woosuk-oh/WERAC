@@ -10,6 +10,7 @@ import java.util.List;
 public class User {
     @SerializedName("_id")
     int uid;
+    String fb_id;
     String email;
     String pw;
     String name;
@@ -124,5 +125,13 @@ public class User {
 
     public void setAlarms(List<Alarm> alarms) {
         this.alarms = alarms;
+    }
+
+    public String getFb_id() {
+        return fb_id;
+    }
+
+    public void setFb_id(String fb_id) {
+        this.fb_id = fb_id;
     }
 }

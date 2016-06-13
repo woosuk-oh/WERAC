@@ -3,6 +3,7 @@ package kr.werac.yeah.werac_detail;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class DetailCommentListHolder extends RecyclerView.ViewHolder {
     ListView lv_recomment;
     ImageButton ibtn_cmmt_like;
     Comment comment;
+    ImageView iv_edit_comment;
 
     public interface OnCommentItemClickListener {
         void onItemClick(View view, Comment comment);
@@ -60,6 +62,8 @@ public class DetailCommentListHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        iv_edit_comment = (ImageView) itemView.findViewById(R.id.iv_edit_comment);
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +76,10 @@ public class DetailCommentListHolder extends RecyclerView.ViewHolder {
 
     public void setmCmt_item(Comment cmt_item){
         comment = cmt_item;
+        if(cmt_item.getUser().getUid() == PropertyManager.getInstance().getUser().getUid())
+            iv_edit_comment.setVisibility(View.VISIBLE);
+        else
+            iv_edit_comment.setVisibility(View.INVISIBLE);
         tv_cmt_writer.setText(""+cmt_item.getUser().getName());
         if(cmt_item.getUser().getProfile_image() == null)
             image_cmt_writer.setImageResource(R.drawable.profile_default);

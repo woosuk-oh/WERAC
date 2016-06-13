@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText et_signup_phone;
     String email, password, name, phone;
     Button btn_signup;
+    String where, fb_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,19 @@ public class SignUpActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.back);
 
+
         et_signup_name = (EditText)findViewById(R.id.et_signup_name);
         et_signup_email = (EditText)findViewById(R.id.et_signup_email);
         et_signup_password = (EditText)findViewById(R.id.et_signup_password);
         et_signup_phone = (EditText)findViewById(R.id.et_signup_phone);
         btn_signup = (Button)findViewById(R.id.btn_signup);
+        where = getIntent().getStringExtra("Where");
+        fb_id = getIntent().getStringExtra("fb_id");
+        if(where.equals("login")){
+            et_signup_email.setVisibility(View.INVISIBLE);
+            et_signup_password.setVisibility(View.INVISIBLE);
+        }
+
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,19 +63,22 @@ public class SignUpActivity extends AppCompatActivity {
                 password = et_signup_password.getText().toString();
                 phone = et_signup_phone.getText().toString();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(SignUpActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(SignUpActivity.this, "이메일을 형식이 아닙니다", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(SignUpActivity.this, "패스워드를 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (password.length() < 3) {
-                    Toast.makeText(SignUpActivity.this, "패스워드를 4자 이상 입력해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (TextUtils.isEmpty(name)) {
+                if(!where.equals("login")){
+                    if (TextUtils.isEmpty(email)) {
+                        Toast.makeText(SignUpActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        Toast.makeText(SignUpActivity.this, "이메일을 형식이 아닙니다", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if (TextUtils.isEmpty(password)) {
+                        Toast.makeText(SignUpActivity.this, "패스워드를 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if (password.length() < 3) {
+                        Toast.makeText(SignUpActivity.this, "패스워드를 4자 이상 입력해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if (TextUtils.isEmpty(name)) {
                     Toast.makeText(SignUpActivity.this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (TextUtils.isEmpty(phone)) {
@@ -79,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signup(){
-        NetworkManager.getInstance().signup(this, name, email, password, phone,
+        NetworkManager.getInstance().signup(this, fb_id, name, email, password, phone,
                 new NetworkManager.OnResultListener<User>(){
                     @Override
                     public void onSuccess(Request request, User result) {

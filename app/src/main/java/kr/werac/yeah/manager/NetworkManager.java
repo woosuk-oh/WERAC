@@ -6,9 +6,11 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.List;
@@ -18,6 +20,7 @@ import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.data.Alarms;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.CommentResult;
+import kr.werac.yeah.data.FacebookResult;
 import kr.werac.yeah.data.Result;
 import kr.werac.yeah.data.User;
 import kr.werac.yeah.data.UserResult;
@@ -888,6 +891,48 @@ public class NetworkManager {
         return request;
     }
 
+    private static final String URL_FACEBOOK_LOGIN = MY_SERVER + "/facebook-login";
+
+    public Request facebookLogIn(Object tag,
+                                  String accessToken,
+                                  String registrationId,
+                                  OnResultListener<FacebookResult> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("access_token", accessToken)
+                .add("gcmtoken", registrationId)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(URL_FACEBOOK_LOGIN)
+                .post(body)
+                .build();
+
+        final NetworkResult<FacebookResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String text = response.body().string();
+                    FacebookResult data = gson.fromJson(text, FacebookResult.class);
+                    result.result = data;
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
     private static final String URL_LOGOUT = MY_SERVER + "/logout";
 
     public Request logout(Object tag, OnResultListener<User> listener) {
@@ -929,6 +974,7 @@ public class NetworkManager {
     private static final String URL_SIGN_UP = MY_SERVER + "/join";
 
     public Request signup(Object tag,
+                          String fb_id,
                           String name,
                           String email,
                           String password,
@@ -940,6 +986,7 @@ public class NetworkManager {
                 .add("email", email)
                 .add("name", name)
                 .add("phone", phone)
+                .add("fb_id", fb_id)
                 .build();
 
         Request request = new Request.Builder()

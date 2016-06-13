@@ -28,9 +28,15 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_TYPE_COMMENT_ENTER = 7;
     public static final int VIEW_TYPE_COMMENT_LIST = 8;
     public static final int VIEW_TYPE_DUMMY = 9;
+    public static final int VIEW_TYPE_RECOMMENT_LIST = 10;
 
     WeracItem werac;
     DetailCommentEnterHolder h_cmmt_enter;
+    int cmmtTotal;
+    int cmmtTotalIndex1 = 0;
+    int cmmtIndex1 = 0;
+    int cmmtCount2 = 0;
+    int cmmtTotalIndex2 = 0;
 
     public void setWerac(WeracItem werac) {
         this.werac = werac;
@@ -55,6 +61,8 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void add_recomment(Comment cmmt){
         List<Comment> myCmmt = new ArrayList<>();
         myCmmt = werac.getComments();
+        cmmt.setUser(PropertyManager.getInstance().getUser());
+        cmmt.setLike(0);
         myCmmt.add(cmmt);
         werac.setComments(myCmmt);
         notifyDataSetChanged();
@@ -104,7 +112,7 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         position--;
         if (position == 0) return VIEW_TYPE_COMMENT_ENTER;
         position--;
-       if(werac.getComments().size() > 0) {
+        if(werac.getComments().size() > 0) {
             if (position < werac.getComments().size())
                 return VIEW_TYPE_COMMENT_LIST;
             position -= werac.getComments().size();
@@ -154,6 +162,10 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_dummy, null);
                 return new DetailDummyHolder(view);
             }
+            case VIEW_TYPE_RECOMMENT_LIST : {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_detail_recomment_text, null);
+                return new DetailReCommentListHolder(view);
+            }
         }
         throw new IllegalArgumentException("invalid position");
     }
@@ -181,6 +193,11 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     DetailGuestsHolder.OnGuestListClickListener mListener_guest_list;
     public void setOnGuestListClickListener(DetailGuestsHolder.OnGuestListClickListener listener) {
         mListener_guest_list = listener;
+    }
+
+    DetailReCommentListHolder.OnReCommentItemClickListener mListener_recmmt_item;
+    public void setOnReCmmtItemClickListener(DetailReCommentListHolder.OnReCommentItemClickListener listener) {
+        mListener_recmmt_item = listener;
     }
 
     @Override
@@ -271,16 +288,16 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         position--;
 
-            if(werac.getComments().size() > 0) {
-                if (position < werac.getComments().size()) {
-                    DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
-                    h_cmmt_list.setmCmt_item(werac.getComments().get(position));
-                    if(werac.getStatus() != 3) {
-                        h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
-                        h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
-                    }
-                    return ;
+        if(werac.getComments().size() > 0) {
+            if (position < werac.getComments().size()) {
+                DetailCommentListHolder h_cmmt_list = (DetailCommentListHolder)holder;
+                h_cmmt_list.setmCmt_item(werac.getComments().get(position));
+                if(werac.getStatus() != 3) {
+                    h_cmmt_list.setOnCommentItemClickListener(mListener_cmmt_item);
+                    h_cmmt_list.setOnCommentLikeClickListener(mListener_cmmt_like);
                 }
+                return ;
+            }
             position -= werac.getComments().size();
         }
 
@@ -296,9 +313,15 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if(werac != null)
-            return 11 + werac.getComments().size();
-        else
+        cmmtTotal = 0;
+        if(werac != null){
+            for(int i = 0; i < werac.getComments().size(); i++) {
+                if(werac.getComments().get(i).getReply() != null)
+                cmmtTotal += werac.getComments().get(i).getReply().size();
+            }
+            cmmtTotal += werac.getComments().size();
+            return 11 + cmmtTotal;
+        }else
             return 0;
     }
 }
