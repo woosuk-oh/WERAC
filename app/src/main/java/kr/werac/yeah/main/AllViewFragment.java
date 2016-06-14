@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class AllViewFragment extends Fragment {
     StaggeredGridLayoutManager mLayoutManager;
     ViewPager imagepager;
     ImagePagerAdapter ImageAdapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     boolean isLast = false;
     boolean isMoreData = false;
@@ -46,9 +48,9 @@ public class AllViewFragment extends Fragment {
         ImageAdapter = new ImagePagerAdapter();
         ImageAdapter.setOnItemClickListener(new ImagePagerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, WeracItem mWerac) {
-                Intent intent = new Intent(getContext(), DetailViewActivity.class);
-                intent.putExtra(DetailViewActivity.EXTRA_WERAC_ID, mWerac.getMid());
+            public void onItemClick(View view, String whatImage) {
+                Intent intent = new Intent(getContext(), ImageViewActivity.class);
+                intent.putExtra("whatImage", whatImage);
                 startActivity(intent);
             }
         });
@@ -62,6 +64,8 @@ public class AllViewFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -79,6 +83,17 @@ public class AllViewFragment extends Fragment {
         imagepager = (ViewPager) view.findViewById(R.id.imagepager);
         imagepager.setAdapter(ImageAdapter);
         imagepager.setCurrentItem(0, true);
+
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.fva_srl);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 //        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
@@ -117,7 +132,6 @@ public class AllViewFragment extends Fragment {
             public void onSuccess(Request request, List<WeracItem> result) {
                 mAdapter.clear();
                 mAdapter.addAll(result);
-                ImageAdapter.InitialData(result.get(1), result.get(3), result.get(4));
             }
 
             @Override

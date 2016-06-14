@@ -184,11 +184,15 @@ public class LoginActivity extends AppCompatActivity {
                             public void onSuccess(Request request, FacebookResult result) {
                                 // login success
                                 PropertyManager.getInstance().setLogin(true);
-                                PropertyManager.getInstance().setFacebookId(result.getFb_id());
-                                if(result.getSuccess() == 1)
+                                PropertyManager.getInstance().setFacebookId(result.getMyuser().getFb_id());
+                                if(result.getSuccess() == 1) {
+                                    PropertyManager.getInstance().setUser(result.getMyuser());
+                                    if (!PropertyManager.getInstance().getPush().equals("false"))
+                                        PropertyManager.getInstance().setPush("true");
                                     goMainActivity();
+                                }
                                 else if(result.getSuccess() == 2)
-                                    goWriteInfoActivity(result.getFb_id());
+                                    goWriteInfoActivity(result.getMyuser().getFb_id());
                             }
 
                             @Override

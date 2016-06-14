@@ -15,11 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.io.IOException;
 
+import kr.werac.yeah.data.FacebookResult;
 import kr.werac.yeah.data.UserResult;
 import kr.werac.yeah.gcm.RegistrationIntentService;
 import kr.werac.yeah.login.LoginActivity;
@@ -118,8 +121,47 @@ public class SplashActivity extends AppCompatActivity {
                     goLoginActivity();
                 }
             });
-        }else
-            goLoginActivity();
+        }else {
+            String facebookId = PropertyManager.getInstance().getFacebookId();
+            if (!TextUtils.isEmpty(facebookId)) {
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                if (token == null) {
+                    PropertyManager.getInstance().setFacebookId("");
+                    goLoginActivity();
+                } else {
+                    if (facebookId.equals(token.getUserId())) {
+                        NetworkManager.getInstance().facebookLogIn(this, token.getToken(), PropertyManager.getInstance().getRegistrationToken(), new NetworkManager.OnResultListener<FacebookResult>() {
+                            @Override
+                            public void onSuccess(Request request, FacebookResult result) {
+                                // login success
+                                PropertyManager.getInstance().setLogin(true);
+                                PropertyManager.getInstance().setFacebookId(result.getMyuser().getFb_id());
+                                if(result.getSuccess() == 1) {
+                                    PropertyManager.getInstance().setUser(result.getMyuser());
+                                    if (!PropertyManager.getInstance().getPush().equals("false"))
+                                        PropertyManager.getInstance().setPush("true");
+                                    Toast.makeText(SplashActivity.this, "자동로그인", Toast.LENGTH_SHORT).show();
+                                    goMainActivity();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(Request request, IOException exception) {
+                                PropertyManager.getInstance().setFacebookId("");
+                                LoginManager.getInstance().logOut();
+                                goLoginActivity();
+                            }
+                        });
+                    } else {
+                        PropertyManager.getInstance().setFacebookId("");
+                        LoginManager.getInstance().logOut();
+                        goLoginActivity();
+                    }
+                }
+            } else {
+                goLoginActivity();
+            }
+        }
     }
 
     private boolean checkPlayServices() {

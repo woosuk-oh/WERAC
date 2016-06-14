@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.User;
+import kr.werac.yeah.main.MainActivity;
 import kr.werac.yeah.manager.NetworkManager;
 import kr.werac.yeah.manager.PropertyManager;
 import okhttp3.Request;
@@ -49,9 +50,11 @@ public class SignUpActivity extends AppCompatActivity {
         btn_signup = (Button)findViewById(R.id.btn_signup);
         where = getIntent().getStringExtra("Where");
         fb_id = getIntent().getStringExtra("fb_id");
-        if(where.equals("login")){
-            et_signup_email.setVisibility(View.INVISIBLE);
-            et_signup_password.setVisibility(View.INVISIBLE);
+        if (where != null) {
+            if(where.equals("login")){
+                et_signup_email.setVisibility(View.INVISIBLE);
+                et_signup_password.setVisibility(View.INVISIBLE);
+            }
         }
 
 
@@ -63,19 +66,21 @@ public class SignUpActivity extends AppCompatActivity {
                 password = et_signup_password.getText().toString();
                 phone = et_signup_phone.getText().toString();
 
-                if(!where.equals("login")){
-                    if (TextUtils.isEmpty(email)) {
-                        Toast.makeText(SignUpActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
-                        return;
-                    }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        Toast.makeText(SignUpActivity.this, "이메일을 형식이 아닙니다", Toast.LENGTH_SHORT).show();
-                        return;
-                    }else if (TextUtils.isEmpty(password)) {
-                        Toast.makeText(SignUpActivity.this, "패스워드를 입력해주세요", Toast.LENGTH_SHORT).show();
-                        return;
-                    }else if (password.length() < 3) {
-                        Toast.makeText(SignUpActivity.this, "패스워드를 4자 이상 입력해주세요", Toast.LENGTH_SHORT).show();
-                        return;
+                if(where != null) {
+                    if (!where.equals("login")) {
+                        if (TextUtils.isEmpty(email)) {
+                            Toast.makeText(SignUpActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            Toast.makeText(SignUpActivity.this, "이메일을 형식이 아닙니다", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (TextUtils.isEmpty(password)) {
+                            Toast.makeText(SignUpActivity.this, "패스워드를 입력해주세요", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (password.length() < 3) {
+                            Toast.makeText(SignUpActivity.this, "패스워드를 4자 이상 입력해주세요", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
                 if (TextUtils.isEmpty(name)) {
@@ -101,9 +106,15 @@ public class SignUpActivity extends AppCompatActivity {
                         PropertyManager.getInstance().setEmail(email);
                         PropertyManager.getInstance().setPassword(password);
 
-                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(fb_id == null) {
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
 
                     @Override

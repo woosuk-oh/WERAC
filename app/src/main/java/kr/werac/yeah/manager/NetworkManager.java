@@ -981,13 +981,15 @@ public class NetworkManager {
                           String phone,
                           OnResultListener<User> listener) {
 
-        RequestBody body = new FormBody.Builder()
-                .add("pw", password)
+        FormBody.Builder myBody = new FormBody.Builder();
+        myBody.add("pw", password)
                 .add("email", email)
                 .add("name", name)
-                .add("phone", phone)
-                .add("fb_id", fb_id)
-                .build();
+                .add("phone", phone);
+        if(fb_id != null)
+            myBody.add("fb_id", fb_id);
+
+        RequestBody body = myBody.build();
 
         Request request = new Request.Builder()
                 .url(URL_SIGN_UP)

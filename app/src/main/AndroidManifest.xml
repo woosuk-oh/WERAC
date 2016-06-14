@@ -7,9 +7,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="kr.werac.yeah.permission.C2D_MESSAGE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="kr.werac.yeah.permission.C2D_MESSAGE"/>
+
+    <permission
+        android:name="kr.werac.yeah.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="kr.werac.yeah.permission.C2D_MESSAGE" />
 
     <application
         android:name=".MyApplication"
@@ -67,28 +70,35 @@
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".login.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"  />
-        <activity android:name=".login.AgreementActivity"
-            android:theme="@style/AppTheme.NoActionBar"  />
+        <activity
+            android:name=".login.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".login.AgreementActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mypage.AlarmActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".werac_detail.GuestListActivity"
+        <activity
+            android:name=".werac_detail.GuestListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".main.ImageViewActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="kr.werac.yeah" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".gcm.MyGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -97,22 +107,29 @@
             android:name=".gcm.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
             android:name=".gcm.RegistrationIntentService"
-            android:exported="false">
-        </service>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider290132857987366"
+            android:exported="false"></service>
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider290132857987366"
             android:exported="true" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+
     </application>
 
 </manifest>

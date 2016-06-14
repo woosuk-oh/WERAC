@@ -82,9 +82,10 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
             }
         });
         Calendar myCal = Calendar.getInstance();
-        edit_date.setText("" + myCal.get(Calendar.YEAR) + "년" +  myCal.get(Calendar.MONTH) + "월" + myCal.get(Calendar.DAY_OF_MONTH) + "일");
+        edit_date.setText("" + myCal.get(Calendar.YEAR) + "년" +  (myCal.get(Calendar.MONTH)+1) + "월" + myCal.get(Calendar.DAY_OF_MONTH) + "일");
 
         edit_time_s = (TextView)itemView.findViewById(R.id.edit_time_s);
+        edit_time_s.setText("00시 00분");
         edit_time_s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +95,7 @@ public class CreateDetailHolder extends RecyclerView.ViewHolder {
             }
         });
         edit_time_e = (TextView)itemView.findViewById(R.id.edit_time_e);
+        edit_time_e.setText("00시 00분");
         edit_time_e.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

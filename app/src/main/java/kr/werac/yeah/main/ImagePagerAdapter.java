@@ -19,13 +19,11 @@ import kr.werac.yeah.werac_detail.DetailViewActivity;
  */
 public class ImagePagerAdapter extends PagerAdapter {
 
-    public static final int VIEW_COUNT = 3;
-    WeracItem werac1, werac2, werac3;
+    public static final int VIEW_COUNT = 2;
     ImageView iv_viewpager;
-    WeracItem werac;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, WeracItem mWerac);
+        void onItemClick(View view, String mWhatImage);
     }
 
     OnItemClickListener mListener;
@@ -38,74 +36,38 @@ public class ImagePagerAdapter extends PagerAdapter {
         return VIEW_COUNT;
     }
 
-    public void InitialData(WeracItem Mwerac1, WeracItem Mwerac2, WeracItem Mwerac3){
-        werac1 = new WeracItem();
-        werac1 = Mwerac1;
-
-        werac2 = new WeracItem();
-        werac2 = Mwerac2;
-
-        werac3 = new WeracItem();
-        werac3 = Mwerac3;
-    }
-
-    public WeracItem setData(int position){
-        if(position == 0)
-            werac = werac1;
-        else if(position == 1)
-            werac = werac2;
-        else if(position == 2)
-            werac = werac3;
-        return werac;
-    }
-
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        werac = new WeracItem();
         iv_viewpager = new ImageView(MyApplication.getContext());
-        iv_viewpager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onItemClick(v, werac);
-                }
-            }
-        });
 
         switch (position){
             case 0:
-                werac = setData(position);
-                if(werac != null) {
-                    Glide.with(iv_viewpager.getContext()).load(werac.getImage()).centerCrop().into(iv_viewpager);
-
-                }else {
-                    iv_viewpager.setImageResource(R.drawable.p3);
-                    iv_viewpager.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
+                Glide.with(iv_viewpager.getContext()).load(R.drawable.vp_other_explain).centerCrop().into(iv_viewpager);
+                iv_viewpager.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mListener != null) {
+                            mListener.onItemClick(v, "other");
+                        }
+                    }
+                });
                 container.addView(iv_viewpager);
                 break;
             case 1:
-                werac = setData(position);
-                if(werac != null)
-                    Glide.with(iv_viewpager.getContext()).load(werac.getImage()).centerCrop().into(iv_viewpager);
-                else {
-                    iv_viewpager.setImageResource(R.drawable.p3);
-                    iv_viewpager.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-                container.addView(iv_viewpager);
-                break;
-            case 2:
-                werac = setData(position);
-                if(werac != null)
-                    Glide.with(iv_viewpager.getContext()).load(werac.getImage()).centerCrop().into(iv_viewpager);
-                else {
-                    iv_viewpager.setImageResource(R.drawable.p3);
-                    iv_viewpager.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
+                Glide.with(iv_viewpager.getContext()).load(R.drawable.vp_mc_explain).centerCrop().into(iv_viewpager);
+                iv_viewpager.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mListener != null) {
+                            mListener.onItemClick(v, "mc");
+                        }
+                    }
+                });
                 container.addView(iv_viewpager);
                 break;
         }
+
         return iv_viewpager;
     }
 

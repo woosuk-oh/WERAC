@@ -23,6 +23,7 @@
     android:singleLine="true"
     android:textColor="@color/create_detail_title_color"
     android:gravity="center"
+    android:textSize="16dp"
     android:layout_gravity="center"
     android:background="@android:color/white"
     android:layout_width="match_parent"

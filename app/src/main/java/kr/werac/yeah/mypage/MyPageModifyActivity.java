@@ -74,10 +74,6 @@ public class MyPageModifyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getUser();
                 modifyMyInfo();
-                Intent intent = new Intent(MyPageModifyActivity.this, MyPageActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -133,6 +129,10 @@ public class MyPageModifyActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Request request, User result) {
                 Toast.makeText(MyPageModifyActivity.this, "수정되었습니다" , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyPageModifyActivity.this, MyPageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
 
             @Override

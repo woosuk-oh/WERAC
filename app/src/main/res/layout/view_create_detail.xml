@@ -40,6 +40,7 @@
         android:id="@+id/edit_detail"
         android:textSize="16dp"
         android:gravity="center"
+        android:singleLine="true"
         android:layout_alignBaseline="@+id/text_detail"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

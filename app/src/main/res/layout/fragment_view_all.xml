@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/backgroud_color"
     android:fitsSystemWindows="true"
     tools:context=".main.MainActivity">
 
@@ -21,18 +22,17 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/imagepager"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/backgroud_color"
-        android:id="@+id/btn_dummy_fva2"
-        android:layout_below="@+id/imagepager"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list_all"
-        android:layout_margin="3dp"
-        android:layout_below="@+id/btn_dummy_fva2"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    />
+        android:layout_below="@+id/imagepager"
+        android:id="@+id/fva_srl">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list_all"
+            android:layout_margin="3dp"
+            android:background="@color/backgroud_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

@@ -22,13 +22,13 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
     Bitmap myBm;
     WeracItem werac;
 
-    public interface OnItemClickListener {
+    public interface OnImageClickListener {
         void onItemClick(View view, WeracItem werac);
     }
 
-    OnItemClickListener mListener;
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
+    OnImageClickListener mListener_image;
+    public void setOnImageClickListener(OnImageClickListener listener) {
+        mListener_image = listener;
     }
 
 
@@ -38,8 +38,8 @@ public class ModifyImageHolder extends RecyclerView.ViewHolder {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onItemClick(v, werac);
+                if (mListener_image != null) {
+                    mListener_image.onItemClick(v, werac);
                 }
             }
         });

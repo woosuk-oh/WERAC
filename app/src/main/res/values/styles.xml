@@ -3,11 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorPrimary">@color/colorWerac</item>
+        <item name="colorPrimaryDark">@color/colorWerac</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
-        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlNormal">@color/tab_not_checked_color</item>
         <item name="android:textColorAlertDialogListItem">@color/create_detail_title_color</item>
         <item name="android:textColorSecondary">@color/create_detail_title_color</item>
     </style>

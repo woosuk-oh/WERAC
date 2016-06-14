@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FF343C  </color>
+    <color name="colorPrimaryDark">#FF343C</color>
     <color name="colorAccent">#FF343C</color>
     <color name="colorWerac">#FF343C</color>
     <color name="create_title_hint_color">#b6b7ba</color>

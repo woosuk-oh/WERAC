@@ -114,8 +114,8 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         throw new IllegalArgumentException("invalid position");
     }
 
-    ModifyImageHolder.OnItemClickListener mListener_image;
-    public void setOnItemClickListener(ModifyImageHolder.OnItemClickListener listener) {
+    ModifyImageHolder.OnImageClickListener mListener_image;
+    public void setOnImageClickListener(ModifyImageHolder.OnImageClickListener listener) {
         mListener_image = listener;
     }
 
@@ -144,7 +144,7 @@ public class ModifyWeracAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (position == 0) {
             h_image = (ModifyImageHolder)holder;
             h_image.setImageURL(werac.getImage());
-            h_image.setOnItemClickListener(mListener_image);
+            h_image.setOnImageClickListener(mListener_image);
             return;
         }
         position--;

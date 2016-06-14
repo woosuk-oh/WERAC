@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -32,6 +33,7 @@ public class SuggestViewFragment extends Fragment {
 
     RecyclerView recyclerView;
     WeracItemAdapter mAdapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,16 @@ public class SuggestViewFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_list_suggest);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)); //getContext(), 2));
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.fva_srs);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                initData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         return view;
     }

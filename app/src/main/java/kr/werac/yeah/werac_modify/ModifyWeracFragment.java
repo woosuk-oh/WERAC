@@ -71,7 +71,7 @@ public class ModifyWeracFragment extends Fragment {
         mLayoutManager = new GridLayoutManager(getContext(), 1);
         listView.setLayoutManager(mLayoutManager);
 
-        mAdapter.setOnItemClickListener(new ModifyImageHolder.OnItemClickListener() {
+        mAdapter.setOnImageClickListener(new ModifyImageHolder.OnImageClickListener() {
             @Override
             public void onItemClick(View view, WeracItem werac) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -190,7 +190,6 @@ public class ModifyWeracFragment extends Fragment {
                 Toast.makeText(getContext(), "exception : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
        }
 
     public void modifyWerac() {

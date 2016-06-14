@@ -1,19 +1,14 @@
 package kr.werac.yeah.data;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Tacademy on 2016-06-13.
  */
 public class FacebookResult {
-    String fb_id;
+    @SerializedName("result")
+    User myuser;
     int success;
-
-    public String getFb_id() {
-        return fb_id;
-    }
-
-    public void setFb_id(String fb_id) {
-        this.fb_id = fb_id;
-    }
 
     public int getSuccess() {
         return success;
@@ -21,5 +16,13 @@ public class FacebookResult {
 
     public void setSuccess(int success) {
         this.success = success;
+    }
+
+    public User getMyuser() {
+        return myuser;
+    }
+
+    public void setMyuser(User myuser) {
+        this.myuser = myuser;
     }
 }

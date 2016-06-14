@@ -160,6 +160,7 @@ public class ModifyDetailHolder extends RecyclerView.ViewHolder {
 
     public void setDetailWrite(WeracItem werac) {
         edit_detail.setText(werac.getLocation_detail());
+        edit_detail.setText(werac.getLocation_area());
         edit_date.setText(werac.getDate());
         edit_time_s.setText(werac.getStart_time());
         edit_time_e.setText(werac.getEnd_time());
