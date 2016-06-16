@@ -22,10 +22,17 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/imagepager"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/imagepager"
+        android:id="@+id/dummy_fva"
+        android:background="@color/backgroud_color"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imagepager"
+        android:layout_below="@+id/dummy_fva"
         android:id="@+id/fva_srl">
 
         <android.support.v7.widget.RecyclerView

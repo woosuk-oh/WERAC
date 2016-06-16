@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class DetailViewActivity extends AppCompatActivity {
     ImageView container_detail_close;
     DetailWeracFragment myDetailWeracFragment;
     Button btn_detail_1, btn_detail_2, btn_detail_360;
+    TextView dummy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,6 @@ public class DetailViewActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.back);
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         thisMid = getIntent().getIntExtra(EXTRA_WERAC_ID, DONT_KNOW_WHY);
 
@@ -233,11 +233,13 @@ public class DetailViewActivity extends AppCompatActivity {
                     }
                 });
             }else{
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                 btn_detail_1.setVisibility(View.INVISIBLE);
                 btn_detail_2.setVisibility(View.INVISIBLE);
                 btn_detail_360.setVisibility(View.INVISIBLE);
-                if (werac.getStatus() == 3)
+                if (werac.getStatus() == 3) {
                     container_detail_close.setVisibility(View.VISIBLE);
+                }
             }
         }
     }

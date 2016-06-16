@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.werac.yeah.MyApplication;
 import kr.werac.yeah.R;
 import kr.werac.yeah.data.Comment;
 import kr.werac.yeah.data.CommentResult;
@@ -72,6 +73,7 @@ public class DetailWeracFragment extends Fragment {
             }
         });
         listView.setLayoutManager(mLayoutManager);
+
         mAdapter.setOnItemClickListener(new DetailStaffHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, WeracItem werac, int who) {
@@ -97,6 +99,7 @@ public class DetailWeracFragment extends Fragment {
         mAdapter.setOnCmmtEnterListener(new DetailCommentEnterHolder.OnCmmtEnterClickListener() {
             @Override
             public void onItemClick(View view, EditText edit_comment) {
+
                 Comment newComment = new Comment();
                 User user = new User();
                 user = PropertyManager.getInstance().getUser();
@@ -112,7 +115,7 @@ public class DetailWeracFragment extends Fragment {
 
                 InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(edit_comment.getWindowToken(), 0);
-                listView.smoothScrollBy(0, 3000);
+                listView.smoothScrollBy(0, view.getBottom());
             }
         });
 
@@ -128,6 +131,7 @@ public class DetailWeracFragment extends Fragment {
                     alert.setView(AlertView);
                     final EditText et_modi_comment = (EditText) AlertView.findViewById(R.id.et_recomment);
                     et_modi_comment.setText(comment.getContent());
+                    et_modi_comment.setSelection(et_modi_comment.length());
 
                     alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -257,13 +261,22 @@ public class DetailWeracFragment extends Fragment {
 
         setData();
         return view;
-}
+    }
 
     private void setData() {
         NetworkManager.getInstance().getWeracDetail(getContext(), this_MId, new NetworkManager.OnResultListener<WeracItem>() {
             @Override
             public void onSuccess(Request request, WeracItem result) {
                 mAdapter.setWerac(result);
+                listView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                    @Override
+                    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                        if(mAdapter.get_commentNum() != 0 && bottom != oldBottom && top == oldTop) {
+                            float scale = MyApplication.getContext().getResources().getDisplayMetrics().density;
+                            listView.smoothScrollBy(0, (int) (70 * scale));
+                        }
+                    }
+                });
             }
 
             @Override

@@ -7,11 +7,13 @@
     android:layout_margin="10dp">
 
     <Button
-        android:layout_width="356dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginLeft="2.3dp"
         android:background="@drawable/make_add_btn"
-        android:id="@+id/btn_add_sch"/>
+        android:id="@+id/btn_add_sch"
+        android:layout_alignRight="@+id/edit_detail"
+        android:layout_alignEnd="@+id/edit_detail" />
 
     <TextView
         android:layout_width="match_parent"

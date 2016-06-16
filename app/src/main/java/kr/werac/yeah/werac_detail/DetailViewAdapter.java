@@ -78,6 +78,17 @@ public class DetailViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    public int get_commentNum(){
+        if(werac.getComments() != null)
+            return werac.getComments().size();
+        else
+            return 0;
+    }
+
+    public int get_status(){
+            return werac.getStatus();
+    }
+
     public void remove_comment(Comment cmmt){
         for(int i = 0; i < werac.getComments().size(); i++){
             if(werac.getComments().get(i).getCmmtid() == cmmt.getCmmtid()){
